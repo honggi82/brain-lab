@@ -108,16 +108,20 @@ function mountHero(root, config) {
     var fract = clamp(sc - idx, 0, 1);
     var FADE = 0.78;                       // scene holds, then crossfades in last 22%
 
+    var last = (idx + 1 >= N);                  // final scene: hold, no hand-off
+    var xf = last ? 0 : smooth((fract - FADE) / (1 - FADE));  // crossfade progress 0..1
     for (var i = 0; i < N; i++) {
-      var op = 0, scale = 1, ty = 0;
+      var op = 0, scale = 1, ty = 0, cop = 0, cty = 0;
       if (i === idx) {
-        op = fract < FADE ? 1 : smooth(1 - (fract - FADE) / (1 - FADE));
+        op = (fract < FADE || last) ? 1 : (1 - xf);
         scale = 1.04 + fract * 0.12;
         ty = -fract * 3;
+        cop = op; cty = -fract * 2;             // copy tracks its own scene's image exactly
       } else if (i === idx + 1) {
-        op = fract < FADE ? 0 : smooth((fract - FADE) / (1 - FADE));
+        op = (fract < FADE) ? 0 : xf;
         scale = 1.16 - (1 - fract) * 0.12;
         ty = (1 - fract) * 3;
+        cop = op; cty = (1 - fract) * 2;
       }
       var el = sceneEls[i];
       el.style.opacity = op;
@@ -125,16 +129,7 @@ function mountHero(root, config) {
       el.style.transform = 'scale(' + scale.toFixed(3) + ') translateY(' + ty.toFixed(2) + 'vh)';
       el.style.visibility = op < 0.003 ? 'hidden' : 'visible';
 
-      // copy: the incoming scene takes the copy past the midpoint of the crossfade
-      var showIdx = (fract > 0.5 && idx + 1 < N) ? idx + 1 : idx;
-      var cp = scenes[i]._cp, cop = 0, cty = 0;
-      if (i === showIdx) {
-        // fade copy at the very start/end of the whole hero for polish
-        var localCopy = (i === idx) ? fract : (fract - 0.5) * 2;
-        cop = 1;
-        if (i === idx && fract > FADE) cop = smooth(1 - (fract - FADE) / (1 - FADE) * 0.9);
-        cty = (0.5 - (i === idx ? fract : fract - 0.5)) * 3;
-      }
+      var cp = scenes[i]._cp;
       cp.style.opacity = cop;
       cp.style.transform = 'translateY(' + cty.toFixed(2) + 'vh)';
       cp.style.pointerEvents = cop > 0.6 ? 'auto' : 'none';

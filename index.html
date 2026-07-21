@@ -34,14 +34,7 @@
     <span class="brand__name"><b>BRAIN Lab.</b><span>뇌 · 인공지능 연구실</span></span>
   </a>
   <nav class="nav" id="nav" aria-label="주요 메뉴">
-    <a href="index.html" class="is-active">홈</a>
-    <a href="about.html">소개</a>
-    <a href="professor.html">교수</a>
-    <a href="members.html">구성원</a>
-    <a href="projects.html">연구</a>
-    <a href="publications.html">논문</a>
-    <a href="photos.html">갤러리</a>
-    <a href="gospel.html">Gospel</a>
+    <a href="index.html" class="is-active">홈</a><a href="gospel.html">Gospel</a><a href="about.html">소개</a><a href="professor.html">교수</a><a href="members.html">구성원</a><a href="projects.html">연구</a><a href="publications.html">논문</a><a href="photos.html">갤러리</a>
   </nav>
   <div class="header-tools">
     <a class="btn btn--primary btn--sm" href="#contact">함께하기</a>
@@ -128,22 +121,27 @@
         <p class="lead">뇌 신호에서 의미를 읽어내기 위해 원천 신호 추출 · 대역 필터링 · 기능적 연결성 · 중심성 · 군집화 · 시각화로
           이어지는 분석 흐름을 설계합니다.</p>
       </div>
-      <div class="grid reveal" data-d="1" style="grid-template-columns:1.15fr .85fr;gap:clamp(20px,3vw,36px);align-items:center">
-        <figure class="figframe figframe--pad" style="margin:0">
-          <img src="assets/img/home-3.jpg" alt="6단계 뇌 신호 분석 파이프라인: 원천 신호 추출, 대역 필터링, 기능적 연결성, 중심성, 군집화, 시각화">
+      <div class="pipeline reveal" data-d="1">
+        <div class="pstep"><div class="pstep__n"></div><div class="pstep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l2-7 4 14 2-7h6"/></svg></div><div class="pstep__lb">원천 신호 추출<span class="pstep__en">Source signal</span></div></div>
+        <div class="pstep"><div class="pstep__n"></div><div class="pstep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg></div><div class="pstep__lb">대역 필터링<span class="pstep__en">Band-pass</span></div></div>
+        <div class="pstep"><div class="pstep__n"></div><div class="pstep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6.7 7.3l4 9M17.6 8.5l-4.8 8M7 6.4l10-.2"/></svg></div><div class="pstep__lb">기능적 연결성<span class="pstep__en">Connectivity</span></div></div>
+        <div class="pstep"><div class="pstep__n"></div><div class="pstep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3M6.3 6.3l2.1 2.1M15.6 15.6l2.1 2.1M17.7 6.3l-2.1 2.1M8.4 15.6l-2.1 2.1"/></svg></div><div class="pstep__lb">중심성<span class="pstep__en">Centrality</span></div></div>
+        <div class="pstep"><div class="pstep__n"></div><div class="pstep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="1.5"/><circle cx="11" cy="6" r="1.5"/><circle cx="8" cy="11" r="1.5"/><circle cx="17" cy="16" r="1.5"/><circle cx="18" cy="12" r="1.5"/><circle cx="14" cy="17" r="1.5"/></svg></div><div class="pstep__lb">군집화<span class="pstep__en">Clustering</span></div></div>
+        <div class="pstep"><div class="pstep__n"></div><div class="pstep__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M9 20V4M14 20v-7M19 20v-4"/></svg></div><div class="pstep__lb">시각화<span class="pstep__en">Visualization</span></div></div>
+      </div>
+      <div class="grid reveal" data-d="2" style="grid-template-columns:.95fr 1.05fr;gap:clamp(22px,4vw,48px);align-items:center;margin-top:clamp(34px,5vw,60px)">
+        <figure class="figframe figframe--dark" style="margin:0">
+          <img src="assets/img/about-connectivity.jpg" alt="뇌 기능적 연결성 네트워크 개념도">
         </figure>
-        <div class="stack">
-          <figure class="figframe" style="margin:0;background:#000">
-            <video src="assets/video/research.mp4" autoplay muted loop playsinline aria-label="뇌 연결성 분석 애니메이션"></video>
-          </figure>
-          <p class="figcap" style="text-align:left">기능적 연결성(functional connectivity)과 중심성(centrality) 기반의
-            뇌 신호 분석 — 연구실의 대표 방법론.</p>
+        <div>
+          <h3 class="h3" style="margin-bottom:12px">기능적 연결성과 중심성으로 뇌를 읽다</h3>
+          <p class="muted">연구실의 대표 방법론은 뇌 영역 사이의 상호작용을 정량화하는 <b>기능적 연결성(functional connectivity)</b>과,
+            네트워크에서 각 영역의 영향력을 측정하는 <b>중심성(centrality)</b> 분석입니다. 여기에 딥러닝을 결합해
+            뇌 신호를 자동으로 해독하고 의도를 예측합니다.</p>
+          <div style="margin-top:22px"><a class="link-arrow" href="about.html#areas">연구 방법 자세히 보기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         </div>
       </div>
-      <figure class="figframe figframe--pad reveal" data-d="2" style="margin:34px 0 0">
-        <img src="assets/img/home-4.png" alt="ERP 분석, 시간-주파수 분석, 연결성 분석, 뇌 신호 획득, 토포그래피, 인공지능, BCI 개발, 뇌 메커니즘 규명으로 이어지는 연구 개요">
-        <figcaption class="figcap">이벤트 관련 전위 · 시간-주파수 · 연결성 · 토포그래피 분석에서 AI 기반 BCI 개발과 뇌 메커니즘 규명까지.</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -281,34 +279,34 @@
 <script>
   mountHero(document.getElementById('hero'), {
     hint: 'SCROLL',
-    perScene: 90,
+    perScene: 92,
     scenes: [
-      { label: 'Vision', accent: '#9b8cff', accent2: '#c9beff',
+      { label: 'Vision', accent: '#8fb4ff', accent2: '#c9beff',
+        image: 'assets/img/hero-1-intro.jpg',
         eyebrow: 'Chosun University · Gwangju',
         title: '생각이 세상과<br><span class="grad">만나는 곳</span>',
-        body: '뇌 및 인공지능 연구실(BRAIN Lab.)은 사람에게 도움이 되는 선한 기술을 연구합니다.',
+        body: '뇌 및 인공지능 연구실은 생각을 세상과 잇는 뇌-컴퓨터 인터페이스(BCI)를 연구합니다. 스크롤을 내려 그 여정을 따라가 보세요.',
         tags: ['Brain–Computer Interface', 'Artificial Intelligence', 'Brain Mechanism'] },
-      { label: 'Brain Era', accent: '#35e0ff', accent2: '#8fe9ff',
-        eyebrow: 'The Final Frontier',
-        title: '뇌, 인류의 마지막<br><span class="grad">미개척지</span>',
-        body: '미국 BRAIN Initiative, 유럽의 뇌 연구 10년, 일본의 30조 원 투자 — 세계는 지금 뇌 과학에 주목하고 있습니다.' },
-      { label: 'BCI', accent: '#2fe6c3', accent2: '#8ff2e0',
-        eyebrow: 'Brain–Computer Interface',
-        title: '생각만으로,<br><span class="grad">세상을 제어하다</span>',
-        body: 'MIT·다보스포럼·뉴욕타임스가 세상을 바꿀 기술로 꼽은 BCI. 뇌파로 의도를 읽어 로봇과 컴퓨터를 움직입니다.' },
-      { label: 'AI', accent: '#8b7bff', accent2: '#b9acff',
-        eyebrow: 'Artificial Intelligence',
-        title: '스스로 배우는<br><span class="grad">지능을 설계하다</span>',
-        body: '새로운 기계학습 알고리즘을 개발하고, 뇌 신호 해독과 실생활 응용으로 확장합니다.' },
-      { label: 'Brain', accent: '#ffb454', accent2: '#ffd08a',
-        eyebrow: 'Brain Mechanism',
-        title: '뇌가 작동하는<br><span class="grad">원리를 규명하다</span>',
-        body: '운동 제어, 기능적 연결성, 신경 진동 — 뇌가 정보를 처리하는 메커니즘을 밝혀냅니다.' },
-      { label: 'Join', accent: '#35e0ff', accent2: '#9b8cff',
-        image: 'assets/img/photo-1.jpg',
-        eyebrow: 'Join the lab',
-        title: '선한 연구를,<br><span class="grad">함께</span>',
-        body: '뇌와 인공지능이 궁금한 학생이라면 언제든 환영합니다. 함께 성장할 연구자를 기다립니다.',
+      { label: 'Neurons', accent: '#35e0ff', accent2: '#8fe9ff',
+        image: 'assets/img/hero-2-neurons.jpg',
+        eyebrow: 'Step 01 · The Brain',
+        title: '뉴런이 전기를<br><span class="grad">일으키다</span>',
+        body: '무언가를 의도하는 순간, 뇌 속 수많은 뉴런이 미세한 전기 신호를 발생시킵니다. BCI의 모든 것은 여기서 시작됩니다.' },
+      { label: 'EEG', accent: '#2fe6c3', accent2: '#8ff2e0',
+        image: 'assets/img/hero-3-eeg.jpg',
+        eyebrow: 'Step 02 · Measure',
+        title: 'EEG로 뇌파를<br><span class="grad">측정하다</span>',
+        body: '머리 표면으로 퍼져 나온 미세한 전기 신호, 곧 뇌파를 EEG 장비로 정밀하게 읽어냅니다.' },
+      { label: 'AI', accent: '#9b8cff', accent2: '#c3b6ff',
+        image: 'assets/img/hero-4-ai.jpg',
+        eyebrow: 'Step 03 · Decode',
+        title: 'AI가 의도를<br><span class="grad">읽어내다</span>',
+        body: '측정된 뇌 신호를 인공지능이 분석해, 사용자가 무엇을 하려는지 실시간으로 예측합니다.' },
+      { label: 'Control', accent: '#35e0ff', accent2: '#9b8cff',
+        image: 'assets/img/hero-5-control.jpg',
+        eyebrow: 'Step 04 · Control',
+        title: '생각만으로<br><span class="grad">세상을 움직이다</span>',
+        body: '예측된 의도로 로봇·휠체어·전자기기를 제어합니다. 움직임 없이 오직 생각으로 — 장애인에게는 절대적으로 필요한, 모두에게 유용한 기술입니다.',
         cta: { primary: { label: '연구실 문의', href: '#contact' }, secondary: { label: '교수 소개', href: 'professor.html' } } }
     ]
   });
