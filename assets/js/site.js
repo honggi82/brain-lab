@@ -122,7 +122,13 @@
     function open(i) { show(i); box.classList.add('open'); document.body.style.overflow = 'hidden'; }
     function close() { box.classList.remove('open'); document.body.style.overflow = ''; }
     gallery.addEventListener('click', function (e) {
-      var im = e.target.closest('img'); if (!im) return; open(imgs.indexOf(im));
+      // the .gitem hover overlay makes clicks resolve to the wrapper, not the <img>,
+      // so look up from either the image or its .gitem container.
+      var im = e.target.closest('img');
+      if (!im) { var it = e.target.closest('.gitem'); if (it) im = it.querySelector('img'); }
+      if (!im) return;
+      var i = imgs.indexOf(im); if (i < 0) return;
+      open(i);
     });
     box.addEventListener('click', function (e) {
       if (e.target.closest('.lightbox__close') || e.target === box) return close();

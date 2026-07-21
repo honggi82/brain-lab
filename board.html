@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>게시판 — BRAIN Lab.</title>
+<meta name="description" content="뇌 및 인공지능 연구실 게시판 — 공지사항, 연구실 소식, 논문·수상 소식.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="has-neural">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<canvas id="neural" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="BRAIN Lab. 홈">
+    <img class="brand__logo-img brand__logo-img--dark" src="assets/img/lab-logo-dark.png" alt="BRAIN Lab. — 뇌 및 인공지능 연구실"><img class="brand__logo-img brand__logo-img--light" src="assets/img/lab-logo-light.png" alt="" aria-hidden="true">
+  </a>
+  <nav class="nav" id="nav" aria-label="주요 메뉴">
+    <a href="index.html">홈</a><a href="gospel.html">Gospel</a><a href="about.html">소개</a><a href="professor.html">교수</a><a href="members.html">구성원</a><a href="projects.html">연구</a><a href="publications.html">논문</a><a href="photos.html">갤러리</a><a href="board.html" class="is-active">게시판</a>
+  </nav>
+  <div class="header-tools">
+    <a class="btn btn--primary btn--sm" href="index.html#contact">함께하기</a>
+    <button class="icon-btn" data-theme-toggle aria-label="라이트/다크 전환">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main" class="site-main">
+  <section class="page-hero">
+    <div class="page-hero__bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">홈</a> / 게시판</p>
+      <span class="eyebrow reveal">Board</span>
+      <h1 class="h1 reveal" data-d="1" style="margin-top:14px">게시판</h1>
+      <p class="lead reveal" data-d="2" style="margin-top:18px">연구실 공지사항과 소식, 논문·수상 소식을 전합니다.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:clamp(24px,4vw,44px)">
+    <div class="wrap" style="max-width:900px">
+      <div class="board">
+        <article class="post post--pin reveal" style="--accent:var(--teal)">
+          <span class="post__pin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 4h6l-1 6 3 3v2H7v-2l3-3-1-6z"/><path d="M12 15v5" stroke="currentColor" stroke-width="1.5"/></svg>고정</span>
+          <div class="post__side"><span class="post__cat">모집</span><span class="post__date">상시</span></div>
+          <div>
+            <h2 class="post__title">함께 연구할 대학원생·학부연구원을 모집합니다</h2>
+            <p class="post__body">뇌-컴퓨터 인터페이스, 인공지능, 뇌 메커니즘에 관심 있는 학생이라면 전공·배경과 무관하게 환영합니다.
+              관심 있는 분은 <a href="mailto:honggi@chosun.ac.kr" style="color:var(--accent)">honggi@chosun.ac.kr</a> 로 편하게 연락 주세요.</p>
+          </div>
+        </article>
+
+        <article class="post reveal" data-d="1" style="--accent:var(--cyan)">
+          <div class="post__side"><span class="post__cat">논문</span><span class="post__date">2026</span></div>
+          <div>
+            <h2 class="post__title">Scientific Reports에 신규 논문 게재</h2>
+            <p class="post__body">“A novel transformer architecture for EEG decoding and neuroscientific analysis” 논문이
+              <em>Scientific Reports</em>에 게재되었습니다. EEG 디코딩과 신경과학적 분석을 위한 새로운 트랜스포머 구조를 제안했습니다.</p>
+          </div>
+        </article>
+
+        <article class="post reveal" data-d="1" style="--accent:var(--violet)">
+          <div class="post__side"><span class="post__cat">소식</span><span class="post__date">2025.10</span></div>
+          <div>
+            <h2 class="post__title">염홍기 교수, 국가인공지능전략위원회 자문위원 위촉</h2>
+            <p class="post__body">대통령 직속 국가인공지능전략위원회의 자문위원으로 위촉되어 국가 AI 전략 수립에 참여합니다.</p>
+          </div>
+        </article>
+
+        <article class="post reveal" data-d="2" style="--accent:var(--cyan)">
+          <div class="post__side"><span class="post__cat">논문</span><span class="post__date">2024</span></div>
+          <div>
+            <h2 class="post__title">Applied Sciences에 논문 게재</h2>
+            <p class="post__body">“A Simplified Query-Only Attention for Encoder-Based Transformer Models” 논문이
+              <em>Applied Sciences</em>에 게재되었습니다.</p>
+          </div>
+        </article>
+
+        <article class="post reveal" data-d="2" style="--accent:var(--violet)">
+          <div class="post__side"><span class="post__cat">소식</span><span class="post__date">2024.02</span></div>
+          <div>
+            <h2 class="post__title">염홍기 교수, 영국 버밍엄대학교 방문교수 부임</h2>
+            <p class="post__body">2024년 2월부터 1년간 University of Birmingham 방문교수로 연구를 수행했습니다.</p>
+          </div>
+        </article>
+
+        <article class="post reveal" data-d="3" style="--accent:var(--amber)">
+          <div class="post__side"><span class="post__cat">수상</span><span class="post__date">2023</span></div>
+          <div>
+            <h2 class="post__title">최우성 연구원, ISIS 2023 Best Presentation Award 수상</h2>
+            <p class="post__body">The 24th International Symposium on Advanced Intelligent Systems(ISIS 2023)에서
+              최우성 연구원이 Best Presentation Award를 수상했습니다.</p>
+          </div>
+        </article>
+
+        <article class="post reveal" data-d="3" style="--accent:var(--cyan)">
+          <div class="post__side"><span class="post__cat">논문</span><span class="post__date">2023</span></div>
+          <div>
+            <h2 class="post__title">Scientific Data에 MEG 데이터셋 논문 게재 (IF 9.8)</h2>
+            <p class="post__body">3차원 팔 뻗기 운동 중 측정한 MEG 데이터셋 논문이 <em>Scientific Data</em>(IF 9.8)에 게재되어
+              BCI 연구 커뮤니티에 공개되었습니다.</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="muted center reveal" style="margin-top:30px;font-size:.86rem">
+        댓글·글쓰기 기능이 필요하시면 알려주세요 — GitHub Discussions 기반의 실시간 게시판으로 확장할 수 있습니다.</p>
+    </div>
+  </section>
+</main>
+
+<footer data-footer></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/footer.js"></script>
+</body>
+</html>

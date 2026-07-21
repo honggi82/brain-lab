@@ -379,6 +379,28 @@ body{
 .callout .lead{color:var(--ink);max-width:none}
 
 /* ==========================================================================
+   Board / notices (게시판)
+   ========================================================================== */
+.board{display:grid;gap:14px}
+.post{position:relative;display:grid;grid-template-columns:108px 1fr;gap:24px;align-items:start;
+  padding:22px clamp(20px,3vw,30px);border-radius:var(--radius);background:var(--surface);
+  border:1px solid var(--line);transition:transform .3s var(--ease),border-color .3s}
+.post:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.post--pin{border-color:color-mix(in srgb,var(--accent) 42%,var(--line));
+  background:color-mix(in srgb,var(--accent) 7%,var(--surface))}
+.post__side{display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.post__cat{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;padding:4px 10px;border-radius:6px;
+  background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent);
+  border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);white-space:nowrap}
+.post__date{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-dim)}
+.post__title{font-family:var(--font-display);font-weight:600;font-size:1.12rem;line-height:1.32;color:var(--ink)}
+.post__body{margin-top:8px;color:var(--ink-soft);font-size:.94rem;line-height:1.55}
+.post__pin{position:absolute;top:16px;right:18px;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:5px}
+.post__pin svg{width:12px;height:12px}
+@media (max-width:600px){.post{grid-template-columns:1fr;gap:12px}.post__side{flex-direction:row;align-items:center}}
+
+/* ==========================================================================
    Contact
    ========================================================================== */
 .contact-grid{grid-template-columns:1.1fr .9fr;align-items:start}
