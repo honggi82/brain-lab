@@ -110,16 +110,16 @@ function mountHero(root, config) {
 
     var last = (idx + 1 >= N);                  // final scene: hold, no hand-off
     var xf = last ? 0 : smooth((fract - FADE) / (1 - FADE));  // crossfade progress 0..1
-    var Z0 = 1.0, Z1 = 2.0;                     // scroll zoom: 1x -> 2x (image "flies in" 2x)
+    var Z0 = 0.5, Z1 = 1.0;                     // scroll zoom: half-size -> full-bleed (2x growth)
     for (var i = 0; i < N; i++) {
       var op = 0, scale = Z0, cop = 0, cty = 0;
       if (i === idx) {
         op = (fract < FADE || last) ? 1 : (1 - xf);
-        scale = Z0 + (Z1 - Z0) * fract;         // active scene zooms in 2x as you scroll it
+        scale = Z0 + (Z1 - Z0) * clamp(fract / FADE, 0, 1);  // grows 0.5->1.0 by FADE, then holds full
         cop = op; cty = -fract * 2;             // copy tracks its own scene's image exactly
       } else if (i === idx + 1) {
         op = (fract < FADE) ? 0 : xf;
-        scale = Z0;                             // incoming waits wide, then flies in once active
+        scale = Z0;                             // incoming waits at half-size, then grows once active
         cop = op; cty = (1 - fract) * 2;
       }
       var el = sceneEls[i];

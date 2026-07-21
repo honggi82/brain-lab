@@ -6,7 +6,7 @@
 .hero__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 
 .hero__stage{position:absolute;inset:0;z-index:1}
-.hero__scene{position:absolute;inset:0;opacity:0;transform-origin:60% 45%;
+.hero__scene{position:absolute;inset:0;opacity:0;transform-origin:50% 50%;
   will-change:opacity,transform;overflow:hidden}
 .hero__scene.has-img::after{content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(3,5,12,.45),rgba(3,5,12,.35) 55%,rgba(3,5,12,.72));z-index:2}
