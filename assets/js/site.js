@@ -137,27 +137,6 @@
     });
   }
 
-  /* ---------- YouTube lite-embed (click to load) ---------- */
-  $$('.ytlite').forEach(function (el) {
-    var id = el.getAttribute('data-youtube');
-    function play() {
-      if (!id || id === 'REPLACE_ME') {
-        var fb = el.getAttribute('data-fallback');
-        if (fb) window.open(fb, '_blank', 'noopener');
-        return;
-      }
-      var f = document.createElement('iframe');
-      f.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
-      f.title = el.getAttribute('data-title') || 'YouTube video';
-      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      f.allowFullscreen = true;
-      el.appendChild(f);
-      el.classList.add('is-playing');
-    }
-    el.addEventListener('click', play);
-    el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); } });
-  });
-
   /* ---------- current year ---------- */
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 

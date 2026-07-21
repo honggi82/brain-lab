@@ -122,6 +122,12 @@ body{
 .site-header.is-stuck{background:color-mix(in srgb,var(--bg) 72%,transparent);
   backdrop-filter:blur(16px) saturate(1.4);border-bottom-color:var(--line)}
 .brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:600}
+/* official lab logo — theme-swapped: white logo on dark bg, black logo on white bg */
+.brand__logo-img{height:46px;width:auto;display:block}
+.brand__logo-img--light{display:none}
+[data-theme="light"] .brand__logo-img--light{display:block}
+[data-theme="light"] .brand__logo-img--dark{display:none}
+.site-footer .brand__logo-img{height:60px}
 .brand__logo{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;
   background:linear-gradient(150deg,color-mix(in srgb,var(--cyan) 90%,#000),color-mix(in srgb,var(--violet) 90%,#000));
   box-shadow:0 8px 22px -8px var(--glow);flex:none}
@@ -357,26 +363,11 @@ body{
 .lightbox__nav--prev{left:20px}.lightbox__nav--next{right:20px}
 
 /* ==========================================================================
-   YouTube lite-embed (click-to-load, privacy-friendly)
+   Responsive video embed (YouTube built-in, visible immediately)
    ========================================================================== */
-.ytlite{position:relative;aspect-ratio:16/9;border-radius:var(--radius-lg);overflow:hidden;
-  cursor:pointer;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}
-.ytlite__thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;transition:opacity .4s,transform .6s var(--ease)}
-.ytlite:hover .ytlite__thumb{opacity:.62;transform:scale(1.04)}
-.ytlite__grad{position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%,transparent,color-mix(in srgb,var(--bg) 55%,transparent))}
-.ytlite__play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:82px;height:82px;
-  border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 92%,#000);
-  box-shadow:0 12px 40px -8px var(--glow);transition:transform .3s var(--ease)}
-.ytlite:hover .ytlite__play{transform:translate(-50%,-50%) scale(1.08)}
-.ytlite__play svg{width:34px;height:34px;fill:#05070e;margin-left:4px}
-.ytlite__label{position:absolute;left:0;right:0;bottom:0;padding:26px 24px 20px;
-  background:linear-gradient(0deg,color-mix(in srgb,var(--bg) 88%,transparent),transparent);
-  font-family:var(--font-display);font-weight:600;font-size:1.15rem;color:var(--ink)}
-.ytlite__label small{display:block;font-family:var(--font-mono);font-weight:400;font-size:.72rem;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.ytlite iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.ytlite.is-playing .ytlite__thumb,.ytlite.is-playing .ytlite__play,
-.ytlite.is-playing .ytlite__grad,.ytlite.is-playing .ytlite__label{display:none}
+.video-embed{position:relative;aspect-ratio:16/9;border-radius:var(--radius-lg);overflow:hidden;
+  border:1px solid var(--line);box-shadow:var(--shadow);background:#000}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
 /* ==========================================================================
    Callout / quote (vision, gospel)

@@ -7,8 +7,8 @@
     '<div class="wrap"><div class="foot-grid">' +
       '<div>' +
         '<a class="brand" href="index.html" style="margin-bottom:16px">' +
-          '<span class="brand__logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="1.5" fill="#fff" stroke="none"/><circle cx="16.5" cy="6" r="1.5" fill="#fff" stroke="none"/><circle cx="18" cy="15.5" r="1.5" fill="#fff" stroke="none"/><circle cx="8.5" cy="17.5" r="1.5" fill="#fff" stroke="none"/><circle cx="12" cy="11" r="1.8" fill="#fff" stroke="none"/><path d="M7 8l5 3 4.5-5M12 11l6 4.5M12 11l-3.5 6.5M18 15.5l-9.5 2"/></svg></span>' +
-          '<span class="brand__name"><b>BRAIN Lab.</b><span>뇌 · 인공지능 연구실</span></span>' +
+          '<img class="brand__logo-img brand__logo-img--dark" src="assets/img/lab-logo-dark.png" alt="BRAIN Lab. — 뇌 및 인공지능 연구실">' +
+          '<img class="brand__logo-img brand__logo-img--light" src="assets/img/lab-logo-light.png" alt="" aria-hidden="true">' +
         '</a>' +
         '<p class="muted" style="max-width:34ch;font-size:.9rem">BRain And IntelligeNce Lab. · 조선대학교 IT융합대학<br>사람에게 도움이 되는 선한 기술을 연구합니다.</p>' +
       '</div>' +
