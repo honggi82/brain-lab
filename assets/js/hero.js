@@ -1,0 +1,183 @@
+/* ==========================================================================
+   BRAIN Lab. — immersive scroll hero
+   A bounded adaptation of scroll-world's scroll-scrubbed camera-flight
+   technique (github.com/oso95/scroll-world): a fixed "stage" pinned inside a
+   sticky container, scenes cross-dissolving and scaling as scroll drives time,
+   copy that greets then hands off, per-scene accent + route dots.
+   Works with images, an optional scrubbable <video> clip, or pure gradient
+   scenes. Degrades to a static stack under prefers-reduced-motion.
+   ========================================================================== */
+function mountHero(root, config) {
+  var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var scenes = config.scenes || [];
+  var N = scenes.length;
+  if (!N) return;
+  var PER = config.perScene || 88;          // vh of scroll per scene
+
+  var clamp = function (x, a, b) { a = a == null ? 0 : a; b = b == null ? 1 : b; return Math.min(b, Math.max(a, x)); };
+  var smooth = function (x) { x = clamp(x); return x * x * (3 - 2 * x); };
+
+  // ---- build DOM ----
+  root.classList.add('hero');
+  root.style.setProperty('--hero-scenes', N);
+  var pin = ce('div', 'hero__pin');
+  var stage = ce('div', 'hero__stage');
+  var copylayer = ce('div', 'hero__copylayer');
+  var dotsWrap = ce('div', 'hero__dots');
+  var hint = ce('div', 'hero__hint');
+  hint.innerHTML = '<span>' + (config.hint || 'SCROLL') + '</span><i></i>';
+
+  var sceneEls = [], videoEls = [];
+  scenes.forEach(function (s, i) {
+    var sc = ce('div', 'hero__scene');
+    sc.style.setProperty('--accent', s.accent || 'var(--cyan)');
+    if (s.accent2) sc.style.setProperty('--accent-2', s.accent2);
+    var glow = ce('div', 'hero__glow'); sc.appendChild(glow);
+    if (s.image) {
+      var img = ce('img', 'hero__img'); img.src = s.image; img.alt = ''; img.decoding = 'async';
+      img.loading = i === 0 ? 'eager' : 'lazy';
+      sc.appendChild(img); sc.classList.add('has-img');
+      var scrim = ce('div', 'hero__scrim'); sc.appendChild(scrim);
+    }
+    if (s.video && !reduce) {
+      var v = document.createElement('video');
+      v.className = 'hero__video'; v.muted = true; v.playsInline = true; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+      v.src = s.video; sc.appendChild(v); sc.classList.add('has-img');
+      var scrim2 = ce('div', 'hero__scrim'); sc.appendChild(scrim2);
+      videoEls[i] = v;
+    }
+    stage.appendChild(sc); sceneEls.push(sc);
+
+    // copy
+    var cp = ce('article', 'hero__copy');
+    cp.style.setProperty('--accent', s.accent || 'var(--cyan)');
+    var html = '<span class="hero__num">' + pad(i + 1) + ' / ' + pad(N) + '</span>';
+    if (s.eyebrow) html += '<span class="hero__eyebrow">' + esc(s.eyebrow) + '</span>';
+    if (s.title) html += '<h1 class="hero__title">' + s.title + '</h1>';
+    if (s.body) html += '<p class="hero__body">' + esc(s.body) + '</p>';
+    if (s.tags && s.tags.length) html += '<ul class="hero__tags">' + s.tags.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
+    if (s.cta) {
+      html += '<div class="hero__cta">';
+      if (s.cta.primary) html += '<a class="btn btn--primary" href="' + esc(s.cta.primary.href) + '">' + esc(s.cta.primary.label) + arrow() + '</a>';
+      if (s.cta.secondary) html += '<a class="btn btn--ghost" href="' + esc(s.cta.secondary.href) + '">' + esc(s.cta.secondary.label) + '</a>';
+      html += '</div>';
+    }
+    cp.innerHTML = html;
+    copylayer.appendChild(cp); s._cp = cp;
+
+    var dot = ce('button', 'hero__dot');
+    dot.style.setProperty('--accent', s.accent || 'var(--cyan)');
+    dot.innerHTML = '<span>' + esc(s.label || '') + '</span><i></i>';
+    dot.addEventListener('click', function () { jumpTo(i); });
+    dotsWrap.appendChild(dot); s._dot = dot;
+  });
+
+  pin.appendChild(stage);
+  pin.appendChild(copylayer);
+  pin.appendChild(dotsWrap);
+  pin.appendChild(hint);
+  root.appendChild(pin);
+
+  // reduced motion: show a simple readable stack of the first scene
+  if (reduce) {
+    root.classList.add('hero--static');
+    sceneEls.forEach(function (el, i) { el.style.opacity = i === 0 ? 1 : 0; });
+    scenes[0]._cp.style.opacity = 1;
+    return;
+  }
+
+  // ---- scroll math ----
+  var top = 0, height = 0, vh = 0, active = -1, ticking = false, primed = false;
+  function layout() {
+    vh = innerHeight;
+    var r = root.getBoundingClientRect();
+    top = r.top + window.scrollY;
+    height = root.offsetHeight;
+    read();
+  }
+  function jumpTo(i) {
+    var t = (i + 0.5) / N;
+    scrollTo({ top: top + t * (height - vh), behavior: 'smooth' });
+  }
+
+  function read() {
+    var t = clamp((window.scrollY - top) / (height - vh), 0, 1);
+    var sc = t * N;                       // 0 .. N
+    var idx = Math.min(N - 1, Math.floor(sc));
+    var fract = clamp(sc - idx, 0, 1);
+    var FADE = 0.78;                       // scene holds, then crossfades in last 22%
+
+    for (var i = 0; i < N; i++) {
+      var op = 0, scale = 1, ty = 0;
+      if (i === idx) {
+        op = fract < FADE ? 1 : smooth(1 - (fract - FADE) / (1 - FADE));
+        scale = 1.04 + fract * 0.12;
+        ty = -fract * 3;
+      } else if (i === idx + 1) {
+        op = fract < FADE ? 0 : smooth((fract - FADE) / (1 - FADE));
+        scale = 1.16 - (1 - fract) * 0.12;
+        ty = (1 - fract) * 3;
+      }
+      var el = sceneEls[i];
+      el.style.opacity = op;
+      el.style.zIndex = i === idx ? 2 : (i === idx + 1 ? 3 : 1);
+      el.style.transform = 'scale(' + scale.toFixed(3) + ') translateY(' + ty.toFixed(2) + 'vh)';
+      el.style.visibility = op < 0.003 ? 'hidden' : 'visible';
+
+      // copy: the incoming scene takes the copy past the midpoint of the crossfade
+      var showIdx = (fract > 0.5 && idx + 1 < N) ? idx + 1 : idx;
+      var cp = scenes[i]._cp, cop = 0, cty = 0;
+      if (i === showIdx) {
+        // fade copy at the very start/end of the whole hero for polish
+        var localCopy = (i === idx) ? fract : (fract - 0.5) * 2;
+        cop = 1;
+        if (i === idx && fract > FADE) cop = smooth(1 - (fract - FADE) / (1 - FADE) * 0.9);
+        cty = (0.5 - (i === idx ? fract : fract - 0.5)) * 3;
+      }
+      cp.style.opacity = cop;
+      cp.style.transform = 'translateY(' + cty.toFixed(2) + 'vh)';
+      cp.style.pointerEvents = cop > 0.6 ? 'auto' : 'none';
+    }
+
+    // scrub video clip of the active scene
+    if (videoEls[idx]) {
+      var v = videoEls[idx];
+      if (v.readyState >= 1 && !v.seeking) {
+        var dur = v.duration || 1;
+        var target = clamp(fract, 0, 0.999) * dur;
+        if (Math.abs(v.currentTime - target) > 0.04) { try { v.currentTime = target; } catch (e) {} }
+      }
+    }
+
+    var na = (fract > 0.5 && idx + 1 < N) ? idx + 1 : idx;
+    if (na !== active) {
+      active = na;
+      scenes.forEach(function (s, k) { s._dot.classList.toggle('is-active', k === na); });
+      root.style.setProperty('--accent', scenes[na].accent || 'var(--cyan)');
+      root.style.setProperty('--accent-2', scenes[na].accent2 || 'var(--violet)');
+    }
+    hint.style.opacity = clamp(1 - t * N * 1.4);
+    ticking = false;
+  }
+
+  // prime videos on first interaction (mobile decoders)
+  function prime() {
+    if (primed) return; primed = true;
+    videoEls.forEach(function (v) { if (v) { try { var p = v.play(); if (p && p.then) p.then(function () { v.pause(); }).catch(function () {}); } catch (e) {} } });
+  }
+  addEventListener('pointerdown', prime, { once: true, passive: true });
+  addEventListener('touchstart', prime, { once: true, passive: true });
+
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(read); } }, { passive: true });
+  addEventListener('resize', layout);
+  addEventListener('load', layout);
+  layout();
+
+  // helpers
+  function ce(t, c) { var n = document.createElement(t); if (c) n.className = c; return n; }
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function arrow() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'; }
+}
+if (typeof window !== 'undefined') window.mountHero = mountHero;

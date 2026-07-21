@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>연구 프로젝트 — BRAIN Lab.</title>
+<meta name="description" content="뇌 및 인공지능 연구실의 진행 중·완료 연구 프로젝트.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="has-neural">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<canvas id="neural" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="BRAIN Lab. 홈">
+    <span class="brand__logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="1.5" fill="#fff" stroke="none"/><circle cx="16.5" cy="6" r="1.5" fill="#fff" stroke="none"/><circle cx="18" cy="15.5" r="1.5" fill="#fff" stroke="none"/><circle cx="8.5" cy="17.5" r="1.5" fill="#fff" stroke="none"/><circle cx="12" cy="11" r="1.8" fill="#fff" stroke="none"/><path d="M7 8l5 3 4.5-5M12 11l6 4.5M12 11l-3.5 6.5M18 15.5l-9.5 2"/></svg></span>
+    <span class="brand__name"><b>BRAIN Lab.</b><span>뇌 · 인공지능 연구실</span></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="주요 메뉴">
+    <a href="index.html">홈</a><a href="about.html">소개</a><a href="professor.html">교수</a>
+    <a href="members.html">구성원</a><a href="projects.html" class="is-active">연구</a><a href="publications.html">논문</a>
+    <a href="photos.html">갤러리</a><a href="gospel.html">Gospel</a>
+  </nav>
+  <div class="header-tools">
+    <a class="btn btn--primary btn--sm" href="index.html#contact">함께하기</a>
+    <button class="icon-btn" data-theme-toggle aria-label="라이트/다크 전환">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main" class="site-main">
+  <section class="page-hero">
+    <div class="page-hero__bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">홈</a> / 연구 프로젝트</p>
+      <span class="eyebrow reveal">Research Projects</span>
+      <h1 class="h1 reveal" data-d="1" style="margin-top:14px">연구 프로젝트</h1>
+      <p class="lead reveal" data-d="2" style="margin-top:18px">한국연구재단·삼성전자 등과 함께 수행한 뇌 신호 분석, BCI 시스템, 사용자 인증 연구입니다.</p>
+    </div>
+  </section>
+
+  <!-- Ongoing -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="eyebrow" style="--accent:var(--cyan)">Ongoing · 진행중</span><h2 class="h2">진행 중인 프로젝트</h2></div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,26px)">
+        <article class="card card--accent reveal" data-d="1" style="--accent:var(--cyan)">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px">
+            <span class="badge">한국연구재단 · 지역대학우수과학자지원사업</span>
+            <span class="chip" style="color:var(--cyan);border-color:color-mix(in srgb,var(--cyan) 40%,transparent)">연구책임자</span>
+          </div>
+          <h3 class="h3">AI 분석 기반 뇌 신호처리 메커니즘 규명 및 뇌 신호 자동 분석 딥러닝 알고리즘 개발</h3>
+          <p class="mono muted" style="margin-top:16px;font-size:.82rem">2020.06 – 2025.05</p>
+        </article>
+        <article class="card card--accent reveal" data-d="2" style="--accent:var(--violet)">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px">
+            <span class="badge" style="--accent:var(--violet)">한국연구재단 · 중점연구소지원사업</span>
+            <span class="chip" style="color:var(--violet);border-color:color-mix(in srgb,var(--violet) 40%,transparent)">공동연구자</span>
+          </div>
+          <h3 class="h3">웨어러블 디바이스 기반 다중 생체 신호를 이용한 사용자 인증 기술</h3>
+          <p class="mono muted" style="margin-top:16px;font-size:.82rem">2019.03 – 2026.02</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Completed -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="eyebrow" style="--accent:var(--amber)">Completed · 완료</span><h2 class="h2">완료된 프로젝트</h2></div>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,26px)">
+        <article class="card reveal" data-d="1">
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px">
+            <span class="badge badge--note">한국연구재단 · 생애 첫 연구사업</span>
+            <span class="chip">연구책임자</span>
+          </div>
+          <h3 class="h3">멀티 스케일 뇌 운동 메커니즘 규명을 통한 고성능 BCI 시스템 개발</h3>
+          <p class="mono muted" style="margin-top:16px;font-size:.82rem">2017.09 – 2020.08</p>
+        </article>
+        <article class="card reveal" data-d="2">
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px">
+            <span class="badge badge--note">삼성전자 · ICT 창의과제</span>
+            <span class="chip">공동연구자</span>
+          </div>
+          <h3 class="h3">뇌 신호 해독을 통한 BCI-Musicing 시스템 개발</h3>
+          <p class="mono muted" style="margin-top:16px;font-size:.82rem">2019.12 – 2021.11</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap center">
+      <a class="link-arrow" href="publications.html">이 연구들의 성과, 논문에서 확인하기
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+</main>
+
+<footer data-footer></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/footer.js"></script>
+</body>
+</html>

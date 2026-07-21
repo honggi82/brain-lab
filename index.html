@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BRAIN Lab. — 뇌 및 인공지능 연구실 | 조선대학교</title>
+<meta name="description" content="조선대학교 뇌 및 인공지능 연구실(BRAIN Lab.). 뇌-컴퓨터 인터페이스(BCI), 인공지능, 뇌 메커니즘을 연구하며 사람에게 도움이 되는 선한 기술을 만듭니다.">
+<meta name="author" content="Hong Gi Yeom (염홍기)">
+<meta property="og:title" content="BRAIN Lab. — 뇌 및 인공지능 연구실">
+<meta property="og:description" content="뇌-컴퓨터 인터페이스, 인공지능, 뇌 메커니즘 · 조선대학교 염홍기 교수 연구실">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/hero.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="has-neural">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<canvas id="neural" aria-hidden="true"></canvas>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="BRAIN Lab. 홈">
+    <span class="brand__logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="7" cy="8" r="1.5" fill="#fff" stroke="none"/><circle cx="16.5" cy="6" r="1.5" fill="#fff" stroke="none"/>
+        <circle cx="18" cy="15.5" r="1.5" fill="#fff" stroke="none"/><circle cx="8.5" cy="17.5" r="1.5" fill="#fff" stroke="none"/>
+        <circle cx="12" cy="11" r="1.8" fill="#fff" stroke="none"/>
+        <path d="M7 8l5 3 4.5-5M12 11l6 4.5M12 11l-3.5 6.5M18 15.5l-9.5 2"/>
+      </svg>
+    </span>
+    <span class="brand__name"><b>BRAIN Lab.</b><span>뇌 · 인공지능 연구실</span></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="주요 메뉴">
+    <a href="index.html" class="is-active">홈</a>
+    <a href="about.html">소개</a>
+    <a href="professor.html">교수</a>
+    <a href="members.html">구성원</a>
+    <a href="projects.html">연구</a>
+    <a href="publications.html">논문</a>
+    <a href="photos.html">갤러리</a>
+    <a href="gospel.html">Gospel</a>
+  </nav>
+  <div class="header-tools">
+    <a class="btn btn--primary btn--sm" href="#contact">함께하기</a>
+    <button class="icon-btn" data-theme-toggle aria-label="라이트/다크 전환">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main" class="site-main">
+
+  <!-- ===================== IMMERSIVE HERO ===================== -->
+  <section id="hero" aria-label="연구실 소개"></section>
+
+  <!-- ===================== VISION ===================== -->
+  <section class="section" id="vision">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Vision</span>
+        <h2 class="h2">사람에게 도움이 되는 <span class="gradient-text">선한 기술</span>을 연구합니다</h2>
+        <p class="lead">뇌 및 인공지능 연구실(BRAIN Lab.)은 뇌-컴퓨터 인터페이스, 인공지능, 뇌 메커니즘을 통해
+          움직임이 어려운 사람도 생각만으로 세상과 연결되는, 사람을 향한 기술을 만듭니다.</p>
+      </div>
+      <div class="callout reveal" data-d="1" style="--accent:var(--violet)">
+        <div class="callout__mark" aria-hidden="true">“</div>
+        <p class="lead">우리 연구실은 하나님의 사랑을 실천하는 기독교 정신을 추구합니다. 하지만 크리스천이 아니어도
+          연구실에 들어올 수 있으며, 각 개인의 종교를 존중하고 다른 종교로 인한 피해는 없습니다. 사람들에게 도움이 되는
+          선한 기술을 연구하며, 희망하는 경우 도움의 손길이 필요한 곳을 위해 함께 기도하거나 재정적 후원을 합니다.
+          선한 연구를 함께 할 학생들은 편하게 연락 주세요.</p>
+        <div style="margin-top:22px"><a class="link-arrow" href="gospel.html">Gospel · 복음 이야기 보기
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESEARCH AREAS ===================== -->
+  <section class="section section--tight" id="research">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Research Areas</span>
+        <h2 class="h2">세 개의 축으로 뇌와 지능을 탐구합니다</h2>
+      </div>
+      <div class="grid areas">
+        <article class="card area reveal" data-d="1">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 001 5 3 3 0 005 2V3z"/><path d="M15 3a3 3 0 013 3 3 3 0 012 5 3 3 0 01-1 5 3 3 0 01-5 2"/><path d="M9 8h2M13 12h2M9 15h3"/></svg></div>
+          <span class="area__en">Brain–Computer Interface</span>
+          <h3 class="h3">뇌-컴퓨터 인터페이스</h3>
+          <p class="muted">뇌파를 측정·분석해 사용자의 의도를 인식하고, 이를 토대로 로봇이나 컴퓨터를 제어합니다.
+            움직임 없이 생각만으로 기기를 제어할 수 있어 장애인에게는 절대적으로 필요하고, 비장애인에게도 매우 유용한 기술입니다.</p>
+        </article>
+        <article class="card area reveal" data-d="2">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
+          <span class="area__en">Artificial Intelligence</span>
+          <h3 class="h3">인공지능</h3>
+          <p class="muted">컴퓨터가 스스로 학습하고 결정하여 지능적으로 일을 처리하도록 만드는 기술로, 주로 기계학습을 다룹니다.
+            BRAIN Lab.은 새로운 AI 알고리즘의 개발과 응용을 연구합니다.</p>
+        </article>
+        <article class="card area reveal" data-d="3">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c-3 3-3 15 0 18M12 3c3 3 3 15 0 18M3 12h18M4.5 7h15M4.5 17h15"/></svg></div>
+          <span class="area__en">Brain Mechanism</span>
+          <h3 class="h3">뇌 메커니즘</h3>
+          <p class="muted">AI가 뇌를 수학적으로 모델링하며 발전해온 것처럼, 뇌 연구는 의학·신경과학뿐 아니라 공학·경제학·심리학의
+            근간이 됩니다. 다양한 뇌 연구를 통해 뇌가 동작하는 메커니즘을 규명합니다.</p>
+        </article>
+      </div>
+      <div class="reveal" data-d="2" style="margin-top:34px"><a class="link-arrow" href="about.html">연구실 소개 자세히 보기
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- ===================== METHODOLOGY ===================== -->
+  <section class="section" id="method">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Methodology</span>
+        <h2 class="h2">신호 획득부터 시각화까지, 하나의 파이프라인</h2>
+        <p class="lead">뇌 신호에서 의미를 읽어내기 위해 원천 신호 추출 · 대역 필터링 · 기능적 연결성 · 중심성 · 군집화 · 시각화로
+          이어지는 분석 흐름을 설계합니다.</p>
+      </div>
+      <div class="grid reveal" data-d="1" style="grid-template-columns:1.15fr .85fr;gap:clamp(20px,3vw,36px);align-items:center">
+        <figure class="figframe figframe--pad" style="margin:0">
+          <img src="assets/img/home-3.jpg" alt="6단계 뇌 신호 분석 파이프라인: 원천 신호 추출, 대역 필터링, 기능적 연결성, 중심성, 군집화, 시각화">
+        </figure>
+        <div class="stack">
+          <figure class="figframe" style="margin:0;background:#000">
+            <video src="assets/video/research.mp4" autoplay muted loop playsinline aria-label="뇌 연결성 분석 애니메이션"></video>
+          </figure>
+          <p class="figcap" style="text-align:left">기능적 연결성(functional connectivity)과 중심성(centrality) 기반의
+            뇌 신호 분석 — 연구실의 대표 방법론.</p>
+        </div>
+      </div>
+      <figure class="figframe figframe--pad reveal" data-d="2" style="margin:34px 0 0">
+        <img src="assets/img/home-4.png" alt="ERP 분석, 시간-주파수 분석, 연결성 분석, 뇌 신호 획득, 토포그래피, 인공지능, BCI 개발, 뇌 메커니즘 규명으로 이어지는 연구 개요">
+        <figcaption class="figcap">이벤트 관련 전위 · 시간-주파수 · 연결성 · 토포그래피 분석에서 AI 기반 BCI 개발과 뇌 메커니즘 규명까지.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== IMPACT / STATS ===================== -->
+  <section class="section section--tight" id="impact">
+    <div class="wrap">
+      <div class="sec-head center reveal" style="margin-inline:auto">
+        <span class="eyebrow" style="justify-content:center">By the numbers</span>
+        <h2 class="h2">연구의 발자취</h2>
+      </div>
+      <div class="grid stats reveal" data-d="1">
+        <div class="stat"><span class="stat__num" data-count="24" data-suffix="+">0</span><span class="stat__lb">저널 논문<br>Journal papers</span></div>
+        <div class="stat"><span class="stat__num" data-count="14" data-suffix="">0</span><span class="stat__lb">특허 패밀리<br>Patent families</span></div>
+        <div class="stat"><span class="stat__num" data-count="43" data-suffix="+">0</span><span class="stat__lb">학술 발표<br>Conference talks</span></div>
+        <div class="stat"><span class="stat__num" data-count="17" data-suffix="">0</span><span class="stat__lb">수상<br>Awards</span></div>
+      </div>
+      <p class="center muted reveal" data-d="2" style="margin-top:22px;font-size:.9rem">
+        대표 논문 최고 IF 9.8 (Scientific Data) · <em>Scientific Reports</em> “Top 100 in Neuroscience” 선정 · <em>Electronics</em> 표지 논문</p>
+    </div>
+  </section>
+
+  <!-- ===================== HONORS ===================== -->
+  <section class="section" id="honors">
+    <div class="wrap">
+      <div class="grid" style="grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,64px);align-items:start">
+        <div class="sec-head reveal" style="margin:0">
+          <span class="eyebrow">Honors</span>
+          <h2 class="h2">학생들의 수상</h2>
+          <p class="lead">연구실 학부생·대학원생이 국내외 학회에서 받은 상들입니다.</p>
+          <div style="margin-top:24px" class="tag-row">
+            <span class="tag">Best Presentation</span><span class="tag">학부생 논문상</span><span class="tag">우수논문상</span>
+          </div>
+          <div style="margin-top:24px"><a class="link-arrow" href="professor.html">교수 수상·특허 전체 보기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+        <div class="rows reveal" data-d="1">
+          <div class="row"><span class="row__main">The 24th International Symposium on Advanced Intelligent Systems (ISIS 2023) — <b>Best Presentation Award</b></span><span class="row__meta">최우성 · 2023</span></div>
+          <div class="row"><span class="row__main">제어로봇시스템학회 ICROS 2021 — <b>학부생 논문상</b></span><span class="row__meta">장나영 · 2021</span></div>
+          <div class="row"><span class="row__main">한국지능시스템학회 2020 추계학술대회 — <b>우수논문상</b></span><span class="row__meta">최우성 · 2020</span></div>
+          <div class="row"><span class="row__main">한국정보과학회 KCC 2019 학부생 논문경진대회 — <b>장려상</b></span><span class="row__meta">문준민·김혜인·박은선 · 2019</span></div>
+        </div>
+      </div>
+      <hr class="divline">
+      <div class="grid reveal" data-d="1" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+        <div class="card"><span class="card__tag">2025 —</span><h3 class="h3" style="margin:12px 0 6px">국가AI전략위원회</h3><p class="muted">대통령 직속 국가인공지능전략위원회 자문위원</p></div>
+        <div class="card"><span class="card__tag">2024 – 2025</span><h3 class="h3" style="margin:12px 0 6px">Univ. of Birmingham</h3><p class="muted">영국 버밍엄대학교 방문교수(Visiting Professor)</p></div>
+        <div class="card"><span class="card__tag">Scientific Reports</span><h3 class="h3" style="margin:12px 0 6px">Top 100 in Neuroscience</h3><p class="muted">2020년 논문이 신경과학 분야 Top 100에 선정</p></div>
+        <div class="card"><span class="card__tag">Best Teacher</span><h3 class="h3" style="margin:12px 0 6px">조선대학교 강의우수상</h3><p class="muted">2018·2022·2023 등 다수 수상</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="grid contact-grid" style="gap:clamp(28px,5vw,64px)">
+        <div class="reveal">
+          <span class="eyebrow">Contact</span>
+          <h2 class="h2" style="margin-top:14px">선한 연구를, 함께</h2>
+          <p class="lead" style="margin-top:16px">뇌·인공지능 연구에 관심 있는 학생이라면 언제든 편하게 연락 주세요.
+            함께 성장할 연구자를 기다립니다.</p>
+          <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px">
+            <a class="btn btn--primary" href="mailto:honggi@chosun.ac.kr">이메일 보내기
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M4 6l8 6 8-6"/></svg></a>
+            <a class="btn btn--ghost" href="https://scholar.google.co.kr/citations?user=8m64YzIAAAAJ&hl" target="_blank" rel="noopener">Google Scholar</a>
+          </div>
+        </div>
+        <div class="panel reveal" data-d="1" style="padding:clamp(24px,3vw,34px)">
+          <div class="info-row">
+            <span class="info-row__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <div><h4>Address</h4><p>광주광역시 동구 필문대로 309<br>조선대학교 IT융합대학 9120호</p></div>
+          </div>
+          <div class="info-row">
+            <span class="info-row__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M4 6l8 6 8-6"/></svg></span>
+            <div><h4>Email</h4><p><a href="mailto:honggi@chosun.ac.kr" style="color:var(--accent)">honggi@chosun.ac.kr</a></p></div>
+          </div>
+          <div class="info-row">
+            <span class="info-row__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4-9 4-9-4 9-4z"/><path d="M21 10v5M6 12v4c0 1 2.7 3 6 3s6-2 6-3v-4"/></svg></span>
+            <div><h4>Principal Investigator</h4><p>염홍기 (Hong Gi Yeom) · 조선대학교 부교수</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:16px">
+          <span class="brand__logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="7" cy="8" r="1.5" fill="#fff" stroke="none"/><circle cx="16.5" cy="6" r="1.5" fill="#fff" stroke="none"/>
+              <circle cx="18" cy="15.5" r="1.5" fill="#fff" stroke="none"/><circle cx="8.5" cy="17.5" r="1.5" fill="#fff" stroke="none"/>
+              <circle cx="12" cy="11" r="1.8" fill="#fff" stroke="none"/><path d="M7 8l5 3 4.5-5M12 11l6 4.5M12 11l-3.5 6.5M18 15.5l-9.5 2"/>
+            </svg>
+          </span>
+          <span class="brand__name"><b>BRAIN Lab.</b><span>뇌 · 인공지능 연구실</span></span>
+        </a>
+        <p class="muted" style="max-width:34ch;font-size:.9rem">BRain And IntelligeNce Lab. · 조선대학교 IT융합대학<br>사람에게 도움이 되는 선한 기술을 연구합니다.</p>
+      </div>
+      <div>
+        <div class="foot-head">Explore</div>
+        <div class="foot-links">
+          <a href="about.html">연구실 소개</a>
+          <a href="professor.html">교수 소개</a>
+          <a href="members.html">구성원</a>
+          <a href="projects.html">연구 프로젝트</a>
+          <a href="publications.html">논문</a>
+          <a href="photos.html">갤러리</a>
+          <a href="gospel.html">Gospel</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-head">Contact</div>
+        <div class="foot-links">
+          <a href="mailto:honggi@chosun.ac.kr">honggi@chosun.ac.kr</a>
+          <a href="https://scholar.google.co.kr/citations?user=8m64YzIAAAAJ&hl" target="_blank" rel="noopener">Google Scholar</a>
+          <span class="muted" style="font-size:.86rem">광주광역시 동구 필문대로 309<br>조선대학교 IT융합대학 9120호</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© <span data-year>2026</span> BRAIN Lab. · Hong Gi Yeom, Chosun University.</span>
+      <span class="muted">Immersive scroll experience inspired by <a href="https://github.com/oso95/scroll-world" target="_blank" rel="noopener" style="color:var(--accent)">scroll-world</a> &amp; <a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener" style="color:var(--accent)">HyperFrames</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/hero.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+  mountHero(document.getElementById('hero'), {
+    hint: 'SCROLL',
+    perScene: 90,
+    scenes: [
+      { label: 'Vision', accent: '#9b8cff', accent2: '#c9beff',
+        eyebrow: 'Chosun University · Gwangju',
+        title: '생각이 세상과<br><span class="grad">만나는 곳</span>',
+        body: '뇌 및 인공지능 연구실(BRAIN Lab.)은 사람에게 도움이 되는 선한 기술을 연구합니다.',
+        tags: ['Brain–Computer Interface', 'Artificial Intelligence', 'Brain Mechanism'] },
+      { label: 'Brain Era', accent: '#35e0ff', accent2: '#8fe9ff',
+        eyebrow: 'The Final Frontier',
+        title: '뇌, 인류의 마지막<br><span class="grad">미개척지</span>',
+        body: '미국 BRAIN Initiative, 유럽의 뇌 연구 10년, 일본의 30조 원 투자 — 세계는 지금 뇌 과학에 주목하고 있습니다.' },
+      { label: 'BCI', accent: '#2fe6c3', accent2: '#8ff2e0',
+        eyebrow: 'Brain–Computer Interface',
+        title: '생각만으로,<br><span class="grad">세상을 제어하다</span>',
+        body: 'MIT·다보스포럼·뉴욕타임스가 세상을 바꿀 기술로 꼽은 BCI. 뇌파로 의도를 읽어 로봇과 컴퓨터를 움직입니다.' },
+      { label: 'AI', accent: '#8b7bff', accent2: '#b9acff',
+        eyebrow: 'Artificial Intelligence',
+        title: '스스로 배우는<br><span class="grad">지능을 설계하다</span>',
+        body: '새로운 기계학습 알고리즘을 개발하고, 뇌 신호 해독과 실생활 응용으로 확장합니다.' },
+      { label: 'Brain', accent: '#ffb454', accent2: '#ffd08a',
+        eyebrow: 'Brain Mechanism',
+        title: '뇌가 작동하는<br><span class="grad">원리를 규명하다</span>',
+        body: '운동 제어, 기능적 연결성, 신경 진동 — 뇌가 정보를 처리하는 메커니즘을 밝혀냅니다.' },
+      { label: 'Join', accent: '#35e0ff', accent2: '#9b8cff',
+        image: 'assets/img/photo-1.jpg',
+        eyebrow: 'Join the lab',
+        title: '선한 연구를,<br><span class="grad">함께</span>',
+        body: '뇌와 인공지능이 궁금한 학생이라면 언제든 환영합니다. 함께 성장할 연구자를 기다립니다.',
+        cta: { primary: { label: '연구실 문의', href: '#contact' }, secondary: { label: '교수 소개', href: 'professor.html' } } }
+    ]
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>연구실 소개 — BRAIN Lab.</title>
+<meta name="description" content="뇌 및 인공지능 연구실(BRAIN Lab.) 소개 — 세계가 주목하는 뇌 과학, 미래 핵심 기술 BCI, 그리고 세 개의 연구 축.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="has-neural">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<canvas id="neural" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="BRAIN Lab. 홈">
+    <span class="brand__logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="1.5" fill="#fff" stroke="none"/><circle cx="16.5" cy="6" r="1.5" fill="#fff" stroke="none"/><circle cx="18" cy="15.5" r="1.5" fill="#fff" stroke="none"/><circle cx="8.5" cy="17.5" r="1.5" fill="#fff" stroke="none"/><circle cx="12" cy="11" r="1.8" fill="#fff" stroke="none"/><path d="M7 8l5 3 4.5-5M12 11l6 4.5M12 11l-3.5 6.5M18 15.5l-9.5 2"/></svg></span>
+    <span class="brand__name"><b>BRAIN Lab.</b><span>뇌 · 인공지능 연구실</span></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="주요 메뉴">
+    <a href="index.html">홈</a><a href="about.html" class="is-active">소개</a><a href="professor.html">교수</a>
+    <a href="members.html">구성원</a><a href="projects.html">연구</a><a href="publications.html">논문</a>
+    <a href="photos.html">갤러리</a><a href="gospel.html">Gospel</a>
+  </nav>
+  <div class="header-tools">
+    <a class="btn btn--primary btn--sm" href="index.html#contact">함께하기</a>
+    <button class="icon-btn" data-theme-toggle aria-label="라이트/다크 전환">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main" class="site-main">
+  <section class="page-hero">
+    <div class="page-hero__bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">홈</a> / 연구실 소개</p>
+      <span class="eyebrow reveal">About the Lab</span>
+      <h1 class="h1 reveal" data-d="1" style="margin-top:14px">BRain And IntelligeNce Lab.</h1>
+      <p class="lead reveal" data-d="2" style="margin-top:18px">뇌 및 인공지능 연구실은 Brain-Computer Interface(BCI),
+        Artificial Intelligence, Brain Mechanism을 연구합니다. 뇌를 이해하고, 지능을 설계하며, 사람을 돕는 기술로 잇습니다.</p>
+    </div>
+  </section>
+
+  <!-- 세계가 주목하는 뇌 과학 -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,60px);align-items:center">
+        <div class="reveal">
+          <span class="eyebrow">01 — Global Focus</span>
+          <h2 class="h2" style="margin:14px 0 18px">세계적으로 주목받는 뇌 과학</h2>
+          <p class="muted">미국 오바마 대통령은 2013년 뇌 연구의 중요성을 강조하며 <b>BRAIN Initiative</b> 프로젝트를 제안하고
+            2014년 예산으로 약 1,100억 원(1억 달러)을 책정했습니다. 미국의 ‘뇌연구 10년(Decade of Brain)’, EU의 ‘유럽 뇌 연구 10년’,
+            G7 국가의 공동 인간 프론티어 과학 프로그램, 그리고 일본 정부의 20년간 약 30조 원(180억 달러) 투자 계획까지 —
+            세계는 막강한 지원으로 뇌 연구에 뛰어들고 있습니다.</p>
+          <p class="muted" style="margin-top:16px">우리 정부도 1998년 ‘뇌연구촉진법’을 제정해 기반을 마련했고,
+            2008년부터 ‘2단계 뇌 연구 촉진 계획’으로 뇌 연구를 발전시키고 있습니다.</p>
+        </div>
+        <figure class="figframe figframe--pad reveal" data-d="1" style="margin:0">
+          <img src="assets/img/home-4.png" alt="뇌 신호 분석부터 AI 기반 BCI 개발, 뇌 메커니즘 규명까지 이어지는 연구 개요">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 미래 핵심 기술 BCI -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,60px);align-items:center">
+        <figure class="figframe figframe--pad reveal" style="margin:0;order:-1">
+          <img src="assets/img/brainlab-1.jpg" alt="BCI가 세계 유수 기관에서 유망 미래 기술로 선정된 목록">
+        </figure>
+        <div class="reveal" data-d="1">
+          <span class="eyebrow">02 — Key Future Tech</span>
+          <h2 class="h2" style="margin:14px 0 18px">미래 핵심 기술, 뇌-컴퓨터 인터페이스</h2>
+          <p class="muted">MIT <em>Technology Review</em>의 “10대 유망기술”, 2014 다보스포럼의 “세계를 바꿀 10대 기술”,
+            <em>The New York Times</em>의 “21세기 8대 신기술”, CNN Business 2.0의 “세계를 바꿀 차세대 5대 기술”,
+            그리고 한국과학기술기획평가원(KISTEP)·삼성경제연구소의 “10대 국가유망미래기술” — BCI는 이 모든 목록에 이름을 올렸습니다.</p>
+          <div class="tag-row" style="margin-top:22px">
+            <span class="tag">MIT Technology Review</span><span class="tag">World Economic Forum</span>
+            <span class="tag">The New York Times</span><span class="tag">CNN Business 2.0</span><span class="tag">KISTEP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divline" style="max-width:var(--wrap);margin-inline:auto">
+
+  <!-- 세 개의 연구 축 -->
+  <section class="section section--tight" id="areas">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">03 — Research Pillars</span>
+        <h2 class="h2">세 개의 연구 축</h2>
+      </div>
+      <div class="grid areas">
+        <article class="card area reveal" data-d="1">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 001 5 3 3 0 005 2V3z"/><path d="M15 3a3 3 0 013 3 3 3 0 012 5 3 3 0 01-1 5 3 3 0 01-5 2"/><path d="M9 8h2M13 12h2M9 15h3"/></svg></div>
+          <span class="area__en">Brain–Computer Interface</span>
+          <h3 class="h3">뇌-컴퓨터 인터페이스</h3>
+          <p class="muted">뇌파를 측정·분석하여 사용자의 의도를 인식하고, 이를 토대로 로봇이나 컴퓨터를 제어하는 기술입니다.
+            움직임 없이 생각만으로 각종 전자기기를 제어할 수 있어, 장애인에게는 절대적으로 필요하며 비장애인에게도 매우 유용합니다.</p>
+        </article>
+        <article class="card area reveal" data-d="2">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
+          <span class="area__en">Artificial Intelligence</span>
+          <h3 class="h3">인공지능</h3>
+          <p class="muted">컴퓨터가 스스로 학습하고 결정하여 지능적으로 일을 처리하도록 만드는 기술로, 주로 기계학습(Machine Learning)을
+            다룹니다. BRAIN Lab.에서는 새로운 AI 알고리즘 개발 및 응용을 연구합니다.</p>
+        </article>
+        <article class="card area reveal" data-d="3">
+          <div class="card__glow" aria-hidden="true"></div>
+          <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c-3 3-3 15 0 18M12 3c3 3 3 15 0 18M3 12h18M4.5 7h15M4.5 17h15"/></svg></div>
+          <span class="area__en">Brain Mechanism</span>
+          <h3 class="h3">뇌 메커니즘</h3>
+          <p class="muted">AI 기술이 뇌를 수학적으로 모델링하며 발전해온 것처럼, 뇌 연구는 의학·신경과학뿐 아니라 공학·경제학·심리학 등
+            다양한 학문의 근간이 됩니다. 다양한 뇌 관련 연구를 통해 뇌가 동작하는 메커니즘을 규명합니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 방법론 -->
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="eyebrow">Methodology</span><h2 class="h2">6단계 분석 파이프라인</h2></div>
+      <figure class="figframe figframe--pad reveal" data-d="1" style="max-width:820px;margin:0 auto">
+        <img src="assets/img/home-3.jpg" alt="원천 신호 추출 · 대역 필터링 · 기능적 연결성 · 중심성 · 군집화 · 시각화의 6단계 분석">
+        <figcaption class="figcap">1. 원천 신호 추출 → 2. 대역 필터링 → 3. 기능적 연결성 → 4. 중심성 → 5. 군집화 → 6. 시각화</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap center">
+      <div class="callout reveal" style="--accent:var(--cyan);max-width:820px;margin:0 auto">
+        <h2 class="h2">함께 연구할 학생을 찾습니다</h2>
+        <p class="lead" style="margin:16px auto 26px">뇌와 인공지능이 궁금하다면, 전공이나 배경과 무관하게 편하게 연락 주세요.</p>
+        <a class="btn btn--primary" href="index.html#contact">연구실 문의하기
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" data-footer></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/footer.js"></script>
+</body>
+</html>

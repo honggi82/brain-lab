@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gospel — BRAIN Lab.</title>
+<meta name="description" content="연구실 책임교수가 전하는 복음 이야기.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="has-neural">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<canvas id="neural" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="BRAIN Lab. 홈">
+    <span class="brand__logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="1.5" fill="#fff" stroke="none"/><circle cx="16.5" cy="6" r="1.5" fill="#fff" stroke="none"/><circle cx="18" cy="15.5" r="1.5" fill="#fff" stroke="none"/><circle cx="8.5" cy="17.5" r="1.5" fill="#fff" stroke="none"/><circle cx="12" cy="11" r="1.8" fill="#fff" stroke="none"/><path d="M7 8l5 3 4.5-5M12 11l6 4.5M12 11l-3.5 6.5M18 15.5l-9.5 2"/></svg></span>
+    <span class="brand__name"><b>BRAIN Lab.</b><span>뇌 · 인공지능 연구실</span></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="주요 메뉴">
+    <a href="index.html">홈</a><a href="about.html">소개</a><a href="professor.html">교수</a>
+    <a href="members.html">구성원</a><a href="projects.html">연구</a><a href="publications.html">논문</a>
+    <a href="photos.html">갤러리</a><a href="gospel.html" class="is-active">Gospel</a>
+  </nav>
+  <div class="header-tools">
+    <a class="btn btn--primary btn--sm" href="index.html#contact">함께하기</a>
+    <button class="icon-btn" data-theme-toggle aria-label="라이트/다크 전환">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main" class="site-main">
+  <section class="page-hero" style="--accent:var(--amber)">
+    <div class="page-hero__bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">홈</a> / Gospel</p>
+      <span class="eyebrow reveal" style="--accent:var(--amber)">복음 이야기</span>
+      <h1 class="h1 reveal" data-d="1" style="margin-top:14px">살면서 꼭 한번은<br>들어봐야 할 이야기</h1>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:clamp(20px,3vw,36px)">
+    <div class="wrap" style="max-width:760px">
+      <div class="callout reveal" style="--accent:var(--amber)">
+        <div class="callout__mark" aria-hidden="true">“</div>
+        <p class="lead">저는 살면서 가장 중요한 것이 예수님을 믿고 구원받는 것이라고 생각합니다. 이곳을 방문해 주셨다면,
+          또 연구실에 관심이 있으시다면 아래 영상을 꼭 한번은 들어봐 주시기를 부탁드립니다.</p>
+        <p class="lead" style="margin-top:18px">기독교가 비과학적이라고 생각하신다면, ‘진화론이 왜 말이 안 되는지’에 대한 제 생각도
+          다른 영상에 올려두었으니 함께 시청 부탁드립니다.</p>
+        <p class="muted" style="margin-top:20px;font-size:.92rem">— 염홍기 (Hong Gi Yeom), BRAIN Lab.</p>
+      </div>
+
+      <div class="grid reveal" data-d="1" style="grid-template-columns:1fr 1fr;gap:18px;margin-top:26px">
+        <a class="card" href="https://honggiyeom.wixsite.com/brainlab/%EB%B3%B5%EC%A0%9C-brain-lab" target="_blank" rel="noopener" style="--accent:var(--amber)">
+          <div class="area__ic" style="--accent:var(--amber)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v14l11-7z"/></svg></div>
+          <h3 class="h3">복음 이야기 영상</h3>
+          <p class="muted" style="margin-top:8px">교수님이 전하는 복음 메시지 영상입니다.</p>
+          <span class="link-arrow" style="margin-top:14px;--accent:var(--amber)">원본에서 시청하기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card" href="https://honggiyeom.wixsite.com/brainlab/%EB%B3%B5%EC%A0%9C-brain-lab" target="_blank" rel="noopener" style="--accent:var(--amber)">
+          <div class="area__ic" style="--accent:var(--amber)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v14l11-7z"/></svg></div>
+          <h3 class="h3">‘진화론’에 대한 생각</h3>
+          <p class="muted" style="margin-top:8px">과학과 신앙에 관한 교수님의 관점을 담은 영상입니다.</p>
+          <span class="link-arrow" style="margin-top:14px;--accent:var(--amber)">원본에서 시청하기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+      <p class="muted center reveal" data-d="2" style="margin-top:22px;font-size:.86rem">
+        이 페이지는 연구실 책임교수의 개인적인 신앙 고백을 담고 있으며, 연구실은 각 개인의 종교를 존중합니다.</p>
+    </div>
+  </section>
+</main>
+
+<footer data-footer></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/footer.js"></script>
+</body>
+</html>

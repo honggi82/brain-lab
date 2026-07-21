@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>논문 — BRAIN Lab.</title>
+<meta name="description" content="뇌 및 인공지능 연구실 논문 — 국제·국내 저널 및 학회 발표.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="has-neural">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<canvas id="neural" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="BRAIN Lab. 홈">
+    <span class="brand__logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="8" r="1.5" fill="#fff" stroke="none"/><circle cx="16.5" cy="6" r="1.5" fill="#fff" stroke="none"/><circle cx="18" cy="15.5" r="1.5" fill="#fff" stroke="none"/><circle cx="8.5" cy="17.5" r="1.5" fill="#fff" stroke="none"/><circle cx="12" cy="11" r="1.8" fill="#fff" stroke="none"/><path d="M7 8l5 3 4.5-5M12 11l6 4.5M12 11l-3.5 6.5M18 15.5l-9.5 2"/></svg></span>
+    <span class="brand__name"><b>BRAIN Lab.</b><span>뇌 · 인공지능 연구실</span></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="주요 메뉴">
+    <a href="index.html">홈</a><a href="about.html">소개</a><a href="professor.html">교수</a>
+    <a href="members.html">구성원</a><a href="projects.html">연구</a><a href="publications.html" class="is-active">논문</a>
+    <a href="photos.html">갤러리</a><a href="gospel.html">Gospel</a>
+  </nav>
+  <div class="header-tools">
+    <a class="btn btn--primary btn--sm" href="index.html#contact">함께하기</a>
+    <button class="icon-btn" data-theme-toggle aria-label="라이트/다크 전환">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main" class="site-main">
+  <section class="page-hero">
+    <div class="page-hero__bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">홈</a> / 논문</p>
+      <span class="eyebrow reveal">Publications</span>
+      <h1 class="h1 reveal" data-d="1" style="margin-top:14px">논문 &amp; 학술 발표</h1>
+      <p class="lead reveal" data-d="2" style="margin-top:18px">뇌-컴퓨터 인터페이스, 신경 신호 디코딩, 기계학습에 관한 국제·국내 저널 논문과 학회 발표입니다.
+        <em>Scientific Data</em>(IF 9.8), <em>Journal of Neural Engineering</em>, <em>PLOS ONE</em> 등에 게재되었습니다.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:clamp(24px,4vw,44px)">
+    <div class="wrap wrap--wide">
+      <div class="filterbar reveal" data-target="publist">
+        <button class="filterbtn is-active" data-filter="all">전체</button>
+        <button class="filterbtn" data-filter="intl-journal">국제 저널</button>
+        <button class="filterbtn" data-filter="dom-journal">국내 저널</button>
+        <button class="filterbtn" data-filter="intl-conf">국제 학회</button>
+        <button class="filterbtn" data-filter="dom-conf">국내 학회</button>
+      </div>
+      <div class="publist" id="publist"></div>
+    </div>
+  </section>
+</main>
+
+<footer data-footer></footer>
+
+<script>
+/* Publication data — rendered to #publist; filter wired by site.js */
+(function () {
+  var P = [
+    // ---------- International journals ----------
+    { c:'intl-journal', t:'H. G. Yeom, W. S. Choi, K. M. An*. “A novel transformer architecture for EEG decoding and neuroscientific analysis.”', v:'Scientific Reports, 2026.', b:['2026','IF 4.9'] },
+    { c:'intl-journal', t:'H. G. Yeom, K. M. An. “A Simplified Query-Only Attention for Encoder-Based Transformer Models.”', v:'Applied Sciences, 14(19), 8646, 2024.', b:['2024','IF 2.5'] },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “A magnetoencephalography dataset during three-dimensional reaching movements for brain-computer interfaces.”', v:'Scientific Data, 10, Article 552, 2023.', b:['2023','IF 9.8'] },
+    { c:'intl-journal', t:'W. S. Choi, H. G. Yeom*. “Studies to Overcome Brain–Computer Interface Challenges.”', v:'Applied Sciences, 12(5), 2598, 2022.', b:['2022','IF 2.68'] },
+    { c:'intl-journal', t:'H. G. Yeom, H. Jeong*. “F-Value Time-Frequency Analysis: Between-Within Variance Analysis.”', v:'Frontiers in Neuroscience, 15:729449, 2021.', b:['2021','IF 5.15'] },
+    { c:'intl-journal', t:'H. D. Jeong, S. T. Shin, H. G. Yeom*. “Accurate Single-Cell Clustering through Ensemble Similarity Learning.”', v:'Genes, 12, 1670, 2021.', b:['2021','IF 4.14'] },
+    { c:'intl-journal', t:'S. M. Park*, H. G. Yeom+, K. B. Sim. “User State Classification Based on Functional Brain Connectivity Using a Convolutional Neural Network.”', v:'Electronics, 10, 1158, 2021. (+ equally contributed)', b:['2021','IF 2.69','Cover article'] },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “LSTM Improves Accuracy of Reaching Trajectory Prediction From Magnetoencephalography Signals.”', v:'IEEE Access, 8, 2020.', b:['2020','IF 3.48'] },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “Brain mechanisms in motor control during reaching movements: Transition of functional connectivity according to movement states.”', v:'Scientific Reports, 10, Article 567, 2020.', b:['2020','IF 5.0','Top 100 in Neuroscience'] },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “Macroscopic neural oscillation during skilled reaching movements in humans.”', v:'Computational Intelligence and Neuroscience, 2016, Article 2714052, 2016.', b:['2016','IF 3.12'] },
+    { c:'intl-journal', t:'Y. J. Kim, S. W. Park, H. G. Yeom, M. S. Bang, J. S. Kim, C. K. Chung, S. W. Kim*. “A study on a robot arm driven by three-dimensional trajectories predicted from non-invasive neural signals.”', v:'BioMedical Engineering OnLine, 14:81, 2015.', b:['2015','IF 3.90'] },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “High-Accuracy Brain-Machine Interfaces Using Feedback Information.”', v:'PLOS ONE, 9(7): e103539, 2014.', b:['2014','IF 3.24'] },
+    { c:'intl-journal', t:'H. G. Yeom, W. Hong, D. Y. Kang, C. K. Chung, J. S. Kim*, S. P. Kim*. “A study on decoding models for the reconstruction of hand trajectories from the human magnetoencephalography.”', v:'BioMed Research International, 2014, Article 176857, 2014.', b:['2014','IF 3.41'] },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim, C. K. Chung*. “Estimation of the velocity and trajectory of three-dimensional reaching movements from non-invasive magnetoencephalography signals.”', v:'Journal of Neural Engineering, 10, 026006, 2013.', b:['2013','IF 5.38'] },
+    { c:'intl-journal', t:'H. G. Yeom, S. M. Park, J. H. Park, K. B. Sim*. “Superiority Demonstration of Variance-Considered Machines by Comparing Error Rate with Support Vector Machines.”', v:'International Journal of Control, Automation, and Systems, 9(3), 595–600, 2011.', b:['2011','IF 3.31'] },
+    { c:'intl-journal', t:'H. G. Yeom, K. B. Sim*. “Membership Function-based Classification Algorithms for Stability Improvements of BCI Systems.”', v:'International Journal of Fuzzy Logic and Intelligent Systems, 10(1), 59–64, 2010.', b:['2010','Scopus'] },
+    { c:'intl-journal', t:'I. H. Jang, H. G. Yeom, K. B. Sim*. “Ring sensor and heart rate monitoring system for sensor network applications.”', v:'Electronics Letters, 44(24), 1393–1394, 2009.', b:['2009','IF 1.37'] },
+    // ---------- Domestic journals ----------
+    { c:'dom-journal', t:'W. S. Choi, H. G. Yeom. “A Brain-Computer Interface Predicting Multi-intention Using an Artificial Neural Network.”', v:'Journal of Korean Institute of Intelligent Systems, 31(3), 206–212, 2021.', b:['2021','KCI'] },
+    { c:'dom-journal', t:'H. G. Yeom. “Current Trends in Brain-Computer Interfaces for Real-Life Use.”', v:'Journal of Institute of Control, Robotics and Systems, 25(9), 858–862, 2019.', b:['2019','KCI'] },
+    { c:'dom-journal', t:'S. M. Park, K. B. Sim, H. G. Yeom. “CNN-based Classification of Brain Connectivity using Motor Imagery.”', v:'Journal of Korean Institute of Intelligent Systems, 29(2), 124–129, 2019.', b:['2019','KCI'] },
+    { c:'dom-journal', t:'Y. J. Kim, S. W. Park, W. S. Kim, H. G. Yeom, et al. “A Study on Applying Guidance Laws in Developing an Algorithm which Enables a Robot Arm to Trace 3D Coordinates Derived from Brain Signal.”', v:'Journal of Biomedical Engineering Research, 35, 50–54, 2014.', b:['2014'] },
+    { c:'dom-journal', t:'H. G. Yeom, K. B. Sim. “Performance Improvements of Brain-Computer Interface Systems based on Variance-Considered Machines.”', v:'Journal of Korean Institute of Intelligent Systems, 20(2), 153–158, 2010.', b:['2010','KCI'] },
+    { c:'dom-journal', t:'H. G. Yeom, I. H. Jang, K. B. Sim. “Brain-Computer Interface based on Changes of EEG on Broca’s Area.”', v:'Journal of Korean Institute of Intelligent Systems, 19(1), 122–127, 2009.', b:['2009','KCI'] },
+    { c:'dom-journal', t:'K. B. Sim, H. G. Yeom, I. Y. Lee. “EEG Signals Measurement and Analysis Method for Brain-Computer Interface.”', v:'Journal of Korean Institute of Intelligent Systems, 18(5), 605–610, 2008.', b:['2008','KCI'] },
+    // ---------- International conferences ----------
+    { c:'intl-conf', t:'“Multi-Functional Brain-Computer Interface.”', v:'21st Int’l Conf. on Control, Automation and Systems (ICCAS 2021), Jeju, Korea.', b:['2021'] },
+    { c:'intl-conf', t:'“Arm Movement Prediction from Electrocorticography.”', v:'20th ICCAS 2020, Online.', b:['2020'] },
+    { c:'intl-conf', t:'“User-state Prediction using Brain Connectivity.”', v:'19th ICCAS 2019, Jeju, Korea.', b:['2019'] },
+    { c:'intl-conf', t:'“CNN-based Classification of Brain Connectivity using Motor Imagery.”', v:'Joint 10th SCIS &amp; 19th ISIS, Toyama, Japan.', b:['2018'] },
+    { c:'intl-conf', t:'“Trends and Future of Brain-Computer Interfaces.”', v:'SCIS&ISIS 2018, Toyama, Japan.', b:['2018','Oral'] },
+    { c:'intl-conf', t:'“Consideration of Brain Mechanism for Brain-Machine Interface.”', v:'2018 IEEE Int’l Winter Workshop on BCI, Gangwon, Korea.', b:['2018'] },
+    { c:'intl-conf', t:'“Motor control mechanism of goal-directed movements.”', v:'23rd Annual Meeting of OHBM, Vancouver, Canada.', b:['2017'] },
+    { c:'intl-conf', t:'“Practical Brain-Machine Interface System.”', v:'2017 IEEE Int’l Winter Workshop on BCI, Gangwon, Korea.', b:['2017','Oral'] },
+    { c:'intl-conf', t:'“Neural mechanism of the motor system during reaching movements.”', v:'20th Int’l Conf. on Biomagnetism (BIOMAG), Seoul, Korea.', b:['2016'] },
+    { c:'intl-conf', t:'“Envelope of gamma activity represents the direction preference at macroscopic level.”', v:'22nd Annual Meeting of OHBM, Geneva, Switzerland.', b:['2016'] },
+    { c:'intl-conf', t:'“Common Neural Mechanism for Reaching Movements.”', v:'2016 IEEE Int’l Winter Workshop on BCI, Gangwon, Korea.', b:['2016','Oral'] },
+    { c:'intl-conf', t:'“Macroscopic neural dynamics during reaching movements.”', v:'21st Annual Meeting of OHBM, Honolulu, Hawaii.', b:['2015'] },
+    { c:'intl-conf', t:'“High-Performance Brain Machine Interface Combining Image Information.”', v:'19th Int’l Conf. on Biomagnetism (BIOMAG), Halifax, Canada.', b:['2014'] },
+    { c:'intl-conf', t:'“Accurate Movement Prediction Combining Artificial Feedback Information.”', v:'20th Annual Meeting of OHBM, Hamburg, Germany.', b:['2014'] },
+    { c:'intl-conf', t:'“A high-performance brain-machine interface (BMI) using image information.”', v:'2014 IEEE Int’l Winter Workshop on BCI, Gangwon, Korea.', b:['2014'] },
+    { c:'intl-conf', t:'“Movement prediction with sensory feedback and environmental interaction.”', v:'2014 IEEE Int’l Winter Workshop on BCI, Gangwon, Korea.', b:['2014'] },
+    { c:'intl-conf', t:'“A novel method for high-performance of brain-machine interface.”', v:'19th Annual Meeting of OHBM, Seattle, USA.', b:['2013'] },
+    { c:'intl-conf', t:'“Decoding three-dimensional arm movements for brain-machine interface.”', v:'2013 IEEE Int’l Winter Workshop on BCI, Gangwon, Korea.', b:['2013'] },
+    { c:'intl-conf', t:'“Movement estimation from delta wave of MEG signals.”', v:'18th Int’l Conf. on Biomagnetism (BIOMAG), Paris, France.', b:['2012'] },
+    { c:'intl-conf', t:'“Estimation of three-dimensional movement trajectory from MEG signals.”', v:'BRC Int’l Conference 2012 / 5th BRC-UK Joint Symposium on Neuroscience, Jeju, Korea.', b:['2012'] },
+    { c:'intl-conf', t:'“Estimation of three-dimensional movement trajectory from MEG signals.”', v:'18th Annual Meeting of OHBM, Beijing, China.', b:['2012','Oral'] },
+    { c:'intl-conf', t:'“Movement trajectory estimation in three-dimensions from magnetoencephalographic signals.”', v:'5th Int’l Brain-Computer Interface Conference 2011, Graz, Austria.', b:['2011'] },
+    { c:'intl-conf', t:'“Brain signal change during directional hand movements.”', v:'17th Annual Meeting of OHBM, Quebec City, Canada.', b:['2011'] },
+    { c:'intl-conf', t:'“m-Variance Considered Machines: Membership Function based Classification Algorithms.”', v:'10th Int’l Symposium on Advanced Intelligent Systems, Busan, Korea.', b:['2009','Oral'] },
+    { c:'intl-conf', t:'“Variance Considered Machines: Modification of Optimal Hyperplanes in Support Vector Machines.”', v:'IEEE Int’l Symposium on Industrial Electronics, Seoul, Korea.', b:['2009','Oral'] },
+    { c:'intl-conf', t:'“ERS and ERD Analysis during the Imaginary Movement of Arms.”', v:'Int’l Conf. on Control, Automation and Systems, Seoul, Korea.', b:['2008','Oral'] },
+    // ---------- Domestic conferences ----------
+    { c:'dom-conf', t:'“Multiple-Intention EEG Classification Using Convolutional Neural Networks.”', v:'2021 한국지능시스템학회 추계학술대회, 광주.', b:['2021'] },
+    { c:'dom-conf', t:'“Multi-Functional Brain-Computer Interface Using Convolutional Neural Networks.”', v:'제36회 제어로봇시스템학회(ICROS 2021), 여수.', b:['2021'] },
+    { c:'dom-conf', t:'“Multi Functional Brain Computer Interface.”', v:'2020 한국지능시스템학회 추계학술대회, 전주.', b:['2020'] },
+    { c:'dom-conf', t:'“Arm Movement Prediction using LSTM.”', v:'제35회 제어로봇시스템학회(ICROS 2020), 속초.', b:['2020'] },
+    { c:'dom-conf', t:'“Research Trend of Brain-Computer Interfaces.”', v:'제34회 제어로봇시스템학회(ICROS 2019), 경주.', b:['2019'] },
+    { c:'dom-conf', t:'“CNN-based Classification of Brain Connectivity using Motor Imagery.”', v:'2018 한국지능시스템학회 추계학술대회, 원주.', b:['2018'] },
+    { c:'dom-conf', t:'“Transition of Functional Connectivity According to Brain States.”', v:'2018 한국지능시스템학회 추계학술대회, 원주.', b:['2018'] },
+    { c:'dom-conf', t:'“Brain-Signal Analyses and Brain-Computer Interfaces.”', v:'2018 한국지능시스템학회 춘계학술대회, 여수.', b:['2018'] },
+    { c:'dom-conf', t:'“Research Trend and Future Direction of Brain-Computer Interface.”', v:'2017 한국지능시스템학회 추계학술대회, 여수.', b:['2017'] },
+    { c:'dom-conf', t:'“Motor control mechanism during reaching movements.”', v:'2016 KHBM Conference, Seoul.', b:['2016','Oral'] },
+    { c:'dom-conf', t:'“Neural mechanism of different frequency oscillation for reaching movements.”', v:'2015 KHBM Conference, Seoul.', b:['2015'] },
+    { c:'dom-conf', t:'“Brain-Machine Interface using feedback-prediction algorithm (FPA).”', v:'2014 KHBM Conference, Seoul.', b:['2014'] },
+    { c:'dom-conf', t:'“An accurate movement prediction method combining feedback information.”', v:'2013 KHBM Conference, Seoul.', b:['2013'] },
+    { c:'dom-conf', t:'“Velocity Estimation of Center-Out Reaching Movements.”', v:'2012 KHBM Conference, Seoul.', b:['2012'] },
+    { c:'dom-conf', t:'“Brain-Computer Interface for 3-Dimensional Movement.”', v:'2011 KHBM Conference, Seoul.', b:['2011'] },
+    { c:'dom-conf', t:'“Classification of Imaginary Movement EEG Signals using Variance-Considered Machines.”', v:'2009 한국지능시스템학회 추계학술대회, 제주.', b:['2009'] },
+    { c:'dom-conf', t:'“System Output Adjustment for BCI based on m-VCM Data Classification Algorithms.”', v:'2009 한국지능시스템학회 춘계학술대회, 수원.', b:['2009'] },
+    { c:'dom-conf', t:'“Change Analysis of Brain Signal on Broca’s Area during Imaginary Speaking.”', v:'2008 한국지능시스템학회 추계학술대회, 진주.', b:['2008'] },
+    { c:'dom-conf', t:'“EEG Signals Measurement and Analysis Method for Brain-Computer Interface.”', v:'2008 한국지능시스템학회 춘계학술대회, 충주.', b:['2008'] }
+  ];
+  function badgeClass(x){
+    if(/^IF/.test(x)) return 'badge badge--if';
+    if(/^(19|20)\d\d$/.test(x)) return 'badge badge--year';
+    if(/Top 100|Cover|Oral/.test(x)) return 'badge badge--note';
+    return 'badge';
+  }
+  var html = P.map(function(p){
+    var badges = (p.b||[]).map(function(x){ return '<span class="'+badgeClass(x)+'">'+x+'</span>'; }).join('');
+    return '<article class="pub" data-cat="'+p.c+'"><span class="pub__n"></span>'+
+      '<div class="pub__body"><p class="pub__title">'+p.t+'</p>'+
+      '<span class="pub__venue">'+p.v+'</span>'+
+      '<div class="pub__badges">'+badges+'</div></div></article>';
+  }).join('');
+  document.getElementById('publist').innerHTML = html;
+})();
+</script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/footer.js"></script>
+</body>
+</html>
