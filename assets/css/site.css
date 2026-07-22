@@ -320,6 +320,19 @@ body{
 .panframe::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
   box-shadow:inset 0 0 70px 12px color-mix(in srgb,var(--bg) 45%,transparent)}
 @media (prefers-reduced-motion:reduce){.panframe img{transform:none}}
+/* BCI process strip — labelled pan/zoom image tiles */
+.procgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px)}
+@media (max-width:860px){.procgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.procgrid{grid-template-columns:1fr}}
+.procstep{--accent:var(--cyan)}
+.procstep:nth-child(2){--accent:var(--teal)}
+.procstep:nth-child(3){--accent:var(--violet)}
+.procstep:nth-child(4){--accent:#35e0ff}
+.procstep__cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:20px 16px 16px;
+  background:linear-gradient(0deg,rgba(3,5,12,.88),rgba(3,5,12,.25) 60%,transparent);
+  font-family:var(--font-display);font-weight:600;font-size:1rem;color:#fff;line-height:1.25}
+.procstep__cap span{display:block;font-family:var(--font-mono);font-weight:400;font-size:.66rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
 
 /* ==========================================================================
    Pipeline diagram (6-step methodology) — crisp, on-theme, replaces figure

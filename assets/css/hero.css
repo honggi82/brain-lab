@@ -85,3 +85,32 @@
 .hero--static .hero__pin{position:relative;height:auto;min-height:80vh;padding-block:120px}
 .hero--static .hero__scene:first-child{position:absolute;opacity:1 !important}
 .hero--static .hero__hint,.hero--static .hero__dots{display:none}
+
+/* ==========================================================================
+   3D particle-brain hero (pairs with brain3d.js)
+   ========================================================================== */
+.bhero{position:relative;height:380vh;--accent:var(--cyan);--accent-2:var(--violet)}
+.bhero__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.bhero__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2}
+.bhero__scrim{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(90deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 52%,transparent) 34%,transparent 62%),
+    linear-gradient(0deg,var(--bg),transparent 30%)}
+.bhero__copylayer{position:absolute;inset:0;z-index:5;pointer-events:none}
+.bhero__copy{position:absolute;left:clamp(20px,6vw,90px);top:50%;transform:translateY(-50%);
+  max-width:min(52ch,600px);opacity:0;will-change:opacity,transform}
+.bhero__copy .hero__cta{pointer-events:auto}
+.bhero__hint{position:absolute;left:50%;bottom:26px;z-index:6;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--font-mono);
+  font-size:.7rem;letter-spacing:.24em;color:var(--ink-soft)}
+.bhero__hint i{width:22px;height:34px;border-radius:12px;position:relative;
+  border:2px solid color-mix(in srgb,var(--ink) 30%,transparent)}
+.bhero__hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;border-radius:2px;
+  background:var(--accent);transform:translateX(-50%);animation:hero-wheel 1.7s ease-in-out infinite}
+.bhero__fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.42;z-index:1}
+.bhero--static .bhero__pin{position:relative;height:auto;min-height:90vh}
+.bhero--static .bhero__hint{display:none}
+@media (max-width:760px){
+  .bhero{height:340vh}
+  .bhero__copy{left:clamp(18px,6vw,40px);right:clamp(18px,6vw,40px);top:auto;bottom:13vh;transform:none;max-width:none}
+  .bhero__scrim{background:linear-gradient(0deg,var(--bg) 6%,color-mix(in srgb,var(--bg) 52%,transparent) 46%,transparent 88%)}
+}

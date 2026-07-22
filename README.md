@@ -49,7 +49,7 @@ git push
 - **글 내용/구조:** 각 `*.html` 파일을 직접 수정
 - **게시판 글 추가:** `board.html` 안의 `<article class="post ...">` 블록을 복사해 추가
 - **논문 목록:** `publications.html` 안의 `P = [ ... ]` 배열
-- **히어로 장면(문구·이미지·강조색):** `index.html` 맨 아래 `mountHero({ scenes: [...] })`
+- **히어로 문구(3D 뇌 히어로):** `index.html` 의 `#brainhero` 안 `[data-beat]` 블록(문구), 3D 동작은 `assets/js/brain3d.js`
 - **Gospel 영상 교체:** `gospel.html` 의 `youtube.com/embed/<영상ID>` 부분
 - **색상·폰트·간격:** `assets/css/site.css` 맨 위의 CSS 변수(`:root`)
 - **이미지:** `assets/img/` 에 넣고 파일명을 HTML에서 참조

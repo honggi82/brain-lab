@@ -42,8 +42,41 @@
 
 <main id="main" class="site-main">
 
-  <!-- ===================== IMMERSIVE HERO ===================== -->
-  <section id="hero" aria-label="연구실 소개"></section>
+  <!-- ===================== 3D BRAIN HERO ===================== -->
+  <section id="brainhero" class="bhero" aria-label="연구실 소개">
+    <div class="bhero__pin">
+      <canvas class="bhero__canvas" aria-hidden="true"></canvas>
+      <div class="bhero__scrim" aria-hidden="true"></div>
+      <div class="bhero__copylayer">
+        <article class="bhero__copy" data-beat="0" style="--accent:#9b8cff;--accent-2:#c9beff">
+          <span class="hero__eyebrow">Chosun University · Gwangju</span>
+          <h1 class="hero__title">생각이 세상과<br><span class="grad">만나는 곳</span></h1>
+          <p class="hero__body">뇌 및 인공지능 연구실은 생각을 세상과 잇는 뇌-컴퓨터 인터페이스를 연구합니다. 스크롤을 내려 뇌 속으로 들어가 보세요.</p>
+        </article>
+        <article class="bhero__copy" data-beat="1" style="--accent:#35e0ff;--accent-2:#8fe9ff">
+          <span class="hero__eyebrow">The Brain</span>
+          <h1 class="hero__title">모든 것은<br><span class="grad">뇌에서</span> 시작됩니다</h1>
+          <p class="hero__body">무언가를 의도하는 순간, 뇌 속 수많은 뉴런이 미세한 전기 신호를 일으킵니다. BCI의 출발점입니다.</p>
+        </article>
+        <article class="bhero__copy" data-beat="2" style="--accent:#ffb454;--accent-2:#ffd08a">
+          <span class="hero__eyebrow">Decode the structure</span>
+          <h1 class="hero__title">뇌의 구조를<br><span class="grad">해부하다</span></h1>
+          <p class="hero__body">뇌를 층층이 열어, 신호가 어디서 어떻게 흐르는지 — 그 구조와 연결성을 밝혀냅니다.</p>
+        </article>
+        <article class="bhero__copy" data-beat="3" style="--accent:#2fe6c3;--accent-2:#8ff2e0">
+          <span class="hero__eyebrow">Brain–Computer Interface</span>
+          <h1 class="hero__title">생각으로<br><span class="grad">세상을 잇다</span></h1>
+          <p class="hero__body">밝혀낸 원리로 뇌와 기계를 연결합니다. 움직임 없이, 오직 생각으로.</p>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#contact">연구실 문의
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn--ghost" href="professor.html">교수 소개</a>
+          </div>
+        </article>
+      </div>
+      <div class="bhero__hint" aria-hidden="true"><span>SCROLL</span><i></i></div>
+    </div>
+  </section>
 
   <!-- ===================== VISION ===================== -->
   <section class="section" id="vision">
@@ -101,6 +134,35 @@
       </div>
       <div class="reveal" data-d="2" style="margin-top:34px"><a class="link-arrow" href="about.html">연구실 소개 자세히 보기
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- ===================== BCI PROCESS ===================== -->
+  <section class="section section--tight" id="process">
+    <div class="wrap wrap--wide">
+      <div class="sec-head reveal">
+        <span class="eyebrow">How BCI works</span>
+        <h2 class="h2">생각이 명령이 되기까지</h2>
+        <p class="lead">뇌의 전기 신호에서 시작해 측정하고 해독하여, 세상을 제어하기까지 — BCI의 네 단계.</p>
+      </div>
+      <div class="procgrid">
+        <figure class="panframe procstep reveal" data-d="1" data-speed="1.15" style="aspect-ratio:4/5;margin:0">
+          <img src="assets/img/hero-2-neurons.jpg" alt="뉴런에서 전기 신호가 발생하는 개념 이미지">
+          <figcaption class="procstep__cap"><span>Step 01 · Brain</span>뉴런이 전기를 일으키다</figcaption>
+        </figure>
+        <figure class="panframe procstep reveal" data-d="2" data-speed="0.9" style="aspect-ratio:4/5;margin:0">
+          <img src="assets/img/hero-3-eeg.jpg" alt="EEG 장비로 뇌파를 측정하는 개념 이미지">
+          <figcaption class="procstep__cap"><span>Step 02 · Measure</span>EEG로 뇌파를 측정하다</figcaption>
+        </figure>
+        <figure class="panframe procstep reveal" data-d="3" data-speed="1.1" style="aspect-ratio:4/5;margin:0">
+          <img src="assets/img/hero-4-ai.jpg" alt="AI가 뇌 신호를 해독하는 개념 이미지">
+          <figcaption class="procstep__cap"><span>Step 03 · Decode</span>AI가 의도를 읽어내다</figcaption>
+        </figure>
+        <figure class="panframe procstep reveal" data-d="4" data-speed="0.95" style="aspect-ratio:4/5;margin:0">
+          <img src="assets/img/hero-5-control.jpg" alt="생각으로 기기를 제어하는 개념 이미지">
+          <figcaption class="procstep__cap"><span>Step 04 · Control</span>생각으로 세상을 움직이다</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -260,42 +322,7 @@
   </div>
 </footer>
 
-<script src="assets/js/hero.js"></script>
 <script src="assets/js/site.js"></script>
-<script>
-  mountHero(document.getElementById('hero'), {
-    hint: 'SCROLL',
-    perScene: 92,
-    scenes: [
-      { label: 'Vision', accent: '#8fb4ff', accent2: '#c9beff',
-        image: 'assets/img/hero-1-intro.jpg',
-        eyebrow: 'Chosun University · Gwangju',
-        title: '생각이 세상과<br><span class="grad">만나는 곳</span>',
-        body: '뇌 및 인공지능 연구실은 생각을 세상과 잇는 뇌-컴퓨터 인터페이스(BCI)를 연구합니다. 스크롤을 내려 그 여정을 따라가 보세요.',
-        tags: ['Brain–Computer Interface', 'Artificial Intelligence', 'Brain Mechanism'] },
-      { label: 'Neurons', accent: '#35e0ff', accent2: '#8fe9ff',
-        image: 'assets/img/hero-2-neurons.jpg',
-        eyebrow: 'Step 01 · The Brain',
-        title: '뉴런이 전기를<br><span class="grad">일으키다</span>',
-        body: '무언가를 의도하는 순간, 뇌 속 수많은 뉴런이 미세한 전기 신호를 발생시킵니다. BCI의 모든 것은 여기서 시작됩니다.' },
-      { label: 'EEG', accent: '#2fe6c3', accent2: '#8ff2e0',
-        image: 'assets/img/hero-3-eeg.jpg',
-        eyebrow: 'Step 02 · Measure',
-        title: 'EEG로 뇌파를<br><span class="grad">측정하다</span>',
-        body: '머리 표면으로 퍼져 나온 미세한 전기 신호, 곧 뇌파를 EEG 장비로 정밀하게 읽어냅니다.' },
-      { label: 'AI', accent: '#9b8cff', accent2: '#c3b6ff',
-        image: 'assets/img/hero-4-ai.jpg',
-        eyebrow: 'Step 03 · Decode',
-        title: 'AI가 의도를<br><span class="grad">읽어내다</span>',
-        body: '측정된 뇌 신호를 인공지능이 분석해, 사용자가 무엇을 하려는지 실시간으로 예측합니다.' },
-      { label: 'Control', accent: '#35e0ff', accent2: '#9b8cff',
-        image: 'assets/img/hero-5-control.jpg',
-        eyebrow: 'Step 04 · Control',
-        title: '생각만으로<br><span class="grad">세상을 움직이다</span>',
-        body: '예측된 의도로 로봇·휠체어·전자기기를 제어합니다. 움직임 없이 오직 생각으로 — 장애인에게는 절대적으로 필요한, 모두에게 유용한 기술입니다.',
-        cta: { primary: { label: '연구실 문의', href: '#contact' }, secondary: { label: '교수 소개', href: 'professor.html' } } }
-    ]
-  });
-</script>
+<script type="module" src="assets/js/brain3d.js"></script>
 </body>
 </html>

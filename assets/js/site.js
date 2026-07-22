@@ -153,16 +153,25 @@
      ====================================================================== */
   (function () {
     if (reduce) return;
-    var PAN = 8;   // max image pan, % of frame
+    var PAN = 9;   // max image pan, % of frame
+    // pan frames: gallery tiles get a big scroll-linked zoom; content images a moderate one
     var pans = $$('[data-gallery] .gitem, .panframe').map(function (el) {
-      return { el: el, img: el.querySelector('img'), cur: 0, tgt: 0,
-               speed: parseFloat(el.getAttribute('data-speed')) || 1 };
+      var gallery = el.classList.contains('gitem');
+      return { el: el, img: el.querySelector('img'), curP: 0, tgtP: 0,
+               speed: parseFloat(el.getAttribute('data-speed')) || 1,
+               base: gallery ? 1.12 : 1.14,
+               range: gallery ? 0.46 : 0.18 };   // gallery zooms 1.12→1.58 (dynamic)
     }).filter(function (s) { return s.img; });
-    var moves = $$('[data-parallax]').map(function (el) {
-      el.style.transitionProperty = 'opacity';   // let JS own transform (smooth), keep opacity fade
-      el.style.willChange = 'transform';
-      return { el: el, cur: 0, tgt: 0, factor: parseFloat(el.getAttribute('data-parallax')) || 0.06 };
+    // explicit parallax elements + auto-parallax for card-like elements everywhere
+    var explicit = $$('[data-parallax]');
+    var autoSel = $$('.card, .person, .post, .pstep, .stat').filter(function (el) {
+      return !el.hasAttribute('data-parallax') && !el.closest('[data-parallax]');
     });
+    var moves = [];
+    explicit.forEach(function (el, i) { moves.push(mk(el, parseFloat(el.getAttribute('data-parallax')) || 0.06)); });
+    autoSel.forEach(function (el, i) { moves.push(mk(el, 0.03 + (i % 4) * 0.018)); });  // staggered depth
+    function mk(el, factor) { el.style.transitionProperty = 'opacity'; el.style.willChange = 'transform';
+      return { el: el, cur: 0, tgt: 0, factor: factor }; }
     if (!pans.length && !moves.length) return;
     var vh = window.innerHeight;
     function measure() {
@@ -172,23 +181,23 @@
         s = pans[i]; r = s.el.getBoundingClientRect();
         if (r.bottom < -vh || r.top > vh * 2) continue;
         c = r.top + r.height / 2;
-        var p = (c - vh / 2) / (vh / 2 + r.height / 2);
-        s.tgt = Math.max(-1, Math.min(1, p)) * PAN * s.speed;
+        s.tgtP = Math.max(-1, Math.min(1, (c - vh / 2) / (vh / 2 + r.height / 2)));
       }
       for (i = 0; i < moves.length; i++) {
         s = moves[i]; r = s.el.getBoundingClientRect();
         if (r.bottom < -vh || r.top > vh * 2) continue;
         c = r.top + r.height / 2;
-        var t = (c - vh / 2) * s.factor;     // px drift, proportional to distance from center
+        var t = (c - vh / 2) * s.factor;
         s.tgt = t > 48 ? 48 : (t < -48 ? -48 : t);   // clamp so layers can't overlap
       }
     }
     function tick() {
       var i, s;
       for (i = 0; i < pans.length; i++) {
-        s = pans[i]; s.cur += (s.tgt - s.cur) * 0.09;
-        var z = 1.2 + Math.abs(s.cur) / PAN * 0.06;
-        s.img.style.transform = 'translate3d(0,' + s.cur.toFixed(2) + '%,0) scale(' + z.toFixed(3) + ')';
+        s = pans[i]; s.curP += (s.tgtP - s.curP) * 0.09;
+        var trans = s.curP * PAN * s.speed;                    // % pan within frame
+        var scale = s.base + ((1 - s.curP) / 2) * s.range;     // zoom in as it scrolls up
+        s.img.style.transform = 'translate3d(0,' + trans.toFixed(2) + '%,0) scale(' + scale.toFixed(3) + ')';
       }
       for (i = 0; i < moves.length; i++) {
         s = moves[i]; s.cur += (s.tgt - s.cur) * 0.08;
