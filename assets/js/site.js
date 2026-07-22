@@ -143,6 +143,45 @@
     });
   }
 
+  /* ======================================================================
+     Gallery scroll-motion — each image pans + subtly zooms within its frame
+     as it moves through the viewport, rAF-eased so it glides like video.
+     ====================================================================== */
+  (function () {
+    var host = $('[data-gallery]');
+    if (!host || reduce) return;
+    var items = $$('.gitem', host).map(function (el) {
+      return { el: el, img: el.querySelector('img'), cur: 0, tgt: 0,
+               speed: parseFloat(el.getAttribute('data-speed')) || 1 };
+    }).filter(function (s) { return s.img; });
+    if (!items.length) return;
+    var vh = window.innerHeight, RANGE = 8;   // max pan, % of frame
+    function measure() {
+      vh = window.innerHeight;
+      for (var i = 0; i < items.length; i++) {
+        var s = items[i], r = s.el.getBoundingClientRect();
+        if (r.bottom < -vh || r.top > vh * 2) continue;   // far offscreen — leave as is
+        var center = r.top + r.height / 2;
+        var p = (center - vh / 2) / (vh / 2 + r.height / 2);   // ~ -1 (top) .. 1 (bottom)
+        s.tgt = Math.max(-1, Math.min(1, p)) * RANGE * s.speed;
+      }
+    }
+    var ticking2 = false;
+    function tick() {
+      for (var i = 0; i < items.length; i++) {
+        var s = items[i];
+        s.cur += (s.tgt - s.cur) * 0.09;                  // ease toward scroll target
+        var z = 1.2 + Math.abs(s.cur) / RANGE * 0.06;     // gentle zoom-breathing at edges
+        s.img.style.transform = 'translate3d(0,' + s.cur.toFixed(2) + '%,0) scale(' + z.toFixed(3) + ')';
+      }
+      requestAnimationFrame(tick);
+    }
+    window.addEventListener('scroll', measure, { passive: true });
+    window.addEventListener('resize', measure);
+    measure();
+    requestAnimationFrame(tick);
+  })();
+
   /* ---------- current year ---------- */
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 

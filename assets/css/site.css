@@ -342,15 +342,22 @@ body{
 /* ==========================================================================
    Gallery
    ========================================================================== */
-.gallery{columns:3;column-gap:16px}
-@media (max-width:900px){.gallery{columns:2}}
-@media (max-width:560px){.gallery{columns:1}}
-.gitem{break-inside:avoid;margin-bottom:16px;border-radius:var(--radius);overflow:hidden;
-  border:1px solid var(--line);cursor:zoom-in;position:relative;background:var(--surface)}
-.gitem img{width:100%;transition:transform .6s var(--ease),filter .4s}
-.gitem:hover img{transform:scale(1.05)}
-.gitem::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.35),transparent 45%);opacity:0;transition:.4s}
+/* scroll-driven gallery — images pan/zoom continuously as you scroll (video-like) */
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.6vw,24px)}
+@media (min-width:1024px){.gallery{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.gallery{grid-template-columns:1fr}}
+.gitem{position:relative;overflow:hidden;border-radius:var(--radius);cursor:zoom-in;
+  aspect-ratio:4/3;border:1px solid var(--line);background:var(--surface)}
+/* the image is oversized inside the frame so it can be scroll-panned without gaps */
+.gitem img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.2);will-change:transform;backface-visibility:hidden}
+.gitem::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(0deg,rgba(3,5,12,.42),transparent 44%);opacity:0;transition:opacity .4s}
 .gitem:hover::after{opacity:1}
+/* full-width featured tile for rhythm */
+.gitem--wide{grid-column:1/-1;aspect-ratio:21/9}
+@media (max-width:560px){.gitem--wide{aspect-ratio:4/3}}
+@media (prefers-reduced-motion:reduce){.gitem img{transform:none}}
 /* lightbox */
 .lightbox{position:fixed;inset:0;z-index:500;display:none;place-items:center;padding:24px;
   background:rgba(3,5,12,.92);backdrop-filter:blur(8px)}
