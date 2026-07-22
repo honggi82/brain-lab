@@ -312,6 +312,14 @@ body{
 .figframe--dark::after{content:"";position:absolute;inset:0;pointer-events:none;
   box-shadow:inset 0 0 60px 10px color-mix(in srgb,var(--bg) 55%,transparent);border-radius:inherit}
 .figframe--dark img{border-radius:inherit}
+/* pan frame — content image that pans/zooms within its frame on scroll (video-like) */
+.panframe{position:relative;overflow:hidden;border-radius:var(--radius-lg);border:1px solid var(--line);
+  background:var(--panel);aspect-ratio:4/3}
+.panframe img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.2);will-change:transform;backface-visibility:hidden}
+.panframe::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 70px 12px color-mix(in srgb,var(--bg) 45%,transparent)}
+@media (prefers-reduced-motion:reduce){.panframe img{transform:none}}
 
 /* ==========================================================================
    Pipeline diagram (6-step methodology) — crisp, on-theme, replaces figure

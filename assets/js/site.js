@@ -144,35 +144,55 @@
   }
 
   /* ======================================================================
-     Gallery scroll-motion — each image pans + subtly zooms within its frame
-     as it moves through the viewport, rAF-eased so it glides like video.
+     Cinematic scroll motion (site-wide). Two effects, one rAF loop:
+       • pan frames  — images pan + subtly zoom within their frame as they
+         cross the viewport (gallery tiles `.gitem`, home images `.panframe`).
+       • parallax    — `[data-parallax]` elements drift vertically at their
+         own depth factor, so text/cards flow at different speeds.
+     rAF-eased so everything glides like video.
      ====================================================================== */
   (function () {
-    var host = $('[data-gallery]');
-    if (!host || reduce) return;
-    var items = $$('.gitem', host).map(function (el) {
+    if (reduce) return;
+    var PAN = 8;   // max image pan, % of frame
+    var pans = $$('[data-gallery] .gitem, .panframe').map(function (el) {
       return { el: el, img: el.querySelector('img'), cur: 0, tgt: 0,
                speed: parseFloat(el.getAttribute('data-speed')) || 1 };
     }).filter(function (s) { return s.img; });
-    if (!items.length) return;
-    var vh = window.innerHeight, RANGE = 8;   // max pan, % of frame
+    var moves = $$('[data-parallax]').map(function (el) {
+      el.style.transitionProperty = 'opacity';   // let JS own transform (smooth), keep opacity fade
+      el.style.willChange = 'transform';
+      return { el: el, cur: 0, tgt: 0, factor: parseFloat(el.getAttribute('data-parallax')) || 0.06 };
+    });
+    if (!pans.length && !moves.length) return;
+    var vh = window.innerHeight;
     function measure() {
       vh = window.innerHeight;
-      for (var i = 0; i < items.length; i++) {
-        var s = items[i], r = s.el.getBoundingClientRect();
-        if (r.bottom < -vh || r.top > vh * 2) continue;   // far offscreen — leave as is
-        var center = r.top + r.height / 2;
-        var p = (center - vh / 2) / (vh / 2 + r.height / 2);   // ~ -1 (top) .. 1 (bottom)
-        s.tgt = Math.max(-1, Math.min(1, p)) * RANGE * s.speed;
+      var i, s, r, c;
+      for (i = 0; i < pans.length; i++) {
+        s = pans[i]; r = s.el.getBoundingClientRect();
+        if (r.bottom < -vh || r.top > vh * 2) continue;
+        c = r.top + r.height / 2;
+        var p = (c - vh / 2) / (vh / 2 + r.height / 2);
+        s.tgt = Math.max(-1, Math.min(1, p)) * PAN * s.speed;
+      }
+      for (i = 0; i < moves.length; i++) {
+        s = moves[i]; r = s.el.getBoundingClientRect();
+        if (r.bottom < -vh || r.top > vh * 2) continue;
+        c = r.top + r.height / 2;
+        var t = (c - vh / 2) * s.factor;     // px drift, proportional to distance from center
+        s.tgt = t > 48 ? 48 : (t < -48 ? -48 : t);   // clamp so layers can't overlap
       }
     }
-    var ticking2 = false;
     function tick() {
-      for (var i = 0; i < items.length; i++) {
-        var s = items[i];
-        s.cur += (s.tgt - s.cur) * 0.09;                  // ease toward scroll target
-        var z = 1.2 + Math.abs(s.cur) / RANGE * 0.06;     // gentle zoom-breathing at edges
+      var i, s;
+      for (i = 0; i < pans.length; i++) {
+        s = pans[i]; s.cur += (s.tgt - s.cur) * 0.09;
+        var z = 1.2 + Math.abs(s.cur) / PAN * 0.06;
         s.img.style.transform = 'translate3d(0,' + s.cur.toFixed(2) + '%,0) scale(' + z.toFixed(3) + ')';
+      }
+      for (i = 0; i < moves.length; i++) {
+        s = moves[i]; s.cur += (s.tgt - s.cur) * 0.08;
+        s.el.style.transform = 'translate3d(0,' + s.cur.toFixed(1) + 'px,0)';
       }
       requestAnimationFrame(tick);
     }
