@@ -66,20 +66,20 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
   src.src = 'assets/img/brain-silhouette.png';
 
   function build() {
-    var S = 200;                       // sampling resolution
+    var S = 230;                       // sampling resolution (finer = crisper silhouette)
     var c = document.createElement('canvas'); c.width = S; c.height = S;
     var cx = c.getContext('2d');
     cx.drawImage(src, 0, 0, S, S);
     var data;
     try { data = cx.getImageData(0, 0, S, S).data; } catch (e) { return fallback(); }
 
-    // collect bright pixels
+    // collect bright pixels — dense so the brain reads as a solid shape at rest
     var pts = [], sx = 0, sy = 0;
     for (var y = 0; y < S; y++) {
       for (var x = 0; x < S; x++) {
         var idx = (y * S + x) * 4;
         var lum = (data[idx] + data[idx + 1] + data[idx + 2]) / 765;
-        if (lum > 0.5 && Math.random() < 0.55) {
+        if (lum > 0.5 && Math.random() < 0.85) {
           var nx = (x / S - 0.5) * 2.0;
           var ny = -(y / S - 0.5) * 2.0;
           pts.push(nx, ny); sx += nx; sy += ny;
@@ -106,7 +106,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
       var px = (pts[i * 2] - cxm) * SCALE;
       var py = (pts[i * 2 + 1] - cym) * SCALE;
       var rr = Math.sqrt(px * px + py * py) / (maxR * SCALE);
-      var thick = 0.62 * Math.sqrt(Math.max(0, 1 - rr * rr));   // ellipsoidal bulge
+      var thick = 0.4 * Math.sqrt(Math.max(0, 1 - rr * rr));   // slimmer bulge → crisp front silhouette
       var pz = (Math.random() - 0.5) * 2 * thick;
       positions[i * 3] = px; positions[i * 3 + 1] = py; positions[i * 3 + 2] = pz;
       // explosion direction — outward from centre + a little turbulence
@@ -148,7 +148,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     geo.setAttribute('aColor', new THREE.BufferAttribute(colors, 3));
 
     var mat = new THREE.ShaderMaterial({
-      uniforms: { uExplode: { value: 0 }, uSize: { value: 12.0 * DPR }, uTex: { value: tex }, uDim: { value: 0 } },
+      uniforms: { uExplode: { value: 0 }, uSize: { value: 9.5 * DPR }, uTex: { value: tex }, uDim: { value: 0 } },
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
       vertexShader:
         'attribute vec3 aDir; attribute vec3 aColor; uniform float uExplode; uniform float uSize;' +
@@ -179,7 +179,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     }
 
     // ---- scroll state ----
-    var progress = 0, curExplode = 0, curRotV = 0, tgtRotV = 0, autoRot = 0;
+    var progress = 0, curExplode = 0, curRotV = 0, tgtRotV = 0, clock = 0;
     function readScroll() {
       var r = root.getBoundingClientRect();
       var top = r.top + window.scrollY;
@@ -192,13 +192,15 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
 
     var raf;
     function tick() {
-      autoRot += 0.0016;
+      clock += 0.016;
       curRotV += (tgtRotV - curRotV) * 0.06;
-      // dissection: 0 → max → 0 across the scroll (assemble → anatomise → reassemble)
-      var tgtExplode = Math.sin(progress * Math.PI) * 1.05;
+      // hold the brain assembled & face-on for the first ~12% of scroll, then
+      // dissect (peak mid-scroll) and reassemble by the end.
+      var tgtExplode = Math.sin(clamp((progress - 0.12) / 0.88, 0, 1) * Math.PI) * 1.15;
       curExplode += (tgtExplode - curExplode) * 0.07;
-      points.rotation.y = curRotV + autoRot;
-      points.rotation.x = Math.sin(progress * Math.PI * 2) * 0.12;
+      var sway = Math.sin(clock * 0.5) * 0.11;     // gentle idle sway — stays near front at rest
+      points.rotation.y = curRotV + sway;
+      points.rotation.x = Math.sin(progress * Math.PI) * 0.14;   // 0 at top (flat, brain-like)
       mat.uniforms.uExplode.value = curExplode;
       renderer.render(scene, camera);
       raf = requestAnimationFrame(tick);
