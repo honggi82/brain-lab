@@ -354,7 +354,12 @@ body{
 .dti-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 80%,transparent),transparent 46%),
     linear-gradient(0deg,var(--bg),transparent 24%)}
-.dti-copy{position:absolute;left:clamp(20px,6vw,80px);top:clamp(96px,15vh,150px);max-width:min(44ch,520px);z-index:3}
+.dti-copylayer{position:absolute;inset:0;z-index:3;pointer-events:none}
+.dti-copy{position:absolute;left:clamp(20px,6vw,80px);top:clamp(96px,15vh,150px);max-width:min(46ch,540px);
+  opacity:0;will-change:opacity,transform}
+.dti-copy .hero__cta{pointer-events:auto}
+.dti-now{margin-top:20px;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.02em;
+  color:var(--accent);font-weight:600;min-height:1.2em}
 .dti-pin .neuron3d__legend{bottom:54px;left:clamp(20px,6vw,80px);z-index:3}
 .dti-credit{position:absolute;left:0;right:0;bottom:16px;z-index:3;margin:0;text-align:center;
   padding-inline:clamp(18px,5vw,60px);font-size:.78rem;color:var(--ink-soft);line-height:1.5}

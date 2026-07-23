@@ -26,7 +26,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     var f = clamp(progress, 0, 1) * (n - 1);
     var idx = Math.min(n - 1, Math.floor(f));
     var frac = f - idx;
-    var FADE = 0.85;   // each beat holds, then crossfades quickly in its last 15%
+    var FADE = n <= 2 ? 0.55 : 0.85;   // fewer beats → give each a longer, more even hold
     var xf = frac < FADE ? 0 : smooth((frac - FADE) / (1 - FADE));
     for (var i = 0; i < n; i++) {
       var op = 0, ty = 0;
@@ -202,6 +202,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
       points.rotation.y = curRotV + sway;
       points.rotation.x = Math.sin(progress * Math.PI) * 0.14;   // 0 at top (flat, brain-like)
       mat.uniforms.uExplode.value = curExplode;
+      mat.uniforms.uDim.value = smooth(clamp((progress - 0.82) / 0.18, 0, 1)) * 0.5;  // fade out → hand off to DTI fibres
       renderer.render(scene, camera);
       raf = requestAnimationFrame(tick);
     }

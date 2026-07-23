@@ -58,23 +58,44 @@
           <h1 class="hero__title">모든 것은<br><span class="grad">뇌에서</span> 시작됩니다</h1>
           <p class="hero__body">무언가를 의도하는 순간, 뇌 속 수많은 뉴런이 미세한 전기 신호를 일으킵니다. BCI의 출발점입니다.</p>
         </article>
-        <article class="bhero__copy" data-beat="2" style="--accent:#ffb454;--accent-2:#ffd08a">
-          <span class="hero__eyebrow">Decode the structure</span>
-          <h1 class="hero__title">뇌의 구조를<br><span class="grad">해부하다</span></h1>
-          <p class="hero__body">뇌를 층층이 열어, 신호가 어디서 어떻게 흐르는지 — 그 구조와 연결성을 밝혀냅니다.</p>
+      </div>
+      <div class="bhero__hint" aria-hidden="true"><span>SCROLL</span><i></i></div>
+    </div>
+  </section>
+
+  <!-- ===================== DTI TRACTOGRAPHY — 해부 → 연결 클라이맥스 ===================== -->
+  <section class="dti-scroll" id="dti3d" aria-label="전체 뇌 DTI 신경섬유">
+    <div class="dti-pin">
+      <canvas class="neuron3d__canvas" aria-hidden="true"></canvas>
+      <div class="dti-scrim" aria-hidden="true"></div>
+      <div class="dti-copylayer">
+        <article class="dti-copy" data-dbeat="0" style="--accent:#ffb454">
+          <span class="eyebrow" style="--accent:#ffb454">Decode the structure · Real DTI</span>
+          <h2 class="h2" style="margin-top:12px">뇌의 구조를<br><span class="gradient-text">해부하다</span></h2>
+          <p class="lead" style="margin-top:16px">확산 MRI(DTI)로 재구성한 실제 전체 뇌 백질 신경섬유입니다.
+            스크롤을 내리면 <b>상하 → 앞뒤 → 좌우</b>를 잇는 연결망이 차례로 이어지고,
+            수평면(axial)에서 시상면(sagittal)으로 회전합니다. 색은 섬유의 방향을 뜻합니다.</p>
+          <p class="dti-now" aria-live="polite"></p>
         </article>
-        <article class="bhero__copy" data-beat="3" style="--accent:#2fe6c3;--accent-2:#8ff2e0">
-          <span class="hero__eyebrow">Brain–Computer Interface</span>
-          <h1 class="hero__title">생각으로<br><span class="grad">세상을 잇다</span></h1>
-          <p class="hero__body">밝혀낸 원리로 뇌와 기계를 연결합니다. 움직임 없이, 오직 생각으로.</p>
-          <div class="hero__cta">
+        <article class="dti-copy" data-dbeat="1" style="--accent:#2fe6c3">
+          <span class="eyebrow" style="--accent:#2fe6c3">Brain–Computer Interface</span>
+          <h2 class="h2" style="margin-top:12px">생각으로<br><span class="gradient-text">세상을 잇다</span></h2>
+          <p class="lead" style="margin-top:16px">뇌가 스스로 잇는 이 연결의 원리로, 우리는 뇌와 기계를 연결합니다.
+            움직임 없이 — 오직 생각으로.</p>
+          <div class="hero__cta" style="margin-top:26px">
             <a class="btn btn--primary" href="#contact">연구실 문의
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <a class="btn btn--ghost" href="professor.html">교수 소개</a>
           </div>
         </article>
       </div>
-      <div class="bhero__hint" aria-hidden="true"><span>SCROLL</span><i></i></div>
+      <div class="neuron3d__legend" aria-hidden="true">
+        <b style="color:#ff7a7a"><i style="background:#ff5a5a"></i>좌 ↔ 우</b>
+        <b style="color:#5fe08a"><i style="background:#4ade80"></i>앞 ↔ 뒤</b>
+        <b style="color:#6fb0ff"><i style="background:#60a5fa"></i>위 ↔ 아래</b>
+      </div>
+      <p class="dti-credit">데이터: HCP-1065 집단 평균 확산 MRI 트랙토그래피 아틀라스(24,207 신경섬유, ICBM-2009a) —
+        <a href="https://doi.org/10.1038/s41467-022-32595-4" target="_blank" rel="noopener" style="color:var(--accent)">Yeh, F-C. (2022), <em>Nature Communications</em> 13:4933</a> · CC BY-SA 4.0</p>
     </div>
   </section>
 
@@ -163,28 +184,6 @@
           <figcaption class="procstep__cap"><span>Step 04 · Control</span>생각으로 세상을 움직이다</figcaption>
         </figure>
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== DTI TRACTOGRAPHY (REAL DIFFUSION-MRI DATA) ===================== -->
-  <section class="dti-scroll" id="dti3d" aria-label="전체 뇌 DTI 신경섬유">
-    <div class="dti-pin">
-      <canvas class="neuron3d__canvas" aria-hidden="true"></canvas>
-      <div class="dti-scrim" aria-hidden="true"></div>
-      <div class="dti-copy">
-        <span class="eyebrow" style="--accent:#35e0ff">Real data · DTI</span>
-        <h2 class="h2" style="margin-top:12px">뇌를 잇는 신경섬유,<br>전체 뇌 3D</h2>
-        <p class="lead" style="margin-top:16px">확산 MRI(DTI)로 재구성한 실제 전체 뇌 백질 신경섬유입니다. 스크롤을 내리면
-          뇌 중심에서 바깥으로 신경 연결이 뻗어 나가고, 수평면(axial)에서 시상면(sagittal)으로 회전합니다.
-          색은 섬유 방향을 뜻합니다.</p>
-      </div>
-      <div class="neuron3d__legend" aria-hidden="true">
-        <b style="color:#ff7a7a"><i style="background:#ff5a5a"></i>좌 ↔ 우</b>
-        <b style="color:#5fe08a"><i style="background:#4ade80"></i>앞 ↔ 뒤</b>
-        <b style="color:#6fb0ff"><i style="background:#60a5fa"></i>위 ↔ 아래</b>
-      </div>
-      <p class="dti-credit">데이터: HCP-1065 집단 평균 확산 MRI 트랙토그래피 아틀라스(24,207 신경섬유, ICBM-2009a) —
-        <a href="https://doi.org/10.1038/s41467-022-32595-4" target="_blank" rel="noopener" style="color:var(--accent)">Yeh, F-C. (2022), <em>Nature Communications</em> 13:4933</a> · CC BY-SA 4.0</p>
     </div>
   </section>
 

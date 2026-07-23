@@ -21,6 +21,8 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     img.src = 'assets/img/hero-4-ai.jpg'; img.alt = '뇌 백질 신경섬유 개념 이미지';
     img.className = 'neuron3d__fallback';
     canvas.parentNode.insertBefore(img, canvas); canvas.style.display = 'none';
+    var b0 = root.querySelector('.dti-copy[data-dbeat="0"]');   // reveal first copy without scroll driver
+    if (b0) b0.style.opacity = 1;
   }
   var supported = (function () {
     try { var t = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (t.getContext('webgl') || t.getContext('experimental-webgl'))); }
@@ -44,9 +46,19 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
 
     // build LineSegments coloured by local fibre direction, with an arc-length
     // attribute so a shimmer can travel along each fibre.
-    var pos = [], col = [], arc = [], rad = [], maxR = 1e-5;
+    var pos = [], col = [], arc = [], grp = [];
     for (var s = 0; s < streams.length; s++) {
-      var pts = streams[s], L = 0;
+      var pts = streams[s], jj;
+      // classify each fibre by its predominant orientation (sum of |Δ| per axis)
+      var sx = 0, sy = 0, sz = 0;
+      for (jj = 0; jj < pts.length - 1; jj++) {
+        sx += Math.abs(pts[jj + 1][0] - pts[jj][0]);
+        sy += Math.abs(pts[jj + 1][1] - pts[jj][1]);
+        sz += Math.abs(pts[jj + 1][2] - pts[jj][2]);
+      }
+      // reveal order: 0 = 상하 S–I, 1 = 앞뒤 A–P, 2 = 좌우 L–R  (x=L-R, y=A-P, z=S-I)
+      var g = (sz >= sy && sz >= sx) ? 0 : ((sy >= sx) ? 1 : 2);
+      var L = 0;
       for (var j = 0; j < pts.length - 1; j++) {
         var a = pts[j], b = pts[j + 1];
         var dx = b[0] - a[0], dy = b[1] - a[1], dz = b[2] - a[2];
@@ -55,34 +67,32 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
         pos.push(a[0], a[1], a[2], b[0], b[1], b[2]);
         col.push(cr, cg, cb, cr, cg, cb);
         arc.push(L, L + len); L += len;
-        var ra = Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);   // distance from brain centre
-        var rb = Math.sqrt(b[0] * b[0] + b[1] * b[1] + b[2] * b[2]);
-        if (ra > maxR) maxR = ra; if (rb > maxR) maxR = rb;
-        rad.push(ra, rb);
+        grp.push(g, g);
       }
     }
-    for (var k = 0; k < rad.length; k++) rad[k] /= maxR;   // normalise 0..1
     var geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
     geo.setAttribute('aColor', new THREE.Float32BufferAttribute(col, 3));
     geo.setAttribute('aArc', new THREE.Float32BufferAttribute(arc, 1));
-    geo.setAttribute('aRad', new THREE.Float32BufferAttribute(rad, 1));
+    geo.setAttribute('aGroup', new THREE.Float32BufferAttribute(grp, 1));
 
     var mat = new THREE.ShaderMaterial({
-      uniforms: { uWave: { value: 0 }, uReveal: { value: 0.1 } },
+      uniforms: { uWave: { value: 0 }, uReveal: { value: 0.16 } },
       transparent: true, depthWrite: false, blending: THREE.NormalBlending,
       vertexShader:
-        'attribute vec3 aColor; attribute float aArc; attribute float aRad;' +
-        'varying vec3 vColor; varying float vArc; varying float vRad;' +
-        'void main(){ vColor=aColor; vArc=aArc; vRad=aRad; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+        'attribute vec3 aColor; attribute float aArc; attribute float aGroup;' +
+        'varying vec3 vColor; varying float vArc; varying float vGroup;' +
+        'void main(){ vColor=aColor; vArc=aArc; vGroup=aGroup; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
       fragmentShader:
-        'uniform float uWave; uniform float uReveal; varying vec3 vColor; varying float vArc; varying float vRad;' +
+        'uniform float uWave; uniform float uReveal; varying vec3 vColor; varying float vArc; varying float vGroup;' +
         'void main(){' +
-        'if (vRad > uReveal) discard;' +                                  // grow from centre outward
-        'float front = 1.0 - smoothstep(0.0, 0.16, uReveal - vRad);' +    // glowing growth front
+        'float revealAt = vGroup * 0.33;' +                                  // 상하→앞뒤→좌우 revealed in turn
+        'float vis = smoothstep(revealAt, revealAt + 0.16, uReveal);' +      // this direction group fades in
+        'if (vis < 0.02) discard;' +
+        'float front = (1.0 - smoothstep(0.0, 0.18, uReveal - revealAt)) * vis;' +   // glow as the group connects
         'float ph = fract(vArc*0.3 - uWave); float pulse = smoothstep(0.82,1.0,ph);' +
-        'vec3 c = vColor * (0.8 + pulse*0.55 + front*1.2);' +
-        'gl_FragColor = vec4(c, 0.5 + pulse*0.22 + front*0.4); }'
+        'vec3 c = vColor * (0.8 + pulse*0.5 + front*1.4);' +
+        'gl_FragColor = vec4(c, (0.5 + pulse*0.2 + front*0.4) * vis); }'
     });
 
     var lines = new THREE.LineSegments(geo, mat);
@@ -101,6 +111,26 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
       camera.position.z = w < 760 ? 3.4 : 2.7;
     }
 
+    var nowEl = root.querySelector('.dti-now');
+    var PHASES = [
+      '① 상하 연결 · superior ↔ inferior',
+      '② 앞뒤 연결 · anterior ↔ posterior',
+      '③ 좌우 연결 · left ↔ right'
+    ];
+    var lastPhase = -1;
+    var beats = Array.prototype.slice.call(root.querySelectorAll('.dti-copy[data-dbeat]'));
+    var sm = function (x) { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
+    function setBeats(p) {
+      if (beats.length < 2) return;
+      // "해부하다" holds through the reveal; "생각으로 잇다" rises once the fibres are connected
+      var xf = sm((p - 0.74) / 0.2);
+      beats[0].style.opacity = 1 - xf;
+      beats[0].style.transform = 'translateY(' + (-xf * 42).toFixed(1) + 'px)';
+      beats[0].style.pointerEvents = xf < 0.4 ? 'auto' : 'none';
+      beats[1].style.opacity = xf;
+      beats[1].style.transform = 'translateY(' + ((1 - xf) * 42).toFixed(1) + 'px)';
+      beats[1].style.pointerEvents = xf > 0.6 ? 'auto' : 'none';
+    }
     var progress = 0;
     function readScroll() {
       // pinned section: progress runs 0→1 across the whole tall section's scroll
@@ -108,6 +138,11 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
       var top = r.top + window.scrollY;
       var h = root.offsetHeight - window.innerHeight;
       progress = clamp((window.scrollY - top) / (h || 1), 0, 1);
+      setBeats(progress);
+      if (nowEl) {
+        var ph = progress < 0.30 ? 0 : (progress < 0.63 ? 1 : 2);
+        if (ph !== lastPhase) { nowEl.textContent = PHASES[ph]; lastPhase = ph; }
+      }
     }
 
     var smooth = function (x) { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
@@ -115,12 +150,12 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     var qAxial = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, 0));                       // horizontal (axial) view
     var qSag = new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, -Math.PI / 2, 0));   // sagittal (side) view
     var qCur = new THREE.Quaternion(), qIdle = new THREE.Quaternion();
-    var t = 0, curReveal = 0.12, raf = null;
+    var t = 0, curReveal = 0.16, raf = null;
     function tick() {
       t += 0.016;
       var er = smooth(progress);
-      // scroll down → connectivity grows from the centre outward; scroll up → retracts to centre
-      var tgtReveal = 0.12 + er * 1.1;
+      // scroll down → connect the connectomes in turn (상하→앞뒤→좌우); scroll up → they retract in reverse
+      var tgtReveal = 0.16 + er * 0.86;
       curReveal += (tgtReveal - curReveal) * 0.08;
       mat.uniforms.uReveal.value = curReveal;
       // scroll rotates the brain from axial (horizontal) to sagittal (side) view

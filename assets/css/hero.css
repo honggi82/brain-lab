@@ -89,7 +89,7 @@
 /* ==========================================================================
    3D particle-brain hero (pairs with brain3d.js)
    ========================================================================== */
-.bhero{position:relative;height:380vh;--accent:var(--cyan);--accent-2:var(--violet)}
+.bhero{position:relative;height:250vh;--accent:var(--cyan);--accent-2:var(--violet)}
 .bhero__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .bhero__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2}
 .bhero__scrim{position:absolute;inset:0;z-index:3;pointer-events:none;
@@ -110,7 +110,7 @@
 .bhero--static .bhero__pin{position:relative;height:auto;min-height:90vh}
 .bhero--static .bhero__hint{display:none}
 @media (max-width:760px){
-  .bhero{height:340vh}
+  .bhero{height:220vh}
   .bhero__copy{left:clamp(18px,6vw,40px);right:clamp(18px,6vw,40px);top:auto;bottom:13vh;transform:none;max-width:none}
   .bhero__scrim{background:linear-gradient(0deg,var(--bg) 6%,color-mix(in srgb,var(--bg) 52%,transparent) 46%,transparent 88%)}
 }
