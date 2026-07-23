@@ -64,16 +64,16 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
 
     var mat = new THREE.ShaderMaterial({
       uniforms: { uWave: { value: 0 } },
-      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      transparent: true, depthWrite: false, blending: THREE.NormalBlending,
       vertexShader:
         'attribute vec3 aColor; attribute float aArc; varying vec3 vColor; varying float vArc;' +
         'void main(){ vColor=aColor; vArc=aArc; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
       fragmentShader:
         'uniform float uWave; varying vec3 vColor; varying float vArc;' +
-        'void main(){ float ph = fract(vArc*0.35 - uWave);' +
-        'float pulse = smoothstep(0.85,1.0,ph);' +          // a soft band travels along fibres
-        'vec3 c = vColor * (0.62 + pulse*1.3);' +
-        'gl_FragColor = vec4(c, 0.72 + pulse*0.28); }'
+        'void main(){ float ph = fract(vArc*0.3 - uWave);' +
+        'float pulse = smoothstep(0.82,1.0,ph);' +          // a soft band travels along fibres
+        'vec3 c = vColor * (0.85 + pulse*0.8);' +
+        'gl_FragColor = vec4(c, 0.5 + pulse*0.35); }'         // dense whole-brain: moderate alpha
     });
 
     var lines = new THREE.LineSegments(geo, mat);

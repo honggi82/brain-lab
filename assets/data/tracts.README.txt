@@ -1,0 +1,24 @@
+tracts.f32 — white-matter tractography used in the home-page DTI visualization
+=============================================================================
+
+Source dataset:
+  Population-based (HCP-1065) tractography atlas of the human brain.
+  Built from 1065 Human Connectome Project subjects' diffusion-MRI tractograms,
+  in ICBM-2009a Nonlinear Asymmetric space.
+
+Citation:
+  Yeh, Fang-Ching. "Population-based tract-to-region connectome of the human
+  brain and its hierarchical topology." Nature Communications 13, 4933 (2022).
+  https://doi.org/10.1038/s41467-022-32595-4
+  Atlas: https://brain.labsolver.org/hcp_trk_atlas.html
+
+License:
+  Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+  https://creativecommons.org/licenses/by-sa/4.0/
+
+Derivative note:
+  tracts.f32 is a derivative of the above atlas: streamlines were point-subsampled
+  and spatially normalized (centered + scaled), then stored as flat little-endian
+  Float32 triplets with a NaN,NaN,NaN separator between streamlines. As a
+  derivative of a CC BY-SA 4.0 work, this file is likewise released under
+  CC BY-SA 4.0.
