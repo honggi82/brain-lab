@@ -346,6 +346,25 @@ body{
 .neuron3d__legend b{display:inline-flex;align-items:center;gap:6px;font-weight:500}
 .neuron3d__legend i{width:9px;height:9px;border-radius:2px;box-shadow:0 0 8px currentColor}
 
+/* pinned whole-brain DTI section — grows connectivity + rotates on scroll */
+.dti-scroll{position:relative;height:340vh;--accent:var(--cyan)}
+.dti-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.dti-pin .neuron3d__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.dti-pin .neuron3d__fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;z-index:0}
+.dti-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 80%,transparent),transparent 46%),
+    linear-gradient(0deg,var(--bg),transparent 24%)}
+.dti-copy{position:absolute;left:clamp(20px,6vw,80px);top:clamp(96px,15vh,150px);max-width:min(44ch,520px);z-index:3}
+.dti-pin .neuron3d__legend{bottom:54px;left:clamp(20px,6vw,80px);z-index:3}
+.dti-credit{position:absolute;left:0;right:0;bottom:16px;z-index:3;margin:0;text-align:center;
+  padding-inline:clamp(18px,5vw,60px);font-size:.78rem;color:var(--ink-soft);line-height:1.5}
+@media (max-width:760px){
+  .dti-scroll{height:300vh}
+  .dti-copy{top:auto;bottom:150px;left:clamp(18px,6vw,40px);right:clamp(18px,6vw,40px);max-width:none}
+  .dti-scrim{background:linear-gradient(0deg,var(--bg) 10%,transparent 58%)}
+  .dti-pin .neuron3d__legend{bottom:100px}
+}
+
 /* ==========================================================================
    Pipeline diagram (6-step methodology) — crisp, on-theme, replaces figure
    ========================================================================== */

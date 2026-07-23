@@ -44,7 +44,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
 
     // build LineSegments coloured by local fibre direction, with an arc-length
     // attribute so a shimmer can travel along each fibre.
-    var pos = [], col = [], arc = [];
+    var pos = [], col = [], arc = [], rad = [], maxR = 1e-5;
     for (var s = 0; s < streams.length; s++) {
       var pts = streams[s], L = 0;
       for (var j = 0; j < pts.length - 1; j++) {
@@ -55,31 +55,39 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
         pos.push(a[0], a[1], a[2], b[0], b[1], b[2]);
         col.push(cr, cg, cb, cr, cg, cb);
         arc.push(L, L + len); L += len;
+        var ra = Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);   // distance from brain centre
+        var rb = Math.sqrt(b[0] * b[0] + b[1] * b[1] + b[2] * b[2]);
+        if (ra > maxR) maxR = ra; if (rb > maxR) maxR = rb;
+        rad.push(ra, rb);
       }
     }
+    for (var k = 0; k < rad.length; k++) rad[k] /= maxR;   // normalise 0..1
     var geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
     geo.setAttribute('aColor', new THREE.Float32BufferAttribute(col, 3));
     geo.setAttribute('aArc', new THREE.Float32BufferAttribute(arc, 1));
+    geo.setAttribute('aRad', new THREE.Float32BufferAttribute(rad, 1));
 
     var mat = new THREE.ShaderMaterial({
-      uniforms: { uWave: { value: 0 } },
+      uniforms: { uWave: { value: 0 }, uReveal: { value: 0.1 } },
       transparent: true, depthWrite: false, blending: THREE.NormalBlending,
       vertexShader:
-        'attribute vec3 aColor; attribute float aArc; varying vec3 vColor; varying float vArc;' +
-        'void main(){ vColor=aColor; vArc=aArc; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+        'attribute vec3 aColor; attribute float aArc; attribute float aRad;' +
+        'varying vec3 vColor; varying float vArc; varying float vRad;' +
+        'void main(){ vColor=aColor; vArc=aArc; vRad=aRad; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
       fragmentShader:
-        'uniform float uWave; varying vec3 vColor; varying float vArc;' +
-        'void main(){ float ph = fract(vArc*0.3 - uWave);' +
-        'float pulse = smoothstep(0.82,1.0,ph);' +          // a soft band travels along fibres
-        'vec3 c = vColor * (0.85 + pulse*0.8);' +
-        'gl_FragColor = vec4(c, 0.5 + pulse*0.35); }'         // dense whole-brain: moderate alpha
+        'uniform float uWave; uniform float uReveal; varying vec3 vColor; varying float vArc; varying float vRad;' +
+        'void main(){' +
+        'if (vRad > uReveal) discard;' +                                  // grow from centre outward
+        'float front = 1.0 - smoothstep(0.0, 0.16, uReveal - vRad);' +    // glowing growth front
+        'float ph = fract(vArc*0.3 - uWave); float pulse = smoothstep(0.82,1.0,ph);' +
+        'vec3 c = vColor * (0.8 + pulse*0.55 + front*1.2);' +
+        'gl_FragColor = vec4(c, 0.5 + pulse*0.22 + front*0.4); }'
     });
 
     var lines = new THREE.LineSegments(geo, mat);
     var group = new THREE.Group();
     group.add(lines);
-    group.rotation.x = -Math.PI / 2;   // RAS superior-axis → screen up
 
     var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
@@ -90,23 +98,35 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     function resize() {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
-      camera.position.z = w < 760 ? 3.7 : 3.0;
+      camera.position.z = w < 760 ? 3.4 : 2.7;
     }
 
     var progress = 0;
     function readScroll() {
-      var r = root.getBoundingClientRect(), vh = window.innerHeight;
-      var c = r.top + r.height / 2;
-      progress = clamp((vh / 2 - c) / (vh / 2 + r.height / 2) + 0.5, 0, 1);
+      // pinned section: progress runs 0→1 across the whole tall section's scroll
+      var r = root.getBoundingClientRect();
+      var top = r.top + window.scrollY;
+      var h = root.offsetHeight - window.innerHeight;
+      progress = clamp((window.scrollY - top) / (h || 1), 0, 1);
     }
 
-    var t = 0, curSpin = 0, raf = null;
+    var smooth = function (x) { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
+    var YAXIS = new THREE.Vector3(0, 1, 0);
+    var qAxial = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, 0));                       // horizontal (axial) view
+    var qSag = new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI / 2, -Math.PI / 2, 0));   // sagittal (side) view
+    var qCur = new THREE.Quaternion(), qIdle = new THREE.Quaternion();
+    var t = 0, curReveal = 0.12, raf = null;
     function tick() {
       t += 0.016;
-      var tgtSpin = 0.4 + progress * Math.PI * 1.5;   // scroll turns the bundle
-      curSpin += (tgtSpin - curSpin) * 0.06;
-      lines.rotation.y = curSpin + t * 0.1;           // spin about the vertical axis
-      group.rotation.z = Math.sin(t * 0.3) * 0.05;
+      var er = smooth(progress);
+      // scroll down → connectivity grows from the centre outward; scroll up → retracts to centre
+      var tgtReveal = 0.12 + er * 1.1;
+      curReveal += (tgtReveal - curReveal) * 0.08;
+      mat.uniforms.uReveal.value = curReveal;
+      // scroll rotates the brain from axial (horizontal) to sagittal (side) view
+      qCur.slerpQuaternions(qAxial, qSag, er);
+      qIdle.setFromAxisAngle(YAXIS, Math.sin(t * 0.4) * 0.05);
+      group.quaternion.copy(qCur).multiply(qIdle);
       mat.uniforms.uWave.value = (t * 0.25) % 1.0;
       renderer.render(scene, camera);
       raf = requestAnimationFrame(tick);
