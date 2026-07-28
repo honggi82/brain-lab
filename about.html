@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/hero.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body class="has-neural">
@@ -33,6 +34,28 @@
 </header>
 
 <main id="main" class="site-main">
+
+  <!-- ===================== 3D PARTICLE-BRAIN HERO (moved from home) ===================== -->
+  <section id="brainhero" class="bhero" aria-label="연구실 소개 인트로">
+    <div class="bhero__pin">
+      <canvas class="bhero__canvas" aria-hidden="true"></canvas>
+      <div class="bhero__scrim" aria-hidden="true"></div>
+      <div class="bhero__copylayer">
+        <article class="bhero__copy" data-beat="0" style="--accent:#9b8cff;--accent-2:#c9beff">
+          <span class="hero__eyebrow">Chosun University · Gwangju</span>
+          <h1 class="hero__title">생각이 세상과<br><span class="grad">만나는 곳</span></h1>
+          <p class="hero__body">뇌 및 인공지능 연구실은 생각을 세상과 잇는 뇌-컴퓨터 인터페이스를 연구합니다. 스크롤을 내려 뇌 속으로 들어가 보세요.</p>
+        </article>
+        <article class="bhero__copy" data-beat="1" style="--accent:#35e0ff;--accent-2:#8fe9ff">
+          <span class="hero__eyebrow">The Brain</span>
+          <h1 class="hero__title">모든 것은<br><span class="grad">뇌에서</span> 시작됩니다</h1>
+          <p class="hero__body">무언가를 의도하는 순간, 뇌 속 수많은 뉴런이 미세한 전기 신호를 일으킵니다. BCI의 출발점입니다.</p>
+        </article>
+      </div>
+      <div class="bhero__hint" aria-hidden="true"><span>SCROLL</span><i></i></div>
+    </div>
+  </section>
+
   <section class="page-hero">
     <div class="page-hero__bg" aria-hidden="true"></div>
     <div class="wrap">
@@ -155,6 +178,7 @@
 
 <footer class="site-footer" data-footer></footer>
 <script src="assets/js/site.js"></script>
+<script type="module" src="assets/js/brain3d.js"></script>
 <script src="assets/js/footer.js"></script>
 </body>
 </html>
