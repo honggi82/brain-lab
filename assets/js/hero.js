@@ -27,19 +27,42 @@ function mountHero(root, config) {
   var hint = ce('div', 'hero__hint');
   hint.innerHTML = '<span>' + (config.hint || 'SCROLL') + '</span><i></i>';
 
-  var sceneEls = [], videoEls = [];
+  var sceneEls = [], videoEls = [], timelineVideo = null;
+  if (config.video && !reduce) {
+    var timeline = ce('div', 'hero__timeline');
+    timelineVideo = document.createElement('video');
+    timelineVideo.className = 'hero__timeline-video';
+    timelineVideo.muted = true;
+    timelineVideo.playsInline = true;
+    timelineVideo.preload = 'auto';
+    timelineVideo.setAttribute('muted', '');
+    timelineVideo.setAttribute('playsinline', '');
+    if (config.poster) timelineVideo.poster = config.poster;
+    timelineVideo.src = config.video;
+    timeline.appendChild(timelineVideo);
+    timeline.appendChild(ce('div', 'hero__timeline-scrim'));
+    stage.appendChild(timeline);
+  } else if (config.poster) {
+    var staticTimeline = ce('div', 'hero__timeline');
+    var staticPoster = ce('img', 'hero__timeline-video');
+    staticPoster.src = config.poster;
+    staticPoster.alt = '';
+    staticTimeline.appendChild(staticPoster);
+    staticTimeline.appendChild(ce('div', 'hero__timeline-scrim'));
+    stage.appendChild(staticTimeline);
+  }
   scenes.forEach(function (s, i) {
     var sc = ce('div', 'hero__scene');
     sc.style.setProperty('--accent', s.accent || 'var(--cyan)');
     if (s.accent2) sc.style.setProperty('--accent-2', s.accent2);
     var glow = ce('div', 'hero__glow'); sc.appendChild(glow);
-    if (s.image) {
+    if (s.image && !timelineVideo) {
       var img = ce('img', 'hero__img'); img.src = s.image; img.alt = ''; img.decoding = 'async';
       img.loading = i === 0 ? 'eager' : 'lazy';
       sc.appendChild(img); sc.classList.add('has-img');
       var scrim = ce('div', 'hero__scrim'); sc.appendChild(scrim);
     }
-    if (s.video && !reduce) {
+    if (s.video && !reduce && !timelineVideo) {
       var v = document.createElement('video');
       v.className = 'hero__video'; v.muted = true; v.playsInline = true; v.preload = 'auto';
       v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
@@ -153,12 +176,26 @@ function mountHero(root, config) {
       root.style.setProperty('--accent-2', scenes[na].accent2 || 'var(--violet)');
     }
     hint.style.opacity = clamp(1 - t * N * 1.4);
+    if (timelineVideo && timelineVideo.readyState >= 1 && !timelineVideo.seeking) {
+      var timelineDuration = timelineVideo.duration || 1;
+      var timelineTarget = clamp(t, 0, 0.999) * timelineDuration;
+      if (Math.abs(timelineVideo.currentTime - timelineTarget) > 0.035) {
+        try { timelineVideo.currentTime = timelineTarget; } catch (e) {}
+      }
+      timelineVideo.style.transform = 'scale(' + (1.015 + t * 0.035).toFixed(3) + ')';
+    }
     ticking = false;
   }
 
   // prime videos on first interaction (mobile decoders)
   function prime() {
     if (primed) return; primed = true;
+    if (timelineVideo) {
+      try {
+        var timelinePlay = timelineVideo.play();
+        if (timelinePlay && timelinePlay.then) timelinePlay.then(function () { timelineVideo.pause(); }).catch(function () {});
+      } catch (e) {}
+    }
     videoEls.forEach(function (v) { if (v) { try { var p = v.play(); if (p && p.then) p.then(function () { v.pause(); }).catch(function () {}); } catch (e) {} } });
   }
   addEventListener('pointerdown', prime, { once: true, passive: true });
