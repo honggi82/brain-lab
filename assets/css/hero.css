@@ -87,6 +87,20 @@
   .hero__copylayer{align-items:flex-end;padding-bottom:clamp(80px,16vh,140px)}
 }
 
+@media (max-width:600px){
+  .hero--timeline .hero__stage{background:#03050c}
+  .hero--timeline .hero__timeline{inset:8vh 9vw 46vh;border-radius:20px;
+    border:1px solid color-mix(in srgb,var(--cyan) 18%,transparent);
+    box-shadow:0 20px 70px rgba(0,0,0,.48);background:#070a12}
+  .hero--timeline .hero__timeline-video{transform:scale(1)!important}
+  .hero--timeline .hero__timeline-scrim{background:linear-gradient(0deg,rgba(3,5,12,.68),transparent 58%)}
+  .hero--timeline .hero__copylayer{padding-inline:30px;padding-bottom:clamp(72px,12vh,104px)}
+  .hero--timeline .hero__copy{left:30px;right:30px;max-width:none}
+  .hero--timeline .hero__title{font-size:clamp(2.05rem,10vw,2.8rem)}
+  .hero--timeline .hero__body{font-size:1rem;line-height:1.68;max-width:none}
+  .hero--timeline .hero__dots{right:4px}
+}
+
 /* static fallback (reduced motion) */
 .hero--static{height:auto}
 .hero--static .hero__pin{position:relative;height:auto;min-height:80vh;padding-block:120px}

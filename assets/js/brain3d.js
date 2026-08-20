@@ -106,7 +106,8 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
       var px = (pts[i * 2] - cxm) * SCALE;
       var py = (pts[i * 2 + 1] - cym) * SCALE;
       var rr = Math.sqrt(px * px + py * py) / (maxR * SCALE);
-      var thick = 0.4 * Math.sqrt(Math.max(0, 1 - rr * rr));   // slimmer bulge → crisp front silhouette
+      // Use a whole-brain left-right radius rather than a shallow extrusion.
+      var thick = 0.95 * Math.sqrt(Math.max(0, 1 - rr * rr));
       var pz = (Math.random() - 0.5) * 2 * thick;
       positions[i * 3] = px; positions[i * 3 + 1] = py; positions[i * 3 + 2] = pz;
       // explosion direction — outward from centre + a little turbulence
@@ -175,6 +176,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
       // on narrow screens pull the brain to centre and back a touch
       var mobile = w < 760;
       points.position.x = mobile ? 0 : 0.35;
+      points.scale.setScalar(mobile ? 0.7 : 1);
       camera.position.z = mobile ? 3.9 : 3.25;
     }
 
