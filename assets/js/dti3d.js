@@ -138,6 +138,8 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
       var top = r.top + window.scrollY;
       var h = root.offsetHeight - window.innerHeight;
       progress = clamp((window.scrollY - top) / (h || 1), 0, 1);
+      var outro = smooth((progress - 0.82) / 0.18);
+      root.style.setProperty('--dti-outro', outro.toFixed(3));
       setBeats(progress);
       if (nowEl) {
         var ph = progress < 0.30 ? 0 : (progress < 0.63 ? 1 : 2);

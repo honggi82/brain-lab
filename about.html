@@ -35,24 +35,18 @@
 
 <main id="main" class="site-main">
 
-  <!-- ===================== 3D PARTICLE-BRAIN HERO (moved from home) ===================== -->
-  <section id="brainhero" class="bhero" aria-label="연구실 소개 인트로">
-    <div class="bhero__pin">
-      <canvas class="bhero__canvas" aria-hidden="true"></canvas>
-      <div class="bhero__scrim" aria-hidden="true"></div>
-      <div class="bhero__copylayer">
-        <article class="bhero__copy" data-beat="0" style="--accent:#9b8cff;--accent-2:#c9beff">
-          <span class="hero__eyebrow">Chosun University · Gwangju</span>
-          <h1 class="hero__title">생각이 세상과<br><span class="grad">만나는 곳</span></h1>
-          <p class="hero__body">뇌 및 인공지능 연구실은 생각을 세상과 잇는 뇌-컴퓨터 인터페이스를 연구합니다. 스크롤을 내려 뇌 속으로 들어가 보세요.</p>
-        </article>
-        <article class="bhero__copy" data-beat="1" style="--accent:#35e0ff;--accent-2:#8fe9ff">
-          <span class="hero__eyebrow">The Brain</span>
-          <h1 class="hero__title">모든 것은<br><span class="grad">뇌에서</span> 시작됩니다</h1>
-          <p class="hero__body">무언가를 의도하는 순간, 뇌 속 수많은 뉴런이 미세한 전기 신호를 일으킵니다. BCI의 출발점입니다.</p>
-        </article>
+  <!-- ===================== DTI TRACTOGRAPHY — 실제 확산 MRI 데이터 ===================== -->
+  <section class="dti-scroll" id="dti3d" aria-label="연구실 소개 인트로 DTI 신경섬유">
+    <div class="dti-pin">
+      <canvas class="neuron3d__canvas" aria-hidden="true"></canvas>
+      <div class="dti-scrim" aria-hidden="true"></div>
+      <div class="neuron3d__legend" aria-hidden="true">
+        <b style="color:#ff7a7a"><i style="background:#ff5a5a"></i>좌 ↔ 우</b>
+        <b style="color:#5fe08a"><i style="background:#4ade80"></i>앞 ↔ 뒤</b>
+        <b style="color:#6fb0ff"><i style="background:#60a5fa"></i>위 ↔ 아래</b>
       </div>
-      <div class="bhero__hint" aria-hidden="true"><span>SCROLL</span><i></i></div>
+      <p class="dti-credit">뇌의 내부 (백색질 신경섬유)가 어떻게 연결되어 있는지를 보여주는 DTI 이미지입니다. 데이터: HCP-1065 집단 평균 확산 MRI 트랙토그래피 아틀라스(24,207 신경섬유, ICBM-2009a) —
+        <a href="https://doi.org/10.1038/s41467-022-32595-4" target="_blank" rel="noopener" style="color:var(--accent)">Yeh, F-C. (2022), <em>Nature Communications</em> 13:4933</a> · CC BY-SA 4.0</p>
     </div>
   </section>
 
@@ -125,24 +119,24 @@
           <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 001 5 3 3 0 005 2V3z"/><path d="M15 3a3 3 0 013 3 3 3 0 012 5 3 3 0 01-1 5 3 3 0 01-5 2"/><path d="M9 8h2M13 12h2M9 15h3"/></svg></div>
           <span class="area__en">Brain–Computer Interface</span>
           <h3 class="h3">뇌-컴퓨터 인터페이스</h3>
-          <p class="muted">뇌파를 측정·분석하여 사용자의 의도를 인식하고, 이를 토대로 로봇이나 컴퓨터를 제어하는 기술입니다.
-            움직임 없이 생각만으로 각종 전자기기를 제어할 수 있어, 장애인에게는 절대적으로 필요하며 비장애인에게도 매우 유용합니다.</p>
+          <p class="muted">뇌파를 측정·분석해 사용자의 의도를 인식하고, 이를 토대로 로봇이나 컴퓨터를 제어합니다.
+            움직임 없이 생각만으로 기기를 제어할 수 있어 지체 장애인에게는 절대적으로 필요한 기술이며, 비장애인에게도 매우 유용한 기술입니다.</p>
         </article>
         <article class="card area reveal" data-d="2">
           <div class="card__glow" aria-hidden="true"></div>
           <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
           <span class="area__en">Artificial Intelligence</span>
           <h3 class="h3">인공지능</h3>
-          <p class="muted">컴퓨터가 스스로 학습하고 결정하여 지능적으로 일을 처리하도록 만드는 기술로, 주로 기계학습(Machine Learning)을
-            다룹니다. BRAIN Lab.에서는 새로운 AI 알고리즘 개발 및 응용을 연구합니다.</p>
+          <p class="muted">컴퓨터가 스스로 학습하고 결정하여 지능적으로 일을 처리하도록 만드는 기술로, 주로 기계학습 및 딥러닝을 다룹니다.
+            새로운 AI 알고리즘의 개발 및 최신 AI 응용을 연구합니다.</p>
         </article>
         <article class="card area reveal" data-d="3">
           <div class="card__glow" aria-hidden="true"></div>
           <div class="area__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c-3 3-3 15 0 18M12 3c3 3 3 15 0 18M3 12h18M4.5 7h15M4.5 17h15"/></svg></div>
           <span class="area__en">Brain Mechanism</span>
           <h3 class="h3">뇌 메커니즘</h3>
-          <p class="muted">AI 기술이 뇌를 수학적으로 모델링하며 발전해온 것처럼, 뇌 연구는 의학·신경과학뿐 아니라 공학·경제학·심리학 등
-            다양한 학문의 근간이 됩니다. 다양한 뇌 관련 연구를 통해 뇌가 동작하는 메커니즘을 규명합니다.</p>
+          <p class="muted">AI가 뇌를 수학적으로 모델링하며 발전해온 것처럼, 뇌 연구는 의학·신경과학뿐 아니라 공학·경제학·심리학의 근간이 됩니다.
+            다양한 뇌 연구를 통해 뇌가 동작하는 메커니즘을 규명합니다.</p>
         </article>
       </div>
     </div>
@@ -178,7 +172,7 @@
 
 <footer class="site-footer" data-footer></footer>
 <script src="assets/js/site.js"></script>
-<script type="module" src="assets/js/brain3d.js"></script>
+<script type="module" src="assets/js/dti3d.js"></script>
 <script src="assets/js/footer.js"></script>
 </body>
 </html>

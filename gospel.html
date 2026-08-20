@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/gospel.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body class="has-neural">
@@ -34,6 +35,15 @@
 </header>
 
 <main id="main" class="site-main">
+  <section class="gospel-intro" id="gospel-intro" aria-label="환영하는 예수님">
+    <div class="gospel-intro__pin">
+      <img class="gospel-intro__image" src="assets/img/gospel-welcome.webp" alt="갈릴리의 따뜻한 햇빛 아래 두 팔을 벌려 환영하는 예수님">
+      <div class="gospel-intro__shade" aria-hidden="true"></div>
+      <div class="gospel-intro__blackout" aria-hidden="true"></div>
+      <div class="gospel-intro__hint" aria-hidden="true"><span>SCROLL</span><i></i></div>
+    </div>
+  </section>
+
   <section class="page-hero" style="--accent:var(--amber)">
     <div class="page-hero__bg" aria-hidden="true"></div>
     <div class="wrap">
@@ -70,6 +80,7 @@
 
 <footer data-footer></footer>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/gospel-scroll.js"></script>
 <script src="assets/js/footer.js"></script>
 </body>
 </html>
