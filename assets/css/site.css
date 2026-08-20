@@ -349,10 +349,10 @@ body{
 /* pinned whole-brain DTI section — grows connectivity + rotates on scroll */
 .dti-scroll{position:relative;height:340vh;margin-bottom:-100vh;--accent:var(--cyan)}
 .dti-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.dti-pin::after{content:"";position:absolute;inset:-22% 0 0;z-index:10;pointer-events:none;
+.dti-pin::after{content:"";position:absolute;inset:-44% 0 0;z-index:10;pointer-events:none;
   background:var(--bg);transform:translateY(var(--dti-outro-y,100%));will-change:transform;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.2) 8%,#000 22%,#000 100%);
-  mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.2) 8%,#000 22%,#000 100%)}
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.2) 16%,#000 44%,#000 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.2) 16%,#000 44%,#000 100%)}
 .dti-scroll + .page-hero{position:relative;z-index:11;background:transparent}
 .dti-scroll + .page-hero .page-hero__bg{display:none}
 .dti-scroll + .page-hero .wrap{opacity:var(--dti-content-opacity,0);

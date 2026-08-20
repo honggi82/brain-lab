@@ -6,10 +6,10 @@
   background:linear-gradient(90deg,rgba(19,12,8,.42),transparent 48%),
     linear-gradient(0deg,rgba(19,12,8,.62),transparent 30%,rgba(19,12,8,.08));
   will-change:opacity}
-.gospel-intro__blackout{position:absolute;inset:-22% 0 0;z-index:2;pointer-events:none;
+.gospel-intro__blackout{position:absolute;inset:-44% 0 0;z-index:2;pointer-events:none;
   background:var(--bg);transform:translateY(100%);will-change:transform;
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.2) 8%,#000 22%,#000 100%);
-  mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.2) 8%,#000 22%,#000 100%)}
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.2) 16%,#000 44%,#000 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.2) 16%,#000 44%,#000 100%)}
 .gospel-intro__hint{position:absolute;left:50%;bottom:28px;z-index:3;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(255,244,222,.84);
   font-family:var(--font-mono);font-size:.7rem;letter-spacing:.24em;will-change:opacity}

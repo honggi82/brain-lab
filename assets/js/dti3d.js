@@ -146,9 +146,10 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
         nextHero.style.setProperty('--dti-content-opacity', contentIn.toFixed(3));
         nextHero.style.setProperty('--dti-content-y', ((1 - contentIn) * 32).toFixed(2) + 'px');
       }
-      setBeats(progress);
+      var visualProgress = clamp(progress * 2, 0, 1);
+      setBeats(visualProgress);
       if (nowEl) {
-        var ph = progress < 0.30 ? 0 : (progress < 0.63 ? 1 : 2);
+        var ph = visualProgress < 0.30 ? 0 : (visualProgress < 0.63 ? 1 : 2);
         if (ph !== lastPhase) { nowEl.textContent = PHASES[ph]; lastPhase = ph; }
       }
     }
@@ -161,7 +162,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     var t = 0, curReveal = 0.16, raf = null;
     function tick() {
       t += 0.016;
-      var er = smooth(progress);
+      var er = smooth(clamp(progress * 2, 0, 1));
       // scroll down → connect the connectomes in turn (상하→앞뒤→좌우); scroll up → they retract in reverse
       var tgtReveal = 0.16 + er * 0.86;
       curReveal += (tgtReveal - curReveal) * 0.08;
