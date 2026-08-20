@@ -13,6 +13,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
   var root = document.getElementById('dti3d');
   if (!root) return;
   var canvas = root.querySelector('.neuron3d__canvas');
+  var nextHero = root.nextElementSibling;
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   var clamp = function (x, a, b) { return Math.min(b, Math.max(a, x)); };
 
@@ -139,7 +140,12 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
       var h = root.offsetHeight - window.innerHeight;
       progress = clamp((window.scrollY - top) / (h || 1), 0, 1);
       var outro = smooth((progress - 0.82) / 0.18);
-      root.style.setProperty('--dti-outro', outro.toFixed(3));
+      root.style.setProperty('--dti-outro-y', ((1 - outro) * 100).toFixed(3) + '%');
+      if (nextHero && nextHero.classList.contains('page-hero')) {
+        var contentIn = smooth((progress - 0.84) / 0.16);
+        nextHero.style.setProperty('--dti-content-opacity', contentIn.toFixed(3));
+        nextHero.style.setProperty('--dti-content-y', ((1 - contentIn) * 32).toFixed(2) + 'px');
+      }
       setBeats(progress);
       if (nowEl) {
         var ph = progress < 0.30 ? 0 : (progress < 0.63 ? 1 : 2);
