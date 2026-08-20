@@ -176,7 +176,7 @@ function mountHero(root, config) {
       root.style.setProperty('--accent-2', scenes[na].accent2 || 'var(--violet)');
     }
     hint.style.opacity = clamp(1 - t * N * 1.4);
-    if (timelineVideo && timelineVideo.readyState >= 1 && !timelineVideo.seeking) {
+    if (timelineVideo && timelineVideo.readyState >= 1) {
       var timelineDuration = timelineVideo.duration || 1;
       var timelineTarget = clamp(t, 0, 0.999) * timelineDuration;
       if (Math.abs(timelineVideo.currentTime - timelineTarget) > 0.035) {
