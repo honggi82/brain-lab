@@ -1,4 +1,4 @@
-.gospel-intro{position:relative;height:170vh;margin-bottom:-12vh;background:var(--bg)}
+.gospel-intro{position:relative;height:170vh;margin-bottom:-46vh;background:var(--bg)}
 .gospel-intro__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#130c08}
 .gospel-intro__image{position:absolute;inset:-1%;width:102%;height:102%;object-fit:cover;
   object-position:center;transform-origin:69% 20%;transform:scale(1);will-change:transform,filter,opacity}
@@ -14,10 +14,12 @@
 .gospel-intro__hint i{position:relative;width:22px;height:34px;border:2px solid rgba(255,244,222,.42);border-radius:12px}
 .gospel-intro__hint i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:7px;
   transform:translateX(-50%);border-radius:2px;background:#ffd49a;animation:gospel-wheel 1.7s ease-in-out infinite}
-.gospel-intro + .page-hero{position:relative;z-index:2}
+.gospel-intro + .page-hero{position:relative;z-index:2;background:var(--bg);
+  padding-top:clamp(52px,6vw,76px)}
+.gospel-intro + .page-hero .page-hero__bg{display:none}
 @keyframes gospel-wheel{0%{top:6px;opacity:0}40%{opacity:1}100%{top:17px;opacity:0}}
 @media (max-width:760px){
-  .gospel-intro{height:155vh;margin-bottom:-10vh}
+  .gospel-intro{height:155vh;margin-bottom:-38vh}
   .gospel-intro__image{object-position:62% center;transform-origin:67% 20%}
 }
 @media (prefers-reduced-motion:reduce){
