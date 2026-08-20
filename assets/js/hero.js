@@ -11,6 +11,7 @@ function mountHero(root, config) {
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   var scenes = config.scenes || [];
   var N = scenes.length;
+  var nextSection = root.nextElementSibling;
   if (!N) return;
   var PER = config.perScene || 88;          // vh of scroll per scene
 
@@ -179,6 +180,15 @@ function mountHero(root, config) {
       root.style.setProperty('--accent-2', scenes[na].accent2 || 'var(--violet)');
     }
     hint.style.opacity = clamp(1 - t * N * 1.4);
+    if (config.video) {
+      var handoff = smooth((t - 0.82) / 0.18);
+      root.style.setProperty('--hero-outro-y', ((1 - handoff) * 100).toFixed(3) + '%');
+      if (nextSection && nextSection.classList.contains('section')) {
+        var contentIn = smooth((t - 0.86) / 0.14);
+        nextSection.style.setProperty('--hero-content-opacity', contentIn.toFixed(3));
+        nextSection.style.setProperty('--hero-content-y', ((1 - contentIn) * 32).toFixed(2) + 'px');
+      }
+    }
     if (timelineVideo && timelineVideo.readyState >= 1) {
       var timelineDuration = timelineVideo.duration || 1;
       var timelineTarget = clamp(t, 0, 0.999) * timelineDuration;

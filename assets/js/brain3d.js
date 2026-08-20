@@ -75,14 +75,23 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
 
     // collect bright pixels — dense so the brain reads as a solid shape at rest
     var pts = [], sx = 0, sy = 0;
+    var colMin = new Int16Array(S), colMax = new Int16Array(S);
+    colMin.fill(S); colMax.fill(-1);
+    var maskMinX = S, maskMaxX = 0;
     for (var y = 0; y < S; y++) {
       for (var x = 0; x < S; x++) {
         var idx = (y * S + x) * 4;
         var lum = (data[idx] + data[idx + 1] + data[idx + 2]) / 765;
-        if (lum > 0.5 && Math.random() < 0.85) {
-          var nx = (x / S - 0.5) * 2.0;
-          var ny = -(y / S - 0.5) * 2.0;
-          pts.push(nx, ny); sx += nx; sy += ny;
+        if (lum > 0.5) {
+          if (y < colMin[x]) colMin[x] = y;
+          if (y > colMax[x]) colMax[x] = y;
+          if (x < maskMinX) maskMinX = x;
+          if (x > maskMaxX) maskMaxX = x;
+          if (Math.random() < 0.85) {
+            var nx = (x / S - 0.5) * 2.0;
+            var ny = -(y / S - 0.5) * 2.0;
+            pts.push(nx, ny); sx += nx; sy += ny;
+          }
         }
       }
     }
@@ -105,10 +114,22 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     for (i = 0; i < count; i++) {
       var px = (pts[i * 2] - cxm) * SCALE;
       var py = (pts[i * 2 + 1] - cym) * SCALE;
-      var rr = Math.sqrt(px * px + py * py) / (maxR * SCALE);
-      // Use a whole-brain left-right radius rather than a shallow extrusion.
-      var thick = 0.95 * Math.sqrt(Math.max(0, 1 - rr * rr));
-      var pz = (Math.random() - 0.5) * 2 * thick;
+      var sourceX = clamp(Math.round((pts[i * 2] * 0.5 + 0.5) * S), 0, S - 1);
+      var sourceY = (-pts[i * 2 + 1] * 0.5 + 0.5) * S;
+      var columnMid = (colMin[sourceX] + colMax[sourceX]) * 0.5;
+      var columnHalf = Math.max(1, (colMax[sourceX] - colMin[sourceX]) * 0.5);
+      var localY = clamp((sourceY - columnMid) / columnHalf, -1, 1);
+      var maskMidX = (maskMinX + maskMaxX) * 0.5;
+      var maskHalfX = Math.max(1, (maskMaxX - maskMinX) * 0.5);
+      var localX = clamp((sourceX - maskMidX) / maskHalfX, -1, 1);
+      // Axial outline: anterior-posterior oval, cortical surface taper and a
+      // visible longitudinal fissure separating the two hemispheres.
+      var endTaper = Math.pow(Math.max(0, 1 - localX * localX), 0.42);
+      var axialWidth = 0.78 * endTaper * (0.96 - localX * 0.04);
+      var thick = axialWidth * Math.sqrt(Math.max(0, 1 - localY * localY));
+      var side = Math.random() < 0.5 ? -1 : 1;
+      var fissure = Math.min(thick * 0.48, 0.072 * (0.35 + 0.65 * (1 - Math.abs(localY))));
+      var pz = side * (fissure + Math.random() * Math.max(0, thick - fissure));
       positions[i * 3] = px; positions[i * 3 + 1] = py; positions[i * 3 + 2] = pz;
       // explosion direction — outward from centre + a little turbulence
       var dl = Math.sqrt(px * px + py * py + pz * pz) || 1;
@@ -196,9 +217,9 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     function tick() {
       clock += 0.016;
       curRotV += (tgtRotV - curRotV) * 0.06;
-      // hold the brain assembled & face-on for the first ~12% of scroll, then
-      // dissect (peak mid-scroll) and reassemble by the end.
-      var tgtExplode = Math.sin(clamp((progress - 0.12) / 0.88, 0, 1) * Math.PI) * 1.15;
+      // Keep the axial turn assembled long enough to read both hemispheres,
+      // then dissect and reassemble through the remaining scroll range.
+      var tgtExplode = Math.sin(clamp((progress - 0.28) / 0.72, 0, 1) * Math.PI) * 1.15;
       curExplode += (tgtExplode - curExplode) * 0.07;
       var sway = Math.sin(clock * 0.5) * 0.11;     // gentle idle sway — stays near front at rest
       points.rotation.y = curRotV + sway;
