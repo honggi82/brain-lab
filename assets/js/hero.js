@@ -19,6 +19,7 @@ function mountHero(root, config) {
 
   // ---- build DOM ----
   root.classList.add('hero');
+  if (config.video) root.classList.add('hero--timeline');
   root.style.setProperty('--hero-scenes', N);
   var pin = ce('div', 'hero__pin');
   var stage = ce('div', 'hero__stage');
@@ -55,7 +56,9 @@ function mountHero(root, config) {
     var sc = ce('div', 'hero__scene');
     sc.style.setProperty('--accent', s.accent || 'var(--cyan)');
     if (s.accent2) sc.style.setProperty('--accent-2', s.accent2);
-    var glow = ce('div', 'hero__glow'); sc.appendChild(glow);
+    if (!config.video) {
+      var glow = ce('div', 'hero__glow'); sc.appendChild(glow);
+    }
     if (s.image && !timelineVideo) {
       var img = ce('img', 'hero__img'); img.src = s.image; img.alt = ''; img.decoding = 'async';
       img.loading = i === 0 ? 'eager' : 'lazy';
@@ -149,7 +152,7 @@ function mountHero(root, config) {
       el.style.opacity = op;
       el.style.zIndex = i === idx ? 2 : (i === idx + 1 ? 3 : 1);
       // pure zoom (no translate) so a 1x scene still fills full-bleed with no edge gap
-      el.style.transform = 'scale(' + scale.toFixed(3) + ')';
+      el.style.transform = timelineVideo ? 'none' : 'scale(' + scale.toFixed(3) + ')';
       el.style.visibility = op < 0.003 ? 'hidden' : 'visible';
 
       var cp = scenes[i]._cp;
