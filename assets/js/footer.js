@@ -14,7 +14,7 @@
       '</div>' +
       '<div><div class="foot-head">Explore</div><div class="foot-links">' +
         '<a href="about.html">연구실 소개</a><a href="professor.html">교수 소개</a><a href="members.html">구성원</a>' +
-        '<a href="projects.html">연구 프로젝트</a><a href="publications.html">논문</a><a href="photos.html">갤러리</a><a href="board.html">게시판</a><a href="gospel.html">Gospel</a>' +
+        '<a href="projects.html">프로젝트</a><a href="publications.html">논문</a><a href="photos.html">갤러리</a><a href="board.html">게시판</a><a href="gospel.html">Gospel</a>' +
       '</div></div>' +
       '<div><div class="foot-head">Contact</div><div class="foot-links">' +
         '<a href="mailto:honggi@chosun.ac.kr">honggi@chosun.ac.kr</a>' +
