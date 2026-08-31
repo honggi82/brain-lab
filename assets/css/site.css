@@ -143,6 +143,12 @@ body{
 .nav a:hover{color:var(--ink)}
 .nav a.is-active{color:var(--bg);background:var(--ink)}
 .header-tools{display:flex;align-items:center;gap:10px}
+.lang-switch{height:40px;display:flex;align-items:center;gap:2px;padding:4px 7px;border:1px solid var(--line);
+  border-radius:12px;background:var(--surface);font-family:var(--font-mono);font-size:.68rem;color:var(--ink-dim)}
+.lang-switch button{min-width:24px;height:30px;padding:0 3px;border:0;border-radius:8px;background:transparent;
+  color:inherit;font:inherit;font-weight:600;cursor:pointer;transition:color .2s,background .2s}
+.lang-switch button:hover{color:var(--ink)}
+.lang-switch button.is-active{background:var(--ink);color:var(--bg)}
 .icon-btn{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:12px;
   background:var(--surface);border:1px solid var(--line);cursor:pointer;color:var(--ink);
   transition:transform .2s,border-color .25s,background .25s}
@@ -162,6 +168,14 @@ body{
   .nav a{padding:12px 16px;font-size:.98rem;border-radius:12px}
   .nav a.is-active{background:var(--surface-2);color:var(--ink)}
   .nav-toggle{display:grid}
+}
+@media (max-width:600px){
+  .header-tools{gap:6px}
+  .header-tools>.btn{display:none}
+  .lang-switch{padding-inline:5px}
+  .site-header{gap:8px;padding-inline:12px}
+  .site-header .brand__logo-img{height:38px;max-width:156px;object-fit:contain}
+  #honors .wrap>.grid:first-child{grid-template-columns:1fr!important}
 }
 
 /* ==========================================================================
