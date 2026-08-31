@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>연구 장비 — BRAIN Lab.</title>
+<meta name="description" content="조선대학교 뇌 및 인공지능 연구실의 EEG 측정 시스템, 서버, GPU, XR 기기, 전동휠체어, LiDAR, 3D 프린터 장비.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css?v=20260831-equipment">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="has-neural">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<canvas id="neural" aria-hidden="true"></canvas>
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="BRAIN Lab. 홈">
+    <img class="brand__logo-img brand__logo-img--dark" src="assets/img/lab-logo-dark.png" alt="BRAIN Lab. 뇌 및 인공지능 연구실"><img class="brand__logo-img brand__logo-img--light" src="assets/img/lab-logo-light.png" alt="" aria-hidden="true">
+  </a>
+  <nav class="nav" id="nav" aria-label="주요 메뉴">
+    <a href="index.html">홈</a><a href="gospel.html">Gospel</a><a href="about.html">소개</a><a href="professor.html">교수</a><a href="members.html">구성원</a><a href="projects.html">프로젝트</a><a href="equipment.html" class="is-active">장비</a><a href="publications.html">논문</a><a href="photos.html">갤러리</a><a href="board.html">게시판</a>
+  </nav>
+  <div class="header-tools">
+    <a class="btn btn--primary btn--sm" href="index.html#contact">함께하기</a>
+    <button class="icon-btn" data-theme-toggle aria-label="라이트·다크 전환">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main" class="site-main">
+  <section class="page-hero" style="--accent:var(--teal)">
+    <div class="page-hero__bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">홈</a> / 장비</p>
+      <span class="eyebrow reveal">Research Equipment</span>
+      <h1 class="h1 reveal" data-d="1" style="margin-top:14px">신호를 측정하고,<br>지능을 구현하는 장비</h1>
+      <p class="lead reveal" data-d="2" style="margin-top:18px">뇌파 측정부터 인공지능 연산, 가상·증강현실, 이동 보조기기와 공간 인식까지 연구에 활용하는 장비를 소개합니다.</p>
+    </div>
+  </section>
+
+  <section class="section equipment-section" style="padding-top:clamp(28px,5vw,60px)">
+    <div class="wrap wrap--wide">
+      <div class="equipment-heading reveal">
+        <span class="equipment-heading__num">01</span>
+        <div><span class="eyebrow">EEG Measurement System</span><h2 class="h2">뇌의 전기 신호를 측정하다</h2></div>
+      </div>
+      <div class="equipment-grid equipment-grid--eeg">
+        <article class="equipment-card equipment-card--feature reveal">
+          <div class="equipment-media equipment-media--grael">
+            <img loading="lazy" decoding="async" src="assets/img/equipment/grael-system.png" alt="Compumedics Grael LT 디지털 EEG 전체 시스템">
+            <img loading="lazy" decoding="async" src="assets/img/equipment/grael-lt.png" alt="Grael LT 39채널 EEG 증폭기">
+          </div>
+          <div class="equipment-card__body"><span class="equipment-card__type">Clinical EEG · 39 Ch</span><h3>Compumedics Grael LT</h3><p>39-Ch Digital EEG System</p></div>
+        </article>
+        <article class="equipment-card reveal" data-d="1">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/unicorn-hybrid-black.jpg" alt="Unicorn Hybrid Black 8채널 무선 건식 전극 EEG 시스템"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">Wireless · Dry Electrode · 8 Ch</span><h3>Unicorn Hybrid Black</h3><p>8-Ch wireless &amp; dry electrode EEG System</p></div>
+        </article>
+        <article class="equipment-card reveal" data-d="2">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/openbci-cap.png" alt="OpenBCI All-in-One 16채널 EEG 전극 캡"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">Wireless · 16 Ch</span><h3>OpenBCI All-in-One EEG Electrode Cap Bundle</h3><p>16-Ch wireless EEG System</p></div>
+        </article>
+      </div>
+
+      <div class="equipment-heading reveal">
+        <span class="equipment-heading__num">02</span>
+        <div><span class="eyebrow">AI Computing</span><h2 class="h2">데이터를 학습하고 의도를 예측하다</h2></div>
+      </div>
+      <div class="equipment-grid">
+        <article class="equipment-card equipment-card--spec reveal" style="--equip-accent:var(--cyan)">
+          <div class="equipment-placeholder" aria-label="AI 연구 서버 그래픽"><span>SERVER</span><strong>COMPUTE NODE</strong></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">Server</span><h3>AI Research Server</h3><ul class="equipment-specs"><li>Intel CPU (Xeon Gold 6126)</li><li>NVIDIA 1080 Ti</li><li>128 GB memory</li><li>8 TB HDD · 512 GB SSD</li></ul></div>
+        </article>
+        <article class="equipment-card reveal" data-d="1">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/tesla-p40.png" alt="NVIDIA Tesla P40 PCIe 24GB GPU"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">GPU · 24 GB</span><h3>NVIDIA TESLA P40</h3><p>PCIe 24GB</p></div>
+        </article>
+        <article class="equipment-card reveal" data-d="2">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/rtx-5080.png" alt="NVIDIA GeForce RTX 5080 16GB GPU"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">GPU · 16 GB · 2 ea</span><h3>NVIDIA RTX 5080</h3><p>16GB, 2대</p></div>
+        </article>
+      </div>
+
+      <div class="equipment-heading reveal">
+        <span class="equipment-heading__num">03</span>
+        <div><span class="eyebrow">Interaction &amp; Prototyping</span><h2 class="h2">가상 환경과 현실의 기기를 연결하다</h2></div>
+      </div>
+      <div class="equipment-grid">
+        <article class="equipment-card reveal">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/samsung-hmd-odyssey.png" alt="삼성 HMD Odyssey 혼합현실 헤드셋"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">VR · MR</span><h3>삼성 HMD Odyssey</h3><p>VR·MR 실험용 헤드 마운트 디스플레이</p></div>
+        </article>
+        <article class="equipment-card reveal" data-d="1">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/nreal-air-ar.png" alt="nreal air ar 증강현실 글래스"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">AR</span><h3>nreal air ar</h3><p>증강현실 실험용 글래스</p></div>
+        </article>
+        <article class="equipment-card reveal" data-d="2">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/robowheel-plus.png" alt="로보휠 플러스 전동휠체어"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">Powered Wheelchair</span><h3>로보휠 플러스</h3><p>BCI 기반 이동·제어 연구용 전동휠체어</p></div>
+        </article>
+        <article class="equipment-card reveal">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/velodyne-vlp16.png" alt="Velodyne VLP-16 Puck M12 LiDAR 센서"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">LiDAR</span><h3>Velodyne VLP-16 Puck (M12)</h3><p>3차원 공간 인식 및 거리 측정 센서</p></div>
+        </article>
+        <article class="equipment-card reveal" data-d="1">
+          <div class="equipment-media"><img loading="lazy" decoding="async" src="assets/img/equipment/zortrax-m200.jpg" alt="Zortrax M200 3D 프린터"></div>
+          <div class="equipment-card__body"><span class="equipment-card__type">3D Printer</span><h3>Zortrax M200</h3><p>연구용 부품과 프로토타입 제작</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer data-footer></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/footer.js?v=20260831-equipment"></script>
+</body>
+</html>
