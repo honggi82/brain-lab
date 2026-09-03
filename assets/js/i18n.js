@@ -4,10 +4,11 @@
   var textOriginals = new WeakMap();
   var attrOriginals = new WeakMap();
   var observedAttributes = ['title', 'alt', 'aria-label', 'placeholder', 'content'];
+  var LANGUAGE_KEY = 'brainlab-language-v2';
   var language = 'en';
   var applying = false;
 
-  try { language = localStorage.getItem('brainlab-language') === 'ko' ? 'ko' : 'en'; } catch (error) {}
+  try { language = localStorage.getItem(LANGUAGE_KEY) === 'ko' ? 'ko' : 'en'; } catch (error) {}
 
   function isExcluded(node) {
     var element = node.nodeType === 1 ? node : node.parentElement;
@@ -61,7 +62,7 @@
 
   function setLanguage(next) {
     language = next === 'en' ? 'en' : 'ko';
-    try { localStorage.setItem('brainlab-language', language); } catch (error) {}
+    try { localStorage.setItem(LANGUAGE_KEY, language); } catch (error) {}
     document.documentElement.lang = language;
     applyTree(document.documentElement);
     updateButtons();

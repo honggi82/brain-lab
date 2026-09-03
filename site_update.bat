@@ -1,13 +1,12 @@
 @echo off
-chcp 65001 >nul
 setlocal
-title BRAIN Lab 홈페이지 자동 업데이트
+title BRAIN Lab Website Update
 
 cd /d "%~dp0"
 
 echo.
 echo ========================================
-echo   BRAIN Lab 홈페이지 자동 업데이트
+echo   BRAIN Lab Website Update
 echo ========================================
 echo.
 
@@ -21,7 +20,7 @@ for /f "delims=" %%B in ('git branch --show-current 2^>nul') do set "BRANCH=%%B"
 if not defined BRANCH goto git_error
 if /I not "%BRANCH%"=="main" goto wrong_branch
 
-echo [1/5] GitHub의 최신 상태를 확인합니다...
+echo [1/6] Checking the latest GitHub state...
 git fetch origin main
 if errorlevel 1 goto fetch_error
 
@@ -30,15 +29,15 @@ for /f "delims=" %%N in ('git rev-list --count HEAD..origin/main 2^>nul') do set
 if not defined BEHIND goto git_error
 if not "%BEHIND%"=="0" goto remote_ahead
 
-echo [2/5] 홈페이지 변경 파일을 추가합니다...
+echo [2/6] Staging website files...
 git add -A -- ":(top,glob)*.html" "%~nx0"
 if errorlevel 1 goto git_error
 if exist "assets\" (
-  git add -A -- "assets"
+  git add -A -- "assets" ":(top,exclude,glob)assets/**/*.zip" ":(top,exclude,glob)assets/**/*.7z" ":(top,exclude,glob)assets/**/*.rar" ":(top,exclude,glob)assets/**/*.bak-*"
   if errorlevel 1 goto git_error
 )
 
-echo [3/5] 커밋할 변경 사항을 확인합니다...
+echo [3/6] Checking staged changes...
 git diff --cached --quiet
 if errorlevel 2 goto git_error
 if errorlevel 1 goto make_commit
@@ -58,84 +57,102 @@ for /f "delims=" %%N in ('git rev-list --count origin/main..HEAD 2^>nul') do set
 if not defined AHEAD goto git_error
 if "%AHEAD%"=="0" goto no_changes
 
-echo [4/5] GitHub main 브랜치에 게시합니다...
+echo [4/6] Publishing the main branch to GitHub...
 git push origin main
 if errorlevel 1 goto push_error
-
-echo [5/5] 게시 결과를 확인합니다...
-git fetch origin main >nul 2>&1
-if errorlevel 1 goto verify_error
 
 set "LOCAL_HEAD="
 set "REMOTE_HEAD="
 for /f "delims=" %%H in ('git rev-parse HEAD 2^>nul') do set "LOCAL_HEAD=%%H"
-for /f "delims=" %%H in ('git rev-parse origin/main 2^>nul') do set "REMOTE_HEAD=%%H"
 if not defined LOCAL_HEAD goto verify_error
+
+git fetch origin main >nul 2>&1
+if errorlevel 1 goto verify_error
+for /f "delims=" %%H in ('git rev-parse origin/main 2^>nul') do set "REMOTE_HEAD=%%H"
 if not defined REMOTE_HEAD goto verify_error
 if not "%LOCAL_HEAD%"=="%REMOTE_HEAD%" goto verify_error
 
+echo [5/6] Waiting for GitHub Pages deployment...
+powershell -NoProfile -Command "$ErrorActionPreference='Stop'; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $sha='%LOCAL_HEAD%'; $uri='https://api.github.com/repos/honggi82/brain-lab/actions/runs?branch=main' + [char]38 + 'per_page=20'; $deadline=(Get-Date).AddMinutes(5); while ((Get-Date) -lt $deadline) { $runs=(Invoke-RestMethod -Headers @{'User-Agent'='brain-lab-site-update'} -Uri $uri -TimeoutSec 20).workflow_runs; $run=$runs | Where-Object { $_.name -eq 'pages build and deployment' -and $_.head_sha -eq $sha } | Select-Object -First 1; if ($run -and $run.status -eq 'completed') { if ($run.conclusion -eq 'success') { exit 0 } else { exit 2 } }; Start-Sleep -Seconds 5 }; exit 3"
+set "PAGES_RESULT=%ERRORLEVEL%"
+if "%PAGES_RESULT%"=="0" goto pages_ok
+if "%PAGES_RESULT%"=="2" goto pages_failed
+if "%PAGES_RESULT%"=="3" goto pages_timeout
+goto verify_error
+
+:pages_ok
+echo [6/6] GitHub Pages deployment succeeded.
 echo.
-echo [완료] 홈페이지 파일을 GitHub에 게시했습니다.
-echo GitHub Pages 반영에는 몇 분이 걸릴 수 있습니다.
+echo [DONE] The website is published.
 echo https://honggi82.github.io/brain-lab/
-goto finish
+goto success
 
 :no_changes
 echo.
-echo [완료] 새로 게시할 홈페이지 변경 사항이 없습니다.
-goto finish
+echo [DONE] There are no new website changes to publish.
+goto success
 
 :no_git
-echo [오류] Git이 설치되어 있지 않거나 명령을 찾을 수 없습니다.
-echo Git for Windows를 설치한 뒤 다시 실행하세요.
-goto failed
+echo [ERROR] Git is not installed or is not available in PATH.
+goto failure
 
 :not_repo
-echo [오류] 이 파일은 brain-lab-site 폴더 안에서 실행해야 합니다.
-goto failed
+echo [ERROR] Run this file inside the brain-lab-site repository.
+goto failure
 
 :wrong_branch
-echo [오류] 현재 브랜치가 main이 아닙니다. 현재 브랜치: %BRANCH%
-echo Codex에 확인을 요청하세요.
-goto failed
+echo [ERROR] The current branch is not main: %BRANCH%
+goto failure
 
 :fetch_error
-echo [오류] GitHub의 최신 상태를 확인하지 못했습니다.
-echo 인터넷 연결 또는 GitHub 로그인을 확인하세요.
-goto failed
+echo [ERROR] Could not fetch the latest state from GitHub.
+echo Check the Internet connection and GitHub login.
+goto failure
 
 :remote_ahead
-echo [중단] GitHub에 이 컴퓨터에 없는 새 변경 사항이 있습니다.
-echo 안전을 위해 자동 게시하지 않았습니다. Codex에 동기화를 요청하세요.
-goto failed
+echo [STOPPED] GitHub has changes that are missing on this computer.
+echo Synchronize the repository before publishing.
+goto failure
 
 :commit_error
-echo [오류] 변경 사항을 커밋하지 못했습니다.
-echo 위의 Git 오류 내용을 확인한 뒤 Codex에 문의하세요.
-goto failed
+echo [ERROR] Could not commit the website changes.
+goto failure
 
 :push_error
-echo [오류] GitHub에 게시하지 못했습니다.
-echo 커밋은 컴퓨터에 보관되어 있으므로 오류를 해결한 뒤 다시 실행할 수 있습니다.
-goto failed
+echo [ERROR] Could not publish to GitHub.
+echo The local commit is preserved and can be retried.
+goto failure
+
+:pages_failed
+echo [ERROR] GitHub received the commit, but the Pages deployment failed.
+echo Check https://github.com/honggi82/brain-lab/actions
+goto failure
+
+:pages_timeout
+echo [ERROR] GitHub received the commit, but Pages did not finish within 5 minutes.
+echo Check https://github.com/honggi82/brain-lab/actions
+goto failure
 
 :verify_error
-echo [오류] 게시 후 GitHub와 같은 상태인지 확인하지 못했습니다.
-echo 위의 오류 내용을 확인한 뒤 Codex에 문의하세요.
-goto failed
+echo [ERROR] Could not verify the GitHub or GitHub Pages result.
+goto failure
 
 :git_error
-echo [오류] Git 작업 중 문제가 발생했습니다.
-echo 위의 오류 내용을 확인한 뒤 Codex에 문의하세요.
-goto failed
+echo [ERROR] A Git operation failed. Review the message above.
+goto failure
 
-:failed
+:failure
 echo.
-echo 업데이트를 완료하지 못했습니다.
-
-:finish
+echo The update did not complete.
 echo.
-echo 아무 키나 누르면 창이 닫힙니다.
+echo Press any key to close this window.
 pause >nul
 endlocal
-exit /b
+exit /b 1
+
+:success
+echo.
+echo Press any key to close this window.
+pause >nul
+endlocal
+exit /b 0

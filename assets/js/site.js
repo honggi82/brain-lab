@@ -294,7 +294,7 @@
 
 (function loadLanguageModule() {
   var script = document.createElement('script');
-  script.src = 'assets/js/i18n.js?v=20260831';
+  script.src = 'assets/js/i18n.js?v=20260903-en-default-v2';
   script.defer = true;
   document.head.appendChild(script);
 })();
