@@ -4,10 +4,10 @@
   var textOriginals = new WeakMap();
   var attrOriginals = new WeakMap();
   var observedAttributes = ['title', 'alt', 'aria-label', 'placeholder', 'content'];
-  var language = 'ko';
+  var language = 'en';
   var applying = false;
 
-  try { language = localStorage.getItem('brainlab-language') === 'en' ? 'en' : 'ko'; } catch (error) {}
+  try { language = localStorage.getItem('brainlab-language') === 'ko' ? 'ko' : 'en'; } catch (error) {}
 
   function isExcluded(node) {
     var element = node.nodeType === 1 ? node : node.parentElement;
