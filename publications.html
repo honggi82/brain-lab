@@ -9,6 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css?v=20260831-equipment">
+<style>
+  .pub__link{color:inherit;text-decoration:none}
+  .pub__link:hover{text-decoration:underline;text-decoration-color:var(--cyan);text-underline-offset:4px}
+  .pub__link:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:4px}
+</style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body class="has-neural">
@@ -64,23 +69,23 @@
 (function () {
   var P = [
     // ---------- International journals ----------
-    { c:'intl-journal', t:'H. G. Yeom, W. S. Choi, K. M. An*. “A novel transformer architecture for EEG decoding and neuroscientific analysis.”', v:'Scientific Reports, 2026.', b:['2026','IF 4.9'] },
-    { c:'intl-journal', t:'H. G. Yeom, K. M. An. “A Simplified Query-Only Attention for Encoder-Based Transformer Models.”', v:'Applied Sciences, 14(19), 8646, 2024.', b:['2024','IF 2.5'] },
-    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “A magnetoencephalography dataset during three-dimensional reaching movements for brain-computer interfaces.”', v:'Scientific Data, 10, Article 552, 2023.', b:['2023','IF 9.8'] },
-    { c:'intl-journal', t:'W. S. Choi, H. G. Yeom*. “Studies to Overcome Brain–Computer Interface Challenges.”', v:'Applied Sciences, 12(5), 2598, 2022.', b:['2022','IF 2.68'] },
-    { c:'intl-journal', t:'H. G. Yeom, H. Jeong*. “F-Value Time-Frequency Analysis: Between-Within Variance Analysis.”', v:'Frontiers in Neuroscience, 15:729449, 2021.', b:['2021','IF 5.15'] },
-    { c:'intl-journal', t:'H. D. Jeong, S. T. Shin, H. G. Yeom*. “Accurate Single-Cell Clustering through Ensemble Similarity Learning.”', v:'Genes, 12, 1670, 2021.', b:['2021','IF 4.14'] },
-    { c:'intl-journal', t:'S. M. Park*, H. G. Yeom+, K. B. Sim. “User State Classification Based on Functional Brain Connectivity Using a Convolutional Neural Network.”', v:'Electronics, 10, 1158, 2021. (+ equally contributed)', b:['2021','IF 2.69','Cover article'] },
-    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “LSTM Improves Accuracy of Reaching Trajectory Prediction From Magnetoencephalography Signals.”', v:'IEEE Access, 8, 2020.', b:['2020','IF 3.48'] },
-    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “Brain mechanisms in motor control during reaching movements: Transition of functional connectivity according to movement states.”', v:'Scientific Reports, 10, Article 567, 2020.', b:['2020','IF 5.0','Top 100 in Neuroscience'] },
-    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “Macroscopic neural oscillation during skilled reaching movements in humans.”', v:'Computational Intelligence and Neuroscience, 2016, Article 2714052, 2016.', b:['2016','IF 3.12'] },
-    { c:'intl-journal', t:'Y. J. Kim, S. W. Park, H. G. Yeom, M. S. Bang, J. S. Kim, C. K. Chung, S. W. Kim*. “A study on a robot arm driven by three-dimensional trajectories predicted from non-invasive neural signals.”', v:'BioMedical Engineering OnLine, 14:81, 2015.', b:['2015','IF 3.90'] },
-    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “High-Accuracy Brain-Machine Interfaces Using Feedback Information.”', v:'PLOS ONE, 9(7): e103539, 2014.', b:['2014','IF 3.24'] },
-    { c:'intl-journal', t:'H. G. Yeom, W. Hong, D. Y. Kang, C. K. Chung, J. S. Kim*, S. P. Kim*. “A study on decoding models for the reconstruction of hand trajectories from the human magnetoencephalography.”', v:'BioMed Research International, 2014, Article 176857, 2014.', b:['2014','IF 3.41'] },
-    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim, C. K. Chung*. “Estimation of the velocity and trajectory of three-dimensional reaching movements from non-invasive magnetoencephalography signals.”', v:'Journal of Neural Engineering, 10, 026006, 2013.', b:['2013','IF 5.38'] },
-    { c:'intl-journal', t:'H. G. Yeom, S. M. Park, J. H. Park, K. B. Sim*. “Superiority Demonstration of Variance-Considered Machines by Comparing Error Rate with Support Vector Machines.”', v:'International Journal of Control, Automation, and Systems, 9(3), 595–600, 2011.', b:['2011','IF 3.31'] },
-    { c:'intl-journal', t:'H. G. Yeom, K. B. Sim*. “Membership Function-based Classification Algorithms for Stability Improvements of BCI Systems.”', v:'International Journal of Fuzzy Logic and Intelligent Systems, 10(1), 59–64, 2010.', b:['2010','Scopus'] },
-    { c:'intl-journal', t:'I. H. Jang, H. G. Yeom, K. B. Sim*. “Ring sensor and heart rate monitoring system for sensor network applications.”', v:'Electronics Letters, 44(24), 1393–1394, 2009.', b:['2009','IF 1.37'] },
+    { c:'intl-journal', t:'H. G. Yeom, W. S. Choi, K. M. An*. “A novel transformer architecture for EEG decoding and neuroscientific analysis.”', v:'Scientific Reports, 2026.', b:['2026','IF 4.9'], u:'https://doi.org/10.1038/s41598-026-56405-9' },
+    { c:'intl-journal', t:'H. G. Yeom, K. M. An. “A Simplified Query-Only Attention for Encoder-Based Transformer Models.”', v:'Applied Sciences, 14(19), 8646, 2024.', b:['2024','IF 2.5'], u:'https://doi.org/10.3390/app14198646' },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “A magnetoencephalography dataset during three-dimensional reaching movements for brain-computer interfaces.”', v:'Scientific Data, 10, Article 552, 2023.', b:['2023','IF 9.8'], u:'https://doi.org/10.1038/s41597-023-02454-y' },
+    { c:'intl-journal', t:'W. S. Choi, H. G. Yeom*. “Studies to Overcome Brain–Computer Interface Challenges.”', v:'Applied Sciences, 12(5), 2598, 2022.', b:['2022','IF 2.68'], u:'https://doi.org/10.3390/app12052598' },
+    { c:'intl-journal', t:'H. G. Yeom, H. Jeong*. “F-Value Time-Frequency Analysis: Between-Within Variance Analysis.”', v:'Frontiers in Neuroscience, 15:729449, 2021.', b:['2021','IF 5.15'], u:'https://doi.org/10.3389/fnins.2021.729449' },
+    { c:'intl-journal', t:'H. D. Jeong, S. T. Shin, H. G. Yeom*. “Accurate Single-Cell Clustering through Ensemble Similarity Learning.”', v:'Genes, 12, 1670, 2021.', b:['2021','IF 4.14'], u:'https://doi.org/10.3390/genes12111670' },
+    { c:'intl-journal', t:'S. M. Park*, H. G. Yeom+, K. B. Sim. “User State Classification Based on Functional Brain Connectivity Using a Convolutional Neural Network.”', v:'Electronics, 10, 1158, 2021. (+ equally contributed)', b:['2021','IF 2.69','Cover article'], u:'https://doi.org/10.3390/electronics10101158' },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “LSTM Improves Accuracy of Reaching Trajectory Prediction From Magnetoencephalography Signals.”', v:'IEEE Access, 8, 2020.', b:['2020','IF 3.48'], u:'https://doi.org/10.1109/ACCESS.2020.2969720' },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “Brain mechanisms in motor control during reaching movements: Transition of functional connectivity according to movement states.”', v:'Scientific Reports, 10, Article 567, 2020.', b:['2020','IF 5.0','Top 100 in Neuroscience'], u:'https://doi.org/10.1038/s41598-020-57489-7' },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “Macroscopic neural oscillation during skilled reaching movements in humans.”', v:'Computational Intelligence and Neuroscience, 2016, Article 2714052, 2016.', b:['2016','IF 3.12'], u:'https://doi.org/10.1155/2016/2714052' },
+    { c:'intl-journal', t:'Y. J. Kim, S. W. Park, H. G. Yeom, M. S. Bang, J. S. Kim, C. K. Chung, S. W. Kim*. “A study on a robot arm driven by three-dimensional trajectories predicted from non-invasive neural signals.”', v:'BioMedical Engineering OnLine, 14:81, 2015.', b:['2015','IF 3.90'], u:'https://doi.org/10.1186/s12938-015-0075-8' },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim*, C. K. Chung. “High-Accuracy Brain-Machine Interfaces Using Feedback Information.”', v:'PLOS ONE, 9(7): e103539, 2014.', b:['2014','IF 3.24'], u:'https://doi.org/10.1371/journal.pone.0103539' },
+    { c:'intl-journal', t:'H. G. Yeom, W. Hong, D. Y. Kang, C. K. Chung, J. S. Kim*, S. P. Kim*. “A study on decoding models for the reconstruction of hand trajectories from the human magnetoencephalography.”', v:'BioMed Research International, 2014, Article 176857, 2014.', b:['2014','IF 3.41'], u:'https://doi.org/10.1155/2014/176857' },
+    { c:'intl-journal', t:'H. G. Yeom, J. S. Kim, C. K. Chung*. “Estimation of the velocity and trajectory of three-dimensional reaching movements from non-invasive magnetoencephalography signals.”', v:'Journal of Neural Engineering, 10, 026006, 2013.', b:['2013','IF 5.38'], u:'https://doi.org/10.1088/1741-2560/10/2/026006' },
+    { c:'intl-journal', t:'H. G. Yeom, S. M. Park, J. H. Park, K. B. Sim*. “Superiority Demonstration of Variance-Considered Machines by Comparing Error Rate with Support Vector Machines.”', v:'International Journal of Control, Automation, and Systems, 9(3), 595–600, 2011.', b:['2011','IF 3.31'], u:'https://doi.org/10.1007/s12555-011-0321-1' },
+    { c:'intl-journal', t:'H. G. Yeom, K. B. Sim*. “Membership Function-based Classification Algorithms for Stability Improvements of BCI Systems.”', v:'International Journal of Fuzzy Logic and Intelligent Systems, 10(1), 59–64, 2010.', b:['2010','Scopus'], u:'https://doi.org/10.5391/IJFIS.2010.10.1.059' },
+    { c:'intl-journal', t:'I. H. Jang, H. G. Yeom, K. B. Sim*. “Ring sensor and heart rate monitoring system for sensor network applications.”', v:'Electronics Letters, 44(24), 1393–1394, 2009.', b:['2009','IF 1.37'], u:'https://doi.org/10.1049/el:20082666' },
     // ---------- Domestic journals (official Korean titles — KIPRIS/KCI/DBPIA verified) ----------
     { c:'dom-journal', t:'W. S. Choi, H. G. Yeom. “단일 인공신경망 모델을 이용한 다중의도 예측 뇌-컴퓨터 인터페이스.”', v:'한국지능시스템학회 논문지, 31(3), 206–212, 2021.', b:['2021','KCI'] },
     { c:'dom-journal', t:'H. G. Yeom. “실생활 사용을 위한 뇌-컴퓨터 인터페이스 연구동향.”', v:'제어로봇시스템학회 논문지, 25(9), 858–862, 2019.', b:['2019','KCI'] },
@@ -145,8 +150,9 @@
   }
   var html = P.map(function(p){
     var badges = (p.b||[]).map(function(x){ return '<span class="'+badgeClass(x)+'">'+x+'</span>'; }).join('');
+    var title = p.u ? '<a class="pub__link" href="'+p.u+'" target="_blank" rel="noopener noreferrer">'+p.t+'</a>' : p.t;
     return '<article class="pub" data-cat="'+p.c+'"><span class="pub__n"></span>'+
-      '<div class="pub__body"><p class="pub__title">'+p.t+'</p>'+
+      '<div class="pub__body"><p class="pub__title">'+title+'</p>'+
       '<span class="pub__venue">'+p.v+'</span>'+
       '<div class="pub__badges">'+badges+'</div></div></article>';
   }).join('');
