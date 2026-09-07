@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css?v=20260831-equipment">
+<link rel="stylesheet" href="assets/css/gallery-spatial.css?v=20260907-1">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body class="has-neural">
@@ -42,18 +43,27 @@
     </div>
   </section>
 
-  <section class="section" style="padding-top:clamp(24px,4vw,44px)">
-    <div class="wrap wrap--wide">
-      <div class="gallery reveal" data-gallery>
-        <div class="gitem gitem--wide" data-speed="0.7"><img src="assets/img/photo-1.jpg" alt="시드니 국제 학회에서 염홍기 교수와 최우성 연구원"></div>
-        <div class="gitem" data-speed="1.15"><img src="assets/img/photo-8.jpg" alt="연구실 활동 사진"></div>
-        <div class="gitem" data-speed="0.85"><img src="assets/img/photo-2.jpg" alt="연구실 단체 사진"></div>
-        <div class="gitem" data-speed="1.25"><img src="assets/img/photo-4.jpg" alt="연구실 야외 활동"></div>
-        <div class="gitem" data-speed="0.9"><img src="assets/img/photo-9.jpg" alt="연구실 활동 사진"></div>
-        <div class="gitem" data-speed="1.1"><img src="assets/img/photo-3.jpg" alt="연구실 단체 사진"></div>
-        <div class="gitem" data-speed="0.8"><img src="assets/img/photo-5.jpg" alt="연구실 단체 사진"></div>
-        <div class="gitem gitem--wide" data-speed="0.7"><img src="assets/img/photo-6.jpg" alt="연구실 활동 사진"></div>
-        <div class="gitem" data-speed="1.2"><img src="assets/img/photo-7.jpg" alt="연구실 활동 사진"></div>
+  <section class="spatial-journey" data-spatial-journey>
+    <div class="spatial-sticky">
+      <div class="spatial-gallery" data-gallery>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-1.jpg" alt="시드니 국제 학회에서 염홍기 교수와 최우성 연구원" decoding="async"></button>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-8.jpg" alt="연구실 활동 사진" decoding="async"></button>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-2.jpg" alt="연구실 단체 사진" decoding="async"></button>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-4.jpg" alt="연구실 야외 활동" decoding="async"></button>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-9.jpg" alt="연구실 활동 사진" decoding="async"></button>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-3.jpg" alt="연구실 단체 사진" decoding="async"></button>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-5.jpg" alt="연구실 단체 사진" decoding="async"></button>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-6.jpg" alt="연구실 활동 사진" decoding="async"></button>
+        <button type="button" class="spatial-photo"><img src="assets/img/photo-7.jpg" alt="연구실 활동 사진" decoding="async"></button>
+      </div>
+      <div class="spatial-controls">
+        <p class="spatial-hint"><span class="spatial-ko">스크롤로 순간 사이를 여행하세요 · 사진을 누르면 크게 볼 수 있습니다</span><span class="spatial-en">Scroll through our moments · Click a photo to enlarge</span></p>
+        <div class="spatial-navigation">
+          <button type="button" data-spatial-prev aria-label="이전">←</button>
+          <output data-spatial-count aria-live="polite">01 / 09</output>
+          <button type="button" data-spatial-next aria-label="다음">→</button>
+        </div>
+        <div class="spatial-progress" aria-hidden="true"><span></span></div>
       </div>
     </div>
   </section>
@@ -61,6 +71,7 @@
 
 <footer data-footer></footer>
 <script src="assets/js/site.js?v=20260903-en-default-v2"></script>
+<script src="assets/js/gallery-spatial.js?v=20260907-1"></script>
 <script src="assets/js/footer.js?v=20260831-equipment"></script>
 </body>
 </html>
