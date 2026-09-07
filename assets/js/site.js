@@ -294,7 +294,7 @@
 
 (function loadLanguageModule() {
   var script = document.createElement('script');
-  script.src = 'assets/js/i18n.js?v=20260903-en-default-v2';
+  script.src = 'assets/js/i18n.js?v=20260907-english-review';
   script.defer = true;
   document.head.appendChild(script);
 })();
