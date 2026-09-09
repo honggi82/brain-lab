@@ -27,13 +27,24 @@ if errorlevel 1 goto fetch_error
 set "BEHIND="
 for /f "delims=" %%N in ('git rev-list --count HEAD..origin/main 2^>nul') do set "BEHIND=%%N"
 if not defined BEHIND goto git_error
-if not "%BEHIND%"=="0" goto remote_ahead
+if not "%BEHIND%"=="0" (
+  git diff --quiet
+  if errorlevel 1 goto remote_ahead
+  git diff --cached --quiet
+  if errorlevel 1 goto remote_ahead
+  git merge --ff-only origin/main
+  if errorlevel 1 goto remote_ahead
+)
 
 echo [2/6] Staging website files...
-git add -A -- ":(top,glob)*.html" "%~nx0"
+git add -A -- ":(top,glob)*.html" "%~nx0" ".gitignore" ".nojekyll" "README.md"
 if errorlevel 1 goto git_error
 if exist "assets\" (
   git add -A -- "assets" ":(top,exclude,glob)assets/**/*.zip" ":(top,exclude,glob)assets/**/*.7z" ":(top,exclude,glob)assets/**/*.rar" ":(top,exclude,glob)assets/**/*.bak-*"
+  if errorlevel 1 goto git_error
+)
+if exist "about_brain\" (
+  git add -A -- "about_brain" ":(top,exclude,glob)about_brain/**/*.zip" ":(top,exclude,glob)about_brain/**/*.7z" ":(top,exclude,glob)about_brain/**/*.rar" ":(top,exclude,glob)about_brain/**/*.bak-*"
   if errorlevel 1 goto git_error
 )
 
@@ -110,8 +121,8 @@ echo Check the Internet connection and GitHub login.
 goto failure
 
 :remote_ahead
-echo [STOPPED] GitHub has changes that are missing on this computer.
-echo Synchronize the repository before publishing.
+echo [STOPPED] GitHub has newer changes and automatic synchronization is not safe.
+echo Your local files and commits are preserved. Reconcile the changes before publishing.
 goto failure
 
 :commit_error
@@ -145,14 +156,18 @@ goto failure
 echo.
 echo The update did not complete.
 echo.
+if /I "%~1"=="--no-pause" goto failure_exit
 echo Press any key to close this window.
 pause >nul
+:failure_exit
 endlocal
 exit /b 1
 
 :success
 echo.
+if /I "%~1"=="--no-pause" goto success_exit
 echo Press any key to close this window.
 pause >nul
+:success_exit
 endlocal
 exit /b 0

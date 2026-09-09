@@ -2,3 +2,8 @@ Thumbs.db
 .DS_Store
 desktop.ini
 *.bak-*
+/backups/
+/scroll-world-ref/
+assets/**/*.zip
+assets/**/*.7z
+assets/**/*.rar

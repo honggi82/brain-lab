@@ -20,26 +20,27 @@
     pending = 0;
     if (reduce.matches) return;
     var progress = clamp((window.scrollY - top) / distance, 0, 1);
-    var position = progress * (photos.length - 1);
-    current = Math.round(position);
+    var position = progress * (photos.length + 1) - 1;
+    current = clamp(Math.round(position), 0, photos.length - 1);
     photos.forEach(function (photo, i) {
-      var d = i - position, near = 1 - clamp(Math.abs(d), 0, 1);
-      var side = i % 2 ? 1 : -1;
-      var scale = clamp(.86 - d * .32, .15, 1.35);
-      var x = d * width * .34 + side * width * .15 * Math.min(1, Math.abs(d));
-      var y = side * height * .21 * Math.min(1, Math.abs(d));
-      var opacity = d < -.45 ? 1 - smooth((-d - .45) / .5) : clamp(1 - Math.max(0, d - 1.6) * .4, 0, 1);
-      photo.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0) rotate(' + (side * 8 * (1 - near)).toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
+      var d = i - position, spread = smooth((Math.abs(d) - .16) / .84);
+      var angles = [225, 315, 135, 45, 270, 90, 180, 0];
+      var angle = (angles[i % angles.length] + (d < 0 ? 180 : 0)) * Math.PI / 180;
+      var scale = .9 - spread * .5;
+      var x = Math.cos(angle) * (width * .5 + photo.offsetWidth * .6) * spread;
+      var y = Math.sin(angle) * (height * .5 + photo.offsetHeight * .6) * spread;
+      var opacity = 1 - smooth((Math.abs(d) - .55) / .45);
+      photo.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0) rotate(' + ((i % 2 ? 1 : -1) * 18 * spread).toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
       photo.style.opacity = opacity;
-      photo.style.visibility = opacity < .005 || d > 3 ? 'hidden' : 'visible';
+      photo.style.visibility = opacity < .005 ? 'hidden' : 'visible';
       photo.style.pointerEvents = opacity < .15 ? 'none' : '';
-      photo.style.zIndex = photos.length - i;
-      photo.tabIndex = i === current ? 0 : -1;
+      photo.style.zIndex = photos.length - Math.round(Math.abs(d) * 2);
+      photo.tabIndex = i === current && opacity >= .15 ? 0 : -1;
     });
     var label = String(current + 1).padStart(2, '0') + ' / ' + String(photos.length).padStart(2, '0');
     if (count.textContent !== label) count.textContent = label;
-    prev.disabled = progress <= .0001;
-    next.disabled = progress >= .9999;
+    prev.disabled = position <= 0;
+    next.disabled = position >= photos.length - 1;
     bar.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
   }
   function schedule() { if (!pending) pending = requestAnimationFrame(render); }
@@ -60,7 +61,7 @@
   }
   function go(delta) {
     var target = clamp(current + delta, 0, photos.length - 1);
-    window.scrollTo({ top: top + target / (photos.length - 1) * distance, behavior: 'smooth' });
+    window.scrollTo({ top: top + (target + 1) / (photos.length + 1) * distance, behavior: 'smooth' });
   }
   prev.addEventListener('click', function () { go(-1); });
   next.addEventListener('click', function () { go(1); });
