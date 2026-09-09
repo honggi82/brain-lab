@@ -294,7 +294,7 @@
 
 (function loadLanguageModule() {
   var script = document.createElement('script');
-  script.src = 'assets/js/i18n.js?v=20260910-brain-atlas';
+  script.src = new URL('i18n.js?v=20260910-lab-shell', document.currentScript.src).href;
   script.defer = true;
   document.head.appendChild(script);
 })();

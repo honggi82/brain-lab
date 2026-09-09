@@ -1,6 +1,9 @@
 (function () {
   'use strict';
   var translations = {
+  "뇌 해부도로 이동": "Skip to brain atlas",
+  "뇌 해부도 — BRAIN Lab.": "Brain Atlas — BRAIN Lab.",
+  "연구 분야": "Research Areas",
   "뇌 해부도": "Brain Atlas",
   "(785명 중 20명)": "(20 of 785)",
   "(817명 중 25명)": "(25 of 817)",

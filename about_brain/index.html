@@ -1,17 +1,36 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="뇌의 구조와 백질 연결 경로를 탐색하는 한국어 3D 해부 아틀라스" />
-    <meta name="robots" content="noindex,nofollow" />
-    <meta name="theme-color" content="#f5f4f0" />
-    <link rel="icon" type="image/svg+xml" href="/brain-lab/about_brain/favicon.svg" />
-    <title>Brain Atlas — 뇌의 구조와 연결</title>
-    <script type="module" crossorigin src="/brain-lab/about_brain/assets/index-pT-8o978.js"></script>
-    <link rel="stylesheet" crossorigin href="/brain-lab/about_brain/assets/index-DPtbC6Tu.css">
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>뇌 해부도 — BRAIN Lab.</title>
+<link rel="stylesheet" href="../assets/css/site.css?v=20260831-equipment">
+<link rel="stylesheet" href="lab-shell.css?v=20260910-shell">
+<link rel="icon" href="favicon.svg">
+</head>
+<body>
+<a class="skip" href="#atlas-frame">뇌 해부도로 이동</a>
+<header class="site-header">
+  <a class="brand" href="../index.html" aria-label="BRAIN Lab. 홈">
+    <img class="brand__logo-img brand__logo-img--dark" src="../assets/img/lab-logo-dark.png" alt="BRAIN Lab. — 뇌 및 인공지능 연구실"><img class="brand__logo-img brand__logo-img--light" src="../assets/img/lab-logo-light.png" alt="" aria-hidden="true">
+  </a>
+  <nav class="nav" id="nav" aria-label="주요 메뉴">
+    <a href="../index.html">홈</a><a href="../gospel.html">Gospel</a><a href="../about.html">연구 분야</a><a href="../about_brain/" class="is-active" aria-current="page">뇌 해부도</a><a href="../professor.html">교수</a><a href="../members.html">구성원</a><a href="../projects.html">프로젝트</a><a href="../equipment.html">장비</a><a href="../publications.html">논문</a><a href="../photos.html">갤러리</a><a href="../board.html">게시판</a>
+  </nav>
+  <div class="header-tools">
+    <button class="icon-btn" data-theme-toggle aria-label="라이트/다크 전환">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+    </button>
+    <button class="icon-btn nav-toggle" data-nav-toggle aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+<main id="main" class="atlas-page">
+<iframe id="atlas-frame" src="viewer.html?embed=lab" title="Brain Atlas — interactive anatomy" allow="fullscreen"></iframe>
+</main>
+<script src="../assets/js/site.js?v=20260910-lab-shell"></script>
+<script src="lab-shell.js?v=20260910-shell"></script>
+</body>
 </html>

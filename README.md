@@ -85,4 +85,4 @@ python -m http.server 8000
 
 ## 뇌 해부도 앱 배포
 
-`about_brain/`에는 별도 비공개 개발 저장소에서 `npm run build:pages`로 생성한 웹 실행 파일과 공개 해부학 자료만 포함합니다. 모델·섬유 자료 및 출처·라이선스 문서를 함께 유지해야 합니다. 기존 연구실 사이트는 같은 GitHub Pages 설정을 사용합니다.
+`about_brain/index.html`은 공통 메뉴 아래에 뇌 해부도를 표시합니다. 메뉴 순서는 `연구 분야 → 뇌 해부도 → 교수`이며, 공통 KR/EN 선택이 앱의 언어에도 적용됩니다. `viewer.html`은 별도 비공개 개발 저장소에서 빌드한 앱입니다. 개발 저장소에서 `npm run build:pages` 실행 후 `python scripts/integrate-lab.py <이 저장소 경로>`로 통합합니다. `lab-shell.js`·`lab-shell.css`, 모델·섬유 자료 및 출처·라이선스 문서를 함께 유지해야 합니다. 기존 GitHub Pages 설정은 유지합니다.
