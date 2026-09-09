@@ -4,6 +4,7 @@
 기존 Wix 사이트(`honggiyeom.wixsite.com/brainlab`)의 **모든 내용**을 담아 새로 제작했습니다.
 
 - 🌐 **라이브 사이트:** https://honggi82.github.io/brain-lab/
+- 🧠 **뇌 해부도:** https://honggi82.github.io/brain-lab/about_brain/
 - 📦 **저장소:** https://github.com/honggi82/brain-lab
 - **몰입형 스크롤 히어로** — [scroll-world](https://github.com/oso95/scroll-world) 의 스크롤 스크럽 기법 적용
 - **디자인 시스템 / 모션** — [HyperFrames](https://github.com/heygen-com/hyperframes) 의 토큰 우선(frame.md) 철학 + 스크롤 트리거 모션
@@ -36,6 +37,7 @@ git push
 |------|------|
 | `index.html` | 홈 — 몰입형 히어로(뉴런→EEG→AI→기기제어) + 비전 + 연구 분야 + 방법론 + 성과 지표 + 수상 + 연락처 |
 | `gospel.html` | 복음 이야기 — 교수님 메시지 + 유튜브 영상 |
+| `about_brain/index.html` | 뇌 해부도 — 한국어·영어 3D 해부학, 기능 탐색과 백질 연결 |
 | `about.html` | 연구실 소개 — 세계의 뇌 과학, 미래 핵심 기술 BCI, 세 개의 연구 축 |
 | `professor.html` | 교수 소개 — 학력·경력·학술활동·수상·특허·초청강연 |
 | `members.html` | 구성원 — 박사/석사/학부 연구원 및 졸업생 |
@@ -80,3 +82,7 @@ python -m http.server 8000
 
 ---
 © BRAIN Lab. · Hong Gi Yeom, Chosun University.
+
+## 뇌 해부도 앱 배포
+
+`about_brain/`에는 별도 비공개 개발 저장소에서 `npm run build:pages`로 생성한 웹 실행 파일과 공개 해부학 자료만 포함합니다. 모델·섬유 자료 및 출처·라이선스 문서를 함께 유지해야 합니다. 기존 연구실 사이트는 같은 GitHub Pages 설정을 사용합니다.

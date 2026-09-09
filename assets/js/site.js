@@ -294,7 +294,7 @@
 
 (function loadLanguageModule() {
   var script = document.createElement('script');
-  script.src = 'assets/js/i18n.js?v=20260907-english-review';
+  script.src = 'assets/js/i18n.js?v=20260910-brain-atlas';
   script.defer = true;
   document.head.appendChild(script);
 })();

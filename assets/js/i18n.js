@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   var translations = {
+  "뇌 해부도": "Brain Atlas",
   "(785명 중 20명)": "(20 of 785)",
   "(817명 중 25명)": "(25 of 817)",
   "(826명 중 20명)": "(20 of 826)",
