@@ -298,3 +298,34 @@
   script.defer = true;
   document.head.appendChild(script);
 })();
+
+/* Nav dropdown holding the interactive brain viewers. */
+(function () {
+  'use strict';
+  var menus = Array.prototype.slice.call(document.querySelectorAll('[data-nav-menu]'));
+  if (!menus.length) return;
+  function close(menu) {
+    menu.querySelector('.nav-menu__btn').setAttribute('aria-expanded', 'false');
+    menu.querySelector('.nav-menu__list').hidden = true;
+  }
+  function closeAll(except) {
+    menus.forEach(function (menu) { if (menu !== except) close(menu); });
+  }
+  menus.forEach(function (menu) {
+    var button = menu.querySelector('.nav-menu__btn');
+    var list = menu.querySelector('.nav-menu__list');
+    button.addEventListener('click', function (event) {
+      event.stopPropagation();
+      var open = button.getAttribute('aria-expanded') === 'true';
+      closeAll(menu);
+      button.setAttribute('aria-expanded', String(!open));
+      list.hidden = open;
+    });
+    menu.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') { close(menu); button.focus(); }
+    });
+  });
+  document.addEventListener('click', function (event) {
+    if (!event.target.closest('[data-nav-menu]')) closeAll(null);
+  });
+})();

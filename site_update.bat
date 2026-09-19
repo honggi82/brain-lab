@@ -47,6 +47,10 @@ if exist "about_brain\" (
   git add -A -- "about_brain" ":(top,exclude,glob)about_brain/**/*.zip" ":(top,exclude,glob)about_brain/**/*.7z" ":(top,exclude,glob)about_brain/**/*.rar" ":(top,exclude,glob)about_brain/**/*.bak-*"
   if errorlevel 1 goto git_error
 )
+if exist "fly_brain\" (
+  git add -A -- "fly_brain" ":(top,exclude,glob)fly_brain/**/*.zip" ":(top,exclude,glob)fly_brain/**/*.7z" ":(top,exclude,glob)fly_brain/**/*.rar" ":(top,exclude,glob)fly_brain/**/*.bak-*"
+  if errorlevel 1 goto git_error
+)
 
 echo [3/6] Checking staged changes...
 git diff --cached --quiet

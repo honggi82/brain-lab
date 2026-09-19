@@ -1,0 +1,4 @@
+.atlas-page{padding-top:var(--lab-header-height,82px);background:#f5f4f0}
+#atlas-frame{display:block;width:100%;height:calc(100dvh - var(--lab-header-height,82px));min-height:600px;border:0;background:#f5f4f0}
+.site-header{background:var(--bg);border-bottom:1px solid var(--line)}
+@media(min-width:901px){#atlas-frame{height:calc(100dvh - var(--lab-header-height,82px))!important;min-height:0}}
