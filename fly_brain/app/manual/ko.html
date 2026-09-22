@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>초파리 커넥톰 시뮬레이터 설명서</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -413,6 +418,22 @@
     * { animation: none !important; transition: none !important; }
   }
 </style>
+</head>
+<body>
+<section class="wrap" aria-labelledby="online-title">
+<header class="masthead"><div><p class="eyebrow">온라인 배포본 사용설명서</p><h1 id="online-title">초파리 커넥톰 탐색</h1><p>미리 계산된 결과를 재생하는 교육·탐색 도구입니다. 생체 움직임을 예측하는 검증된 물리 모델은 아닙니다.</p></div><button class="theme-toggle" id="theme-toggle" type="button">테마 전환</button></header>
+<h2>바로 시작하기</h2><ol><li>프리셋 6개 중 하나를 선택하거나 회로도의 집단을 클릭합니다.</li><li>경로 모드의 홉 수를 1~10으로 바꾸면 해당 결과를 재생합니다. ‘다시 실행’은 현재 실험과 홉 수를 유지합니다.</li><li>‘지우기’는 결과와 선택을 해제합니다. 이후 홉 수만 바꿔도 이전 실험이 다시 나타나지 않습니다.</li><li>3D 세포체를 클릭하면 뉴런 정보를 확인할 수 있습니다. ‘이 뉴런이 속한 집단 재생’으로 연결할 수 있습니다.</li></ol>
+<h2>온라인과 로컬 기능</h2><p>온라인에서는 프리셋·집단 결과와 홉 조절을 지원합니다. 개별 뉴런 계산, 검색, 임의 파라미터 계산은 로컬 백엔드가 필요합니다. 지속 시간 1초, 시상수 50ms, 이득 2, 자극 길이 250ms 등 고정 설정은 변경할 수 없습니다. 마지막 저장 프레임은 0.995초입니다.</p>
+<p>‘하행뉴런 표본 200개’는 입력·출력 시냅스 수 합계가 큰 200개를 선택한 실험입니다. 전체 하행뉴런 1,316개 실험은 회로도의 집단을 선택하세요. 회로도 집단 결과는 모두 경로·하류 모드입니다.</p>
+<h2>몸 모델과 색 읽기</h2><p>모바일에서는 ‘전체 몸 모델 불러오기’를 눌렀을 때 약 13MB 모델을 다운로드합니다. 데스크톱에서는 몸 패널이 보일 때 불러옵니다.</p>
+<p>관절은 현재 프레임을 따릅니다. 몸 색상과 표는 최종 시점의 흥분 값에 음수 억제 값을 더한 순값을 사용하며, 밝기와 정렬은 순값의 절댓값을 기준으로 합니다.</p>
+<p>목·배의 정중선 앞뒤 굽힘은 좌우 자세 값의 평균, 이름에 abduct 또는 twist가 있는 측방 축은 (왼쪽−오른쪽)/2를 사용합니다. 원본 관절의 축·범위·가중치는 유지합니다. 정중선 색에는 좌우 운동 출력의 평균을 사용합니다. 이 연결 규칙은 시각화용 가정이며 실제 운동 명령을 측정한 결과가 아닙니다.</p>
+<p>3D 화면은 좌표가 있는 141,781개 세포체를 보여줍니다. 계산에는 211,577개 주석 뉴런이 포함됩니다. 큰 집단의 자극 표시는 최대 4,000개, 프레임의 활동 표시는 최대 2,500개로 제한되지만 계산된 전체 집단 수와 별개입니다.</p>
+<p><a href="../index.html">시뮬레이터 열기</a> · <a href="../THIRD_PARTY_NOTICES.md">출처 문서</a></p>
+</section>
+<details class="wrap"><summary>로컬 계산 버전의 설치·사용법과 모델 배경 펼치기</summary>
+<p>아래 내용은 별도 Python 백엔드를 실행하는 로컬 버전 기준입니다. 검색·개별 뉴런 자극·자유로운 설정 변경 안내는 온라인 배포본에 적용되지 않습니다.</p>
+
 
 <div class="wrap">
   <header class="masthead">
@@ -451,7 +472,7 @@
         <li><a href="#s12"><span class="n">12</span><span>라이선스와 인용</span></a></li>
       </ol>
       <p style="margin:18px 0 0">
-        <button class="theme-toggle" id="theme-toggle" type="button">테마 전환</button>
+
       </p>
     </nav>
 
@@ -869,7 +890,7 @@ python server/build_flybody.py</pre></div>
             <thead><tr><th>프리셋</th><th>보여주는 것</th></tr></thead>
             <tbody>
               <tr><td>거대섬유 도피 반응 (DNp01)</td><td>뇌 → 몸. 날개가 가장 강하게 구동됩니다.</td></tr>
-              <tr><td>하행뉴런 전체 → 몸</td><td>뇌에서 신경삭으로 가는 통로 전체</td></tr>
+              <tr><td>하행뉴런 표본 200개 → 몸</td><td>뇌에서 신경삭으로 가는 통로 전체</td></tr>
               <tr><td>왼쪽 앞다리를 건드림</td><td>몸 → 뇌. 감각이 올라가는 경로</td></tr>
               <tr><td>무엇이 왼쪽 앞다리를 움직이는가?</td><td>역방향 추적</td></tr>
               <tr><td>시각 투사뉴런</td><td>시엽 → 중추뇌, 연속시간 모드</td></tr>
@@ -1109,6 +1130,7 @@ python server/build_flybody.py</pre></div>
   </div>
 </div>
 
+</details>
 <script>
   // Copy buttons on every code block. These are commands people otherwise retype.
   document.querySelectorAll('.code').forEach(function (block) {
@@ -1170,3 +1192,6 @@ python server/build_flybody.py</pre></div>
     try { localStorage.setItem('fly-manual-theme', next); } catch (e) { /* not essential */ }
   });
 </script>
+
+</body>
+</html>

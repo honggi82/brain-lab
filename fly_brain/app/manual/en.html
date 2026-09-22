@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fly Connectome Simulator Manual</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -413,6 +418,22 @@
     * { animation: none !important; transition: none !important; }
   }
 </style>
+</head>
+<body>
+<section class="wrap" aria-labelledby="online-title">
+<header class="masthead"><div><p class="eyebrow">Hosted edition manual</p><h1 id="online-title">Explore the fly connectome</h1><p>An educational viewer of precomputed experiments, not a validated prediction of biological movement.</p></div><button class="theme-toggle" id="theme-toggle" type="button">Switch theme</button></header>
+<h2>Quick start</h2><ol><li>Select one of six presets or a population in the circuit.</li><li>Change path hops from 1 to 10 to replay that result. Re-run preserves the current experiment and hop count.</li><li>Clear removes the experiment and selection; changing hops afterwards does not restore it.</li><li>Click a soma to inspect its identity, then replay its population.</li></ol>
+<h2>Hosted versus local</h2><p>Hosted mode supports presets, populations and path hops. Neuron search, individual-neuron simulation and arbitrary parameters require the local Python backend. Duration 1s, tau 50ms, gain 2 and stimulus length 250ms are fixed. The last stored rate frame is at 0.995s.</p>
+<p>The descending sample contains the 200 neurons with the greatest input plus output synapse count. Select the descending circuit population for all 1,316. All circuit population recordings use path/downstream mode.</p>
+<h2>Body and colour</h2><p>On mobile, Load full body model downloads about 13MB on demand. Desktop loads it when the body panel becomes visible.</p>
+<p>Joint posture follows the current frame. Body colour and the table show final-time excitation plus signed (negative) inhibition. Intensity and ordering use the absolute net value.</p>
+<p>Midline neck/abdomen pitch uses the mean of left and right posture values. Lateral axes named abduct or twist use half of left minus right. Original axes, limits and joint weights remain unchanged. Midline colour uses mean bilateral motor output. This is an explicit visualisation assumption, not measured motor control.</p>
+<p>The 3D view contains 141,781 positioned somata; calculations include 211,577 annotated neurons. Stimulus markers are capped at 4,000 and frame activity at 2,500 for display, independently of the full population count.</p>
+<p><a href="../index.html">Open simulator</a> · <a href="../THIRD_PARTY_NOTICES.md">Credits and notices</a></p>
+</section>
+<details class="wrap"><summary>Local backend setup, usage and model background</summary>
+<p>The following guide describes the separate Python-backed local version. Search, individual stimulation and editable parameters are not available in the hosted edition.</p>
+
 
 <div class="wrap">
   <header class="masthead">
@@ -451,7 +472,7 @@
         <li><a href="#s12"><span class="n">12</span><span>Licences</span></a></li>
       </ol>
       <p style="margin:18px 0 0">
-        <button class="theme-toggle" id="theme-toggle" type="button">Switch theme</button>
+
       </p>
     </nav>
 
@@ -885,7 +906,7 @@ python server/build_flybody.py</pre></div>
             <thead><tr><th>Preset</th><th>Hops</th><th>What it shows</th></tr></thead>
             <tbody>
               <tr><td>Giant fibre escape (DNp01)</td><td class="num">5</td><td>Brain → body. The wings are driven hardest.</td></tr>
-              <tr><td>Descending population to body</td><td class="num">4</td><td>The whole brain-to-nerve-cord channel</td></tr>
+              <tr><td>Descending sample to body (200)</td><td class="num">4</td><td>The whole brain-to-nerve-cord channel</td></tr>
               <tr><td>Left front leg touched</td><td class="num">2</td><td>The local withdrawal reflex, before it spreads</td></tr>
               <tr><td>What drives the left front leg?</td><td class="num">3</td><td>Upstream trace</td></tr>
               <tr><td>Visual projection neurons</td><td>rate</td><td>Optic lobe → central brain, in continuous time</td></tr>
@@ -1133,6 +1154,7 @@ python server/build_flybody.py</pre></div>
   </div>
 </div>
 
+</details>
 <script>
   // Copy buttons on every code block. These are commands people otherwise retype.
   document.querySelectorAll('.code').forEach(function (block) {
@@ -1194,3 +1216,6 @@ python server/build_flybody.py</pre></div>
     try { localStorage.setItem('fly-manual-theme', next); } catch (e) { /* not essential */ }
   });
 </script>
+
+</body>
+</html>

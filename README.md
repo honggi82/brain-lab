@@ -83,3 +83,10 @@ python -m http.server 8000
 ## 뇌 해부도 앱 배포
 
 `about_brain/index.html`은 공통 메뉴 아래에 뇌 해부도를 표시합니다. 메뉴 순서는 `연구 분야 → 뇌 해부도 → 교수`이며, 공통 KR/EN 선택이 앱의 언어에도 적용됩니다. `viewer.html`은 별도 비공개 개발 저장소에서 빌드한 앱입니다. 개발 저장소에서 `npm run build:pages` 실행 후 `python scripts/integrate-lab.py <이 저장소 경로>`로 통합합니다. `lab-shell.js`·`lab-shell.css`, 모델·섬유 자료 및 출처·라이선스 문서를 함께 유지해야 합니다. 기존 GitHub Pages 설정은 유지합니다.
+
+
+## 초파리 신경망 앱
+
+`fly_brain/index.html`은 공통 메뉴와 언어 선택을 연결한 화면이며 `fly_brain/app`은 사전 계산 결과를 재생하는 앱입니다. 로컬 개발 원본은 `fly_brain/source`에 있으며 빌드·검사·동기화 절차는 [개발 안내](fly_brain/source/README.md)에 정리했습니다. 정적 페이지 자체는 별도 서버 계산 없이 동작합니다.
+
+FlyConnectomeSim은 Mert Cobanov의 [fly-connectome-template](https://github.com/cobanov/fly-connectome-template)을 기반으로 합니다. MaleCNS 데이터와 Flybody 모델의 출처·변환 내역·라이선스는 [출처 문서](fly_brain/app/THIRD_PARTY_NOTICES.md)에 있습니다. 몸의 자세와 색상은 설명용 시각화이며 생물학적 검증 결과로 해석하지 않아야 합니다.
