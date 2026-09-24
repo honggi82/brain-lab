@@ -91,6 +91,17 @@
     counters.forEach(function (c) { co.observe(c); });
   }
 
+  /* ---------- cursor spotlight on cards (pairs with refine.css) ---------- */
+  if (!reduce && matchMedia('(hover:hover)').matches) {
+    document.addEventListener('pointermove', function (e) {
+      var c = e.target.closest && e.target.closest('.card,.stat,.post,.pstep');
+      if (!c) return;
+      var r = c.getBoundingClientRect();
+      c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }, { passive: true });
+  }
+
   /* ---------- publication filter ---------- */
   $$('.filterbar').forEach(function (bar) {
     var list = document.getElementById(bar.getAttribute('data-target'));

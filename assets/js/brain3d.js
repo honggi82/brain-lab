@@ -1,9 +1,11 @@
 /* ==========================================================================
    BRAIN Lab. — 3D particle-brain hero
-   A brain silhouette is sampled into a volumetric point cloud that rotates as
-   you scroll and "dissects" (explodes outward, then reassembles) mid-scroll,
-   revealing its structure. Scroll drives rotation + explosion; copy beats fade
-   through. Falls back to a static image under reduced-motion / no-WebGL.
+   Points are sampled on the real anatomical surfaces (cortex gyri & sulci,
+   cerebellum, brainstem) of the Brain Atlas model — see
+   assets/data/build-brain-points.py and about_brain/ATTRIBUTION.md (CC BY-SA 4.0).
+   Scroll drives rotation and a lobe-by-lobe "dissection" (explode + reassemble);
+   per-point surface normals give the cloud real 3D shading and visible folds.
+   Falls back to a static image under reduced-motion / no-WebGL / load failure.
    Loads three.js from CDN as an ES module.
    ========================================================================== */
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
@@ -15,6 +17,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
   var beats = Array.prototype.slice.call(root.querySelectorAll('[data-beat]'));
   var hint = root.querySelector('.bhero__hint');
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var POINTS_URL = 'assets/data/brain-points.bin?v=20260924';
 
   // ---- helpers ----
   var clamp = function (x, a, b) { return Math.min(b, Math.max(a, x)); };
@@ -56,92 +59,84 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
   })();
   if (reduce || !supported) { fallback(); return; }
 
+  fetch(POINTS_URL)
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+    .then(build)
+    .catch(fallback);
+
   // ======================================================================
-  // Sample the brain silhouette into points, then build the 3D cloud.
+  // Decode the sampled anatomy and build the 3D cloud.
   // ======================================================================
-  var src = new Image();
-  src.crossOrigin = 'anonymous';
-  src.onload = build;
-  src.onerror = fallback;
-  src.src = 'assets/img/brain-silhouette.png';
+  // region codes (build-brain-points.py): 0 frontal 1 parietal 2 temporal
+  // 3 occipital 4 limbic 5 insula 6 other cortex 7 cerebellum 8 brainstem
+  var PALETTE = [
+    [0.21, 0.87, 1.00],   // frontal   — cyan
+    [0.62, 0.55, 1.00],   // parietal  — violet
+    [0.19, 0.90, 0.77],   // temporal  — teal
+    [0.93, 0.52, 0.86],   // occipital — orchid
+    [0.70, 0.62, 1.00],   // limbic    — lavender
+    [1.00, 0.72, 0.42],   // insula    — amber (small, deep)
+    [0.42, 0.72, 1.00],   // other     — blue
+    [0.55, 0.78, 1.00],   // cerebellum — pale blue
+    [0.47, 0.60, 0.95]    // brainstem — slate
+  ];
 
-  function build() {
-    var S = 230;                       // sampling resolution (finer = crisper silhouette)
-    var c = document.createElement('canvas'); c.width = S; c.height = S;
-    var cx = c.getContext('2d');
-    cx.drawImage(src, 0, 0, S, S);
-    var data;
-    try { data = cx.getImageData(0, 0, S, S).data; } catch (e) { return fallback(); }
+  function build(buf) {
+    var head = new DataView(buf, 0, 16);
+    var magic = String.fromCharCode(head.getUint8(0), head.getUint8(1), head.getUint8(2), head.getUint8(3));
+    if (magic !== 'BRP1') return fallback();
+    var count = head.getUint32(4, true);
+    var q = new Int16Array(buf, 16, count * 3);
+    var qn = new Int8Array(buf, 16 + count * 6, count * 3);
+    var region = new Uint8Array(buf, 16 + count * 9, count);
+    var flags = new Uint8Array(buf, 16 + count * 10, count);
 
-    // collect bright pixels — dense so the brain reads as a solid shape at rest
-    var pts = [], sx = 0, sy = 0;
-    var colMin = new Int16Array(S), colMax = new Int16Array(S);
-    colMin.fill(S); colMax.fill(-1);
-    var maskMinX = S, maskMaxX = 0;
-    for (var y = 0; y < S; y++) {
-      for (var x = 0; x < S; x++) {
-        var idx = (y * S + x) * 4;
-        var lum = (data[idx] + data[idx + 1] + data[idx + 2]) / 765;
-        if (lum > 0.5) {
-          if (y < colMin[x]) colMin[x] = y;
-          if (y > colMax[x]) colMax[x] = y;
-          if (x < maskMinX) maskMinX = x;
-          if (x > maskMaxX) maskMaxX = x;
-          if (Math.random() < 0.85) {
-            var nx = (x / S - 0.5) * 2.0;
-            var ny = -(y / S - 0.5) * 2.0;
-            pts.push(nx, ny); sx += nx; sy += ny;
-          }
-        }
-      }
-    }
-    var count = pts.length / 2;
-    if (count < 500) return fallback();
-    var cxm = sx / count, cym = sy / count;
-
-    // brain radius for ellipsoidal depth
-    var maxR = 0;
-    for (var i = 0; i < count; i++) {
-      var dx = pts[i * 2] - cxm, dy = pts[i * 2 + 1] - cym;
-      var r = Math.sqrt(dx * dx + dy * dy); if (r > maxR) maxR = r;
-    }
-
-    var SCALE = 1.35;
+    // Data axes: x = right, y = up, z = anterior. Bake in a lateral view
+    // (frontal lobe to the left of screen, left hemisphere facing the camera).
+    var FIT = 1.02 / 32767;
     var positions = new Float32Array(count * 3);
+    var normals = new Float32Array(count * 3);
+    var i, x, y, z;
+    for (i = 0; i < count; i++) {
+      x = q[i * 3] * FIT; y = q[i * 3 + 1] * FIT; z = q[i * 3 + 2] * FIT;
+      positions[i * 3] = -z; positions[i * 3 + 1] = y; positions[i * 3 + 2] = -x;
+      x = qn[i * 3] / 127; y = qn[i * 3 + 1] / 127; z = qn[i * 3 + 2] / 127;
+      normals[i * 3] = -z; normals[i * 3 + 1] = y; normals[i * 3 + 2] = -x;
+    }
+
+    // per-region, per-hemisphere centroids → dissection moves whole lobes apart
+    var sums = {}, key;
+    for (i = 0; i < count; i++) {
+      key = region[i] * 2 + (positions[i * 3 + 2] > 0 ? 1 : 0);
+      var s = sums[key] || (sums[key] = [0, 0, 0, 0]);
+      s[0] += positions[i * 3]; s[1] += positions[i * 3 + 1]; s[2] += positions[i * 3 + 2]; s[3]++;
+    }
+    var yMin = Infinity, yMax = -Infinity;
+    for (i = 0; i < count; i++) { y = positions[i * 3 + 1]; if (y < yMin) yMin = y; if (y > yMax) yMax = y; }
+
     var dirs = new Float32Array(count * 3);
     var colors = new Float32Array(count * 3);
-    var CY = [0.21, 0.87, 1.0], VI = [0.62, 0.55, 1.0], TE = [0.19, 0.9, 0.77];
+    var CY = [0.21, 0.87, 1.0], VI = [0.62, 0.55, 1.0];
     for (i = 0; i < count; i++) {
-      var px = (pts[i * 2] - cxm) * SCALE;
-      var py = (pts[i * 2 + 1] - cym) * SCALE;
-      var sourceX = clamp(Math.round((pts[i * 2] * 0.5 + 0.5) * S), 0, S - 1);
-      var sourceY = (-pts[i * 2 + 1] * 0.5 + 0.5) * S;
-      var columnMid = (colMin[sourceX] + colMax[sourceX]) * 0.5;
-      var columnHalf = Math.max(1, (colMax[sourceX] - colMin[sourceX]) * 0.5);
-      var localY = clamp((sourceY - columnMid) / columnHalf, -1, 1);
-      var maskMidX = (maskMinX + maskMaxX) * 0.5;
-      var maskHalfX = Math.max(1, (maskMaxX - maskMinX) * 0.5);
-      var localX = clamp((sourceX - maskMidX) / maskHalfX, -1, 1);
-      // Axial outline: anterior-posterior oval, cortical surface taper and a
-      // visible longitudinal fissure separating the two hemispheres.
-      var endTaper = Math.pow(Math.max(0, 1 - localX * localX), 0.42);
-      var axialWidth = 0.78 * endTaper * (0.96 - localX * 0.04);
-      var thick = axialWidth * Math.sqrt(Math.max(0, 1 - localY * localY));
-      var side = Math.random() < 0.5 ? -1 : 1;
-      var fissure = Math.min(thick * 0.48, 0.072 * (0.35 + 0.65 * (1 - Math.abs(localY))));
-      var pz = side * (fissure + Math.random() * Math.max(0, thick - fissure));
-      positions[i * 3] = px; positions[i * 3 + 1] = py; positions[i * 3 + 2] = pz;
-      // explosion direction — outward from centre + a little turbulence
-      var dl = Math.sqrt(px * px + py * py + pz * pz) || 1;
-      dirs[i * 3] = px / dl + (Math.random() - 0.5) * 0.35;
-      dirs[i * 3 + 1] = py / dl + (Math.random() - 0.5) * 0.35;
-      dirs[i * 3 + 2] = pz / dl + (Math.random() - 0.5) * 0.6;
-      // colour: violet up top, cyan lower, occasional teal spark
-      var t = clamp((py / (maxR * SCALE) + 1) / 2, 0, 1);
-      var base = Math.random() < 0.12 ? TE : null;
-      var col = base || [CY[0] + (VI[0] - CY[0]) * t, CY[1] + (VI[1] - CY[1]) * t, CY[2] + (VI[2] - CY[2]) * t];
-      var bright = 0.75 + Math.random() * 0.25;
-      colors[i * 3] = col[0] * bright; colors[i * 3 + 1] = col[1] * bright; colors[i * 3 + 2] = col[2] * bright;
+      var px = positions[i * 3], py = positions[i * 3 + 1], pz = positions[i * 3 + 2];
+      var c = sums[region[i] * 2 + (pz > 0 ? 1 : 0)];
+      var cx = c[0] / c[3], cy = c[1] / c[3], cz = c[2] / c[3];
+      // hemispheres part along the fissure, lobes drift out from the centre
+      var hemi = region[i] <= 6 ? (pz > 0 ? 1 : -1) * 0.3 : 0;
+      var dx = cx * 0.75 + normals[i * 3] * 0.22 + (Math.random() - 0.5) * 0.12;
+      var dy = cy * 0.75 + normals[i * 3 + 1] * 0.22 + (Math.random() - 0.5) * 0.12 - (region[i] >= 7 ? 0.35 : 0);
+      var dz = cz * 0.75 + hemi + normals[i * 3 + 2] * 0.22 + (Math.random() - 0.5) * 0.12;
+      dirs[i * 3] = dx; dirs[i * 3 + 1] = dy; dirs[i * 3 + 2] = dz;
+
+      // colour: brand gradient (cyan low → violet high) tinted by lobe
+      var t = clamp((py - yMin) / (yMax - yMin || 1), 0, 1);
+      var lobe = PALETTE[region[i]] || PALETTE[6];
+      var fold = (flags[i] & 1) ? 0.42 : 1.0;          // sulcal walls sit deeper → dimmer
+      var bright = (0.82 + Math.random() * 0.18) * fold;
+      for (var k = 0; k < 3; k++) {
+        var g = CY[k] + (VI[k] - CY[k]) * t;
+        colors[i * 3 + k] = (g * 0.45 + lobe[k] * 0.55) * bright;
+      }
     }
 
     // soft round sprite
@@ -149,7 +144,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     var tx = tc.getContext('2d');
     var grd = tx.createRadialGradient(32, 32, 0, 32, 32, 32);
     grd.addColorStop(0, 'rgba(255,255,255,1)');
-    grd.addColorStop(0.35, 'rgba(255,255,255,0.55)');
+    grd.addColorStop(0.3, 'rgba(255,255,255,0.6)');
     grd.addColorStop(1, 'rgba(255,255,255,0)');
     tx.fillStyle = grd; tx.fillRect(0, 0, 64, 64);
     var tex = new THREE.CanvasTexture(tc);
@@ -166,20 +161,33 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
 
     var geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('normal', new THREE.BufferAttribute(normals, 3));
     geo.setAttribute('aDir', new THREE.BufferAttribute(dirs, 3));
     geo.setAttribute('aColor', new THREE.BufferAttribute(colors, 3));
 
     var mat = new THREE.ShaderMaterial({
-      uniforms: { uExplode: { value: 0 }, uSize: { value: 9.5 * DPR }, uTex: { value: tex }, uDim: { value: 0 } },
+      uniforms: {
+        uExplode: { value: 0 }, uSize: { value: 9.0 * DPR }, uTex: { value: tex }, uDim: { value: 0 },
+        uLight: { value: new THREE.Vector3(-0.45, 0.6, 0.66).normalize() }
+      },
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
       vertexShader:
-        'attribute vec3 aDir; attribute vec3 aColor; uniform float uExplode; uniform float uSize;' +
+        'attribute vec3 aDir; attribute vec3 aColor; uniform float uExplode; uniform float uSize; uniform vec3 uLight;' +
         'varying vec3 vColor; varying float vA;' +
-        'void main(){ vColor = aColor; vec3 p = position + aDir * uExplode;' +
-        'vA = 1.0 - clamp(uExplode*0.5, 0.0, 0.55);' +
-        'vec4 mv = modelViewMatrix * vec4(p,1.0);' +
-        'gl_PointSize = uSize * (1.0 / -mv.z);' +
-        'gl_Position = projectionMatrix * mv; }',
+        'void main(){' +
+        '  vec3 p = position + aDir * uExplode;' +
+        '  vec3 n = normalize(normalMatrix * normal);' +
+        '  float diff = max(dot(n, uLight), 0.0);' +
+        '  float facing = n.z;' +                                    // >0 toward camera
+        '  float rim = pow(1.0 - abs(facing), 3.0);' +
+        '  float shade = 0.16 + 0.84 * diff + 0.35 * rim;' +
+        '  float front = smoothstep(-0.2, 0.3, facing);' +
+        '  vColor = aColor * shade;' +
+        '  vA = mix(0.06, 0.8, front) * (1.0 - clamp(uExplode * 0.3, 0.0, 0.35));' + // far side nearly hidden
+        '  vA = max(vA, 0.18 * clamp(uExplode, 0.0, 1.0));' +
+        '  vec4 mv = modelViewMatrix * vec4(p, 1.0);' +
+        '  gl_PointSize = uSize * (1.0 / -mv.z);' +
+        '  gl_Position = projectionMatrix * mv; }',
       fragmentShader:
         'uniform sampler2D uTex; uniform float uDim; varying vec3 vColor; varying float vA;' +
         'void main(){ vec4 t = texture2D(uTex, gl_PointCoord); if(t.a < 0.02) discard;' +
@@ -217,13 +225,13 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.m
     function tick() {
       clock += 0.016;
       curRotV += (tgtRotV - curRotV) * 0.06;
-      // Keep the axial turn assembled long enough to read both hemispheres,
-      // then dissect and reassemble through the remaining scroll range.
-      var tgtExplode = Math.sin(clamp((progress - 0.28) / 0.72, 0, 1) * Math.PI) * 1.15;
+      // Stay assembled long enough to read the lateral anatomy, then dissect
+      // lobe by lobe and reassemble through the remaining scroll range.
+      var tgtExplode = Math.sin(clamp((progress - 0.28) / 0.72, 0, 1) * Math.PI) * 0.5;
       curExplode += (tgtExplode - curExplode) * 0.07;
-      var sway = Math.sin(clock * 0.5) * 0.11;     // gentle idle sway — stays near front at rest
+      var sway = Math.sin(clock * 0.5) * 0.11;     // gentle idle sway — stays near lateral at rest
       points.rotation.y = curRotV + sway;
-      points.rotation.x = Math.sin(progress * Math.PI) * 0.14;   // 0 at top (flat, brain-like)
+      points.rotation.x = 0.12 + Math.sin(progress * Math.PI) * 0.14;
       mat.uniforms.uExplode.value = curExplode;
       mat.uniforms.uDim.value = smooth(clamp((progress - 0.82) / 0.18, 0, 1)) * 0.5;  // fade out → hand off to DTI fibres
       renderer.render(scene, camera);

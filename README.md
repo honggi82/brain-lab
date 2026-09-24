@@ -51,6 +51,7 @@
 - **히어로 문구(3D 뇌 히어로):** `index.html` 의 `#brainhero` 안 `[data-beat]` 블록(문구), 3D 동작은 `assets/js/brain3d.js`
 - **Gospel 영상 교체:** `gospel.html` 의 `youtube.com/embed/<영상ID>` 부분
 - **색상·폰트·간격:** `assets/css/site.css` 맨 위의 CSS 변수(`:root`)
+- **2026-09 디자인 개선 레이어:** `assets/css/refine.css` (Pretendard 한글 폰트, 카드 테두리·스포트라이트, 메뉴 활성 표시 등). `site.css` 뒤에 불러오며 같은 변수를 덮어씁니다. 이전 모습으로 돌리려면 각 HTML의 `refine.css` 링크 한 줄을 지우면 되고, 변경 전 원본은 `backups/redesign-20260924-033312/`에 있습니다.
 - **이미지:** `assets/img/` 에 넣고 파일명을 HTML에서 참조
 - **로고:** `assets/img/lab-logo-dark.png`(어두운 배경용), `lab-logo-light.png`(밝은 배경용)
 
@@ -90,3 +91,7 @@ python -m http.server 8000
 `fly_brain/index.html`은 공통 메뉴와 언어 선택을 연결한 화면이며 `fly_brain/app`은 사전 계산 결과를 재생하는 앱입니다. 로컬 개발 원본은 `fly_brain/source`에 있으며 빌드·검사·동기화 절차는 [개발 안내](fly_brain/source/README.md)에 정리했습니다. 정적 페이지 자체는 별도 서버 계산 없이 동작합니다.
 
 FlyConnectomeSim은 Mert Cobanov의 [fly-connectome-template](https://github.com/cobanov/fly-connectome-template)을 기반으로 합니다. MaleCNS 데이터와 Flybody 모델의 출처·변환 내역·라이선스는 [출처 문서](fly_brain/app/THIRD_PARTY_NOTICES.md)에 있습니다. 몸의 자세와 색상은 설명용 시각화이며 생물학적 검증 결과로 해석하지 않아야 합니다.
+
+## 프로젝트 페이지 3D 점 뇌
+
+`projects.html` 상단의 회전하는 점 뇌는 `assets/data/brain-points.bin`(뇌 해부도의 실제 3D 모델 `about_brain/models/brain.glb`에서 대뇌 피질·소뇌·뇌간 표면을 52,000개 점으로 샘플링)을 `assets/js/brain3d.js`가 불러와 그립니다. 점 자료를 다시 만들려면 `pip install DracoPy numpy` 후 `python assets/data/build-brain-points.py`를 실행하세요. 모델 출처는 CC BY-SA 4.0이므로 페이지 하단의 출처 표기를 유지해야 합니다.
